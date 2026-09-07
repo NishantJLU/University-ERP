@@ -116,9 +116,8 @@ export default function LoginPage() {
         throw new Error(text.slice(0, 100) || `Server responded with HTTP ${res.status}`);
       }
 
-      if (res.ok && data?.success) {
-        router.push(data.redirectUrl);
-        router.refresh();
+      if (res.ok && data?.success && data.redirectUrl) {
+        window.location.href = data.redirectUrl;
       } else {
         setError(data?.message || "Invalid credentials. Please verify email and password.");
       }
@@ -150,9 +149,8 @@ export default function LoginPage() {
         throw new Error(text.slice(0, 100) || `Server responded with HTTP ${res.status}`);
       }
 
-      if (res.ok && data?.success) {
-        router.push(data.redirectUrl);
-        router.refresh();
+      if (res.ok && data?.success && data.redirectUrl) {
+        window.location.href = data.redirectUrl;
       } else {
         setError(data?.message || "Failed to switch role.");
       }

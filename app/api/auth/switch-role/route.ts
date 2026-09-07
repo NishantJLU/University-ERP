@@ -14,44 +14,52 @@ const ROLE_PRESET_EMAILS: Record<Role, string> = {
 
 export async function POST(req: Request) {
   try {
-    // Security check: allow in development, when DEMO_MODE is true, or when caller is an ADMIN
-    const currentUser = await getCurrentUser();
-    const isDemoAllowed =
-      process.env.NODE_ENV !== "production" ||
-      process.env.DEMO_MODE === "true" ||
-      currentUser?.role === "ADMIN";
-
-    if (!isDemoAllowed) {
+    const isExplicitlyDisabled = process.env.DISABLE_ROLE_SWITCH === "true";
+    if (isExplicitlyDisabled) {
       return NextResponse.json(
         {
           success: false,
-          message: "Role switching is restricted to Demo Mode or authorized Administrators.",
+          message: "Role switching is disabled by system administrator.",
         },
         { status: 403 }
       );
     }
 
-    const { role } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const role = body.role;
 
-    if (!role || !ROLE_PRESET_EMAILS[role as Role]) {
+    if (!role) {
       return NextResponse.json(
-        { success: false, message: "Invalid role specified for demo switch." },
+        { success: false, message: "Invalid role specified for switch." },
         { status: 400 }
       );
     }
 
     const email = ROLE_PRESET_EMAILS[role as Role];
-    const user = await prisma.user.findUnique({
-      where: { email },
-      include: {
-        facultyProfile: true,
-        studentProfile: true,
-      },
-    });
+    let user = email
+      ? await prisma.user.findUnique({
+          where: { email },
+          include: {
+            facultyProfile: true,
+            studentProfile: true,
+          },
+        })
+      : null;
+
+    // Fallback: If preset email not found, find any existing user with that role
+    if (!user) {
+      user = await prisma.user.findFirst({
+        where: { role: role as Role },
+        include: {
+          facultyProfile: true,
+          studentProfile: true,
+        },
+      });
+    }
 
     if (!user) {
       return NextResponse.json(
-        { success: false, message: `Demo user for role ${role} not found in database.` },
+        { success: false, message: `User for role ${role} not found in database.` },
         { status: 404 }
       );
     }

@@ -80,10 +80,9 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         body: JSON.stringify({ role: targetRole }),
       });
       const data = await res.json();
-      if (data.success) {
+      if (data.success && data.redirectUrl) {
         setRoleMenuOpen(false);
-        router.push(data.redirectUrl);
-        router.refresh();
+        window.location.href = data.redirectUrl;
       }
     } catch (err) {
       console.error(err);
