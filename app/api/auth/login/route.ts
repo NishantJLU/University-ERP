@@ -53,14 +53,18 @@ export async function POST(req: Request) {
 
     const token = signToken(sessionPayload);
 
-    // Audit login
-    await createAuditLog({
-      actor: sessionPayload,
-      action: "USER_LOGIN",
-      entity: "User",
-      entityId: user.id,
-      details: { role },
-    });
+    // Audit login safely without blocking user session
+    try {
+      await createAuditLog({
+        actor: sessionPayload,
+        action: "USER_LOGIN",
+        entity: "User",
+        entityId: user.id,
+        details: { role },
+      });
+    } catch (auditErr) {
+      console.warn("Non-fatal audit logging warning:", auditErr);
+    }
 
     const response = NextResponse.json({
       success: true,

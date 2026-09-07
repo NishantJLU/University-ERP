@@ -104,16 +104,23 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
 
-      if (data.success) {
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        const text = await res.text().catch(() => "");
+        throw new Error(text.slice(0, 100) || `Server responded with HTTP ${res.status}`);
+      }
+
+      if (res.ok && data?.success) {
         router.push(data.redirectUrl);
         router.refresh();
       } else {
-        setError(data.message || "Invalid credentials. Please verify email and password.");
+        setError(data?.message || "Invalid credentials. Please verify email and password.");
       }
     } catch (err: any) {
-      setError("Unable to connect to the JLU authentication server.");
+      setError(err?.message || "Unable to connect to the JLU authentication server.");
     } finally {
       setLoading(false);
     }
@@ -131,16 +138,23 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: accountEmail, password: "password123" }),
       });
-      const data = await res.json();
 
-      if (data.success) {
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        const text = await res.text().catch(() => "");
+        throw new Error(text.slice(0, 100) || `Server responded with HTTP ${res.status}`);
+      }
+
+      if (res.ok && data?.success) {
         router.push(data.redirectUrl);
         router.refresh();
       } else {
-        setError(data.message || "Failed to switch role.");
+        setError(data?.message || "Failed to switch role.");
       }
-    } catch (err) {
-      setError("Network error connecting to university server.");
+    } catch (err: any) {
+      setError(err?.message || "Network error connecting to university server.");
     } finally {
       setLoading(false);
     }
