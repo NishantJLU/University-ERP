@@ -123,6 +123,95 @@ export default async function TeacherDashboardPage() {
         </div>
       </div>
 
+      {/* ACTION REQUIRED: Faculty Operational Priorities */}
+      <div className="bg-white rounded-2xl shadow-xs border border-slate-200 p-5 space-y-3">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping" />
+            <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Faculty Action Required
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-slate-400">Teaching Operations & Compliance</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          {/* Attendance Action */}
+          <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 flex flex-col justify-between space-y-2">
+            <div>
+              <div className="flex items-center justify-between font-bold text-emerald-900">
+                <span>Class Attendance Roster</span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono">
+                  {todayClasses.length} Scheduled Today
+                </span>
+              </div>
+              <p className="text-[11px] text-emerald-800 mt-1">
+                Mark dynamic attendance for today&apos;s lectures and lab sessions.
+              </p>
+            </div>
+            <Link
+              href="/teacher/attendance"
+              className="self-start px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+            >
+              <span>Open Attendance Desk</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Submissions Action */}
+          {pendingSubmissions.length > 0 ? (
+            <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between space-y-2">
+              <div>
+                <div className="flex items-center justify-between font-bold text-amber-900">
+                  <span>Submissions Awaiting Grading</span>
+                  <span className="text-xs font-mono font-black">{pendingSubmissions.length} Pending</span>
+                </div>
+                <p className="text-[11px] text-amber-800 mt-1">
+                  Students have submitted coursework requiring evaluation and marks entry.
+                </p>
+              </div>
+              <Link
+                href="/teacher/submissions"
+                className="self-start px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+              >
+                <span>Grade Submissions</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          ) : (
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <span className="font-bold text-slate-900 block">Grading Queue Clear</span>
+                <span className="text-[11px] text-slate-500">All student submissions are graded.</span>
+              </div>
+            </div>
+          )}
+
+          {/* LMS Management Action */}
+          <div className="p-3.5 rounded-xl bg-purple-50/60 border border-purple-200 flex flex-col justify-between space-y-2">
+            <div>
+              <div className="flex items-center justify-between font-bold text-purple-900">
+                <span>LMS Course Management</span>
+                <span className="text-[10px] bg-purple-100 text-purple-800 font-mono px-1.5 py-0.5 rounded">
+                  {faculty.lmsCourses.length} Courses
+                </span>
+              </div>
+              <p className="text-[11px] text-purple-800 mt-1">
+                Upload weekly lecture notes, configure quizzes, and assign problem sets.
+              </p>
+            </div>
+            <Link
+              href="/teacher/lms"
+              className="self-start px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+            >
+              <span>Manage LMS Hub</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Faculty KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-5 rounded-xl shadow-xs border border-slate-200">

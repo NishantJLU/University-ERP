@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import TimetableWeeklyGrid from "@/components/timetable/TimetableWeeklyGrid";
-import { CalendarDays, Printer } from "lucide-react";
+import PrintScheduleButton from "@/components/timetable/PrintScheduleButton";
+import { CalendarDays } from "lucide-react";
 
 export default async function StudentTimetablePage() {
   const user = await getCurrentUser();
@@ -49,13 +50,7 @@ export default async function StudentTimetablePage() {
           </p>
         </div>
 
-        <button
-          type="button"
-          className="px-4 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs transition"
-        >
-          <Printer className="w-4 h-4" />
-          Print Schedule
-        </button>
+        <PrintScheduleButton />
       </div>
 
       <TimetableWeeklyGrid

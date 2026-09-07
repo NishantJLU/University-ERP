@@ -151,7 +151,9 @@ export default function TeacherAttendanceClient({
 
       if (data.success) {
         setSavedSuccess(true);
-        toast.success("Attendance successfully recorded and audit trail updated.");
+        toast.success(
+          `Attendance Saved — Present: ${presentCount}, Absent: ${absentCount}, Late: ${lateCount}, Excused: ${excusedCount}`
+        );
       } else {
         toast.error(data.message || "Failed to finalize attendance.");
       }
@@ -171,6 +173,7 @@ export default function TeacherAttendanceClient({
   const presentCount = Object.values(attendanceMap).filter((a) => a.status === "PRESENT").length;
   const absentCount = Object.values(attendanceMap).filter((a) => a.status === "ABSENT").length;
   const lateCount = Object.values(attendanceMap).filter((a) => a.status === "LATE").length;
+  const excusedCount = Object.values(attendanceMap).filter((a) => a.status === "EXCUSED").length;
 
   return (
     <div className="space-y-6">
@@ -296,11 +299,30 @@ export default function TeacherAttendanceClient({
       </div>
 
       {savedSuccess && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-          <span>
-            Attendance successfully finalized and saved! Central student dashboards and parent alerts updated.
-          </span>
+        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-emerald-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs animate-in fade-in">
+          <div className="flex items-center gap-3">
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
+            <div>
+              <h4 className="font-bold text-emerald-950">Attendance Recorded Successfully</h4>
+              <p className="text-[11px] text-emerald-700 mt-0.5">
+                Central student academic records, percentage calculators, and ERP audit log synchronized.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-bold font-mono">
+            <span className="px-2 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300">
+              Present: {presentCount}
+            </span>
+            <span className="px-2 py-1 rounded-lg bg-red-100 text-red-800 border border-red-300">
+              Absent: {absentCount}
+            </span>
+            <span className="px-2 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-300">
+              Late: {lateCount}
+            </span>
+            <span className="px-2 py-1 rounded-lg bg-blue-100 text-blue-800 border border-blue-300">
+              Excused: {excusedCount}
+            </span>
+          </div>
         </div>
       )}
 

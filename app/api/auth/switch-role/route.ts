@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { signToken, AUTH_COOKIE_NAME } from "@/lib/auth";
+import { signToken, AUTH_COOKIE_NAME, getCurrentUser } from "@/lib/auth";
 import { Role } from "@/types";
 
 const ROLE_PRESET_EMAILS: Record<Role, string> = {
@@ -14,6 +14,23 @@ const ROLE_PRESET_EMAILS: Record<Role, string> = {
 
 export async function POST(req: Request) {
   try {
+    // Security check: allow in development, when DEMO_MODE is true, or when caller is an ADMIN
+    const currentUser = await getCurrentUser();
+    const isDemoAllowed =
+      process.env.NODE_ENV !== "production" ||
+      process.env.DEMO_MODE === "true" ||
+      currentUser?.role === "ADMIN";
+
+    if (!isDemoAllowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Role switching is restricted to Demo Mode or authorized Administrators.",
+        },
+        { status: 403 }
+      );
+    }
+
     const { role } = await req.json();
 
     if (!role || !ROLE_PRESET_EMAILS[role as Role]) {

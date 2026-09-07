@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   BarChart,
   Bar,
@@ -26,6 +27,9 @@ import {
   Award,
   Layers,
   ExternalLink,
+  ArrowRight,
+  AlertTriangle,
+  FileText,
 } from "lucide-react";
 import { JLU_PROFILE } from "@/lib/jlu-constants";
 import JLULogo from "@/components/ui/JLULogo";
@@ -78,6 +82,77 @@ export default function ManagementDashboardClient({
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>ERP Central Engine Online</span>
           </div>
+        </div>
+      </div>
+
+      {/* Action Required: Executive Oversight & Strategic Escalations */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-rose-600" />
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+              Action Required & Executive Oversight
+            </h2>
+          </div>
+          <span className="text-[11px] font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100">
+            Strategic Priorities
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link
+            href="/management/reports"
+            className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/50 hover:bg-rose-50 transition flex items-start gap-3 group"
+          >
+            <div className="p-2 bg-rose-100 rounded-lg text-rose-700 shrink-0">
+              <FileText className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-rose-950 group-hover:text-rose-800 flex items-center gap-1">
+                <span>Executive Council Reports</span>
+                <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+              </div>
+              <p className="text-[11px] text-rose-800/80 mt-0.5">
+                Audit departmental census, academic metrics & NAAC compliance
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/management/analytics"
+            className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition flex items-start gap-3 group"
+          >
+            <div className="p-2 bg-amber-100 rounded-lg text-amber-700 shrink-0">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-amber-950 group-hover:text-amber-800 flex items-center gap-1">
+                <span>Program Intake & Quota Analytics</span>
+                <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+              </div>
+              <p className="text-[11px] text-amber-800/80 mt-0.5">
+                Review admissions pipeline vs capacity across faculties
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/accounts/reconciliation"
+            className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50 hover:bg-blue-50 transition flex items-start gap-3 group"
+          >
+            <div className="p-2 bg-blue-100 rounded-lg text-blue-700 shrink-0">
+              <CreditCard className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-blue-950 group-hover:text-blue-800 flex items-center gap-1">
+                <span>Receivables & Treasury Flow</span>
+                <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+              </div>
+              <p className="text-[11px] text-blue-800/80 mt-0.5">
+                {formatCurrency(stats.outstanding)} pending collection across departments
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
 

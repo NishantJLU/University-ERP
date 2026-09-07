@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Award, CheckCircle2, Clock, MessageSquare, Loader2, FileText } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { toast } from "@/components/ui/Toast";
 
 interface SubmissionItem {
   id: string;
@@ -50,14 +51,14 @@ export default function TeacherSubmissionsClient({
       });
       const data = await res.json();
       if (data.success) {
-        alert("Grade recorded and student notified!");
+        toast.success("Grade recorded and student notified!");
         setSelectedSub(null);
         window.location.reload();
       } else {
-        alert(data.message || "Failed to grade submission.");
+        toast.error(data.message || "Failed to grade submission.");
       }
     } catch (err) {
-      alert("Error grading submission.");
+      toast.error("Error grading submission.");
     } finally {
       setSaving(false);
     }

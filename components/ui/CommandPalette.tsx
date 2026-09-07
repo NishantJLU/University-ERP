@@ -229,11 +229,55 @@ export default function CommandPalette({ isOpen, onClose, userRole }: CommandPal
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [dbResults, setDbResults] = useState<CommandItem[]>([]);
+  const [searching, setSearching] = useState(false);
 
-  // Filter accessible commands
+  // Debounced search query against live database entities via /api/search
+  useEffect(() => {
+    if (!query || query.trim().length < 2) {
+      setDbResults([]);
+      setSearching(false);
+      return;
+    }
+
+    setSearching(true);
+    const timeout = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query.trim())}`);
+        const data = await res.json();
+        if (data.success && Array.isArray(data.results)) {
+          const mapped: CommandItem[] = data.results.map((r: any) => {
+            let icon = BookOpen;
+            if (r.category === "Students") icon = Users;
+            if (r.category === "Faculty") icon = GraduationCap;
+            if (r.category === "Facilities") icon = Building;
+            if (r.category === "Academics") icon = BookOpen;
+
+            return {
+              id: r.id,
+              title: r.title,
+              category: r.category,
+              icon,
+              href: r.href,
+              keywords: [r.title, r.subtitle],
+            };
+          });
+          setDbResults(mapped);
+        }
+      } catch (err) {
+        console.error("Command palette live search error:", err);
+      } finally {
+        setSearching(false);
+      }
+    }, 150);
+
+    return () => clearTimeout(timeout);
+  }, [query]);
+
+  // Filter accessible commands and merge live database results
   const filteredCommands = useMemo(() => {
     const q = query.toLowerCase().trim();
-    return COMMAND_ITEMS.filter((item) => {
+    const navItems = COMMAND_ITEMS.filter((item) => {
       const hasRole = !item.roles || item.roles.includes(userRole);
       if (!hasRole) return false;
       if (!q) return true;
@@ -243,11 +287,13 @@ export default function CommandPalette({ isOpen, onClose, userRole }: CommandPal
         item.keywords.some((k) => k.toLowerCase().includes(q))
       );
     });
-  }, [query, userRole]);
+
+    return [...dbResults, ...navItems];
+  }, [query, userRole, dbResults]);
 
   useEffect(() => {
     setSelectedIndex(0);
-  }, [query]);
+  }, [query, dbResults]);
 
   // Handle keyboard navigation inside command palette
   useEffect(() => {

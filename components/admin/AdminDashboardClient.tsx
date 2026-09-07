@@ -122,7 +122,7 @@ export default function AdminDashboardClient({
           <span className="text-[11px] font-semibold text-slate-400">Live Campus Pulse</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Fee collection attention */}
           <Link
             href="/admin/fees"
@@ -133,7 +133,7 @@ export default function AdminDashboardClient({
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-amber-950 group-hover:text-amber-800 flex items-center gap-1">
-                <span>{metrics.unpaidFeeDuesCount} Pending Fee Invoices</span>
+                <span>{metrics.unpaidFeeDuesCount} Pending Invoices</span>
                 <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
               </div>
               <p className="text-[11px] text-amber-800/80 mt-0.5">
@@ -156,7 +156,26 @@ export default function AdminDashboardClient({
                 <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
               </div>
               <p className="text-[11px] text-blue-800/80 mt-0.5">
-                Cohort section unassigned in database
+                Cohort section unassigned in DB
+              </p>
+            </div>
+          </Link>
+
+          {/* Timetable Conflict Center */}
+          <Link
+            href="/admin/timetable/conflicts"
+            className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/50 hover:bg-rose-50 transition flex items-start gap-3 group"
+          >
+            <div className="p-2 bg-rose-100 rounded-lg text-rose-700 shrink-0">
+              <ShieldAlert className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-rose-950 group-hover:text-rose-800 flex items-center gap-1">
+                <span>Timetable Conflict Audit</span>
+                <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+              </div>
+              <p className="text-[11px] text-rose-800/80 mt-0.5">
+                Run 5D engine check for clashes
               </p>
             </div>
           </Link>

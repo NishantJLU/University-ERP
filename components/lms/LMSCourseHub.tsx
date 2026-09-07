@@ -21,6 +21,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { toast } from "@/components/ui/Toast";
 
 interface LMSCourseHubProps {
   course: any;
@@ -98,13 +99,16 @@ export default function LMSCourseHub({
       });
       const data = await res.json();
       if (data.success) {
-        alert("Assignment submitted successfully!");
+        toast.success("Assignment submitted successfully!");
         setSubmittingAssignment(null);
         setSubmissionText("");
         window.location.reload();
+      } else {
+        toast.error(data.message || "Failed to submit assignment.");
       }
     } catch (err) {
       console.error(err);
+      toast.error("Network error submitting assignment.");
     } finally {
       setSubmitting(false);
     }
@@ -378,7 +382,7 @@ export default function LMSCourseHub({
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          alert(`Simulated download: ${mat.title}`);
+                          toast.info(`Downloading learning material: ${mat.title}`);
                         }}
                         className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition"
                       >

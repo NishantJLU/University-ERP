@@ -14,6 +14,7 @@ import {
   ArrowRight,
   School,
   Building,
+  CheckCircle2,
 } from "lucide-react";
 import { JLU_PROFILE } from "@/lib/jlu-constants";
 
@@ -108,6 +109,91 @@ export default async function HODDashboardPage() {
             <BarChart3 className="w-4 h-4" />
             School Analytics
           </Link>
+        </div>
+      </div>
+
+      {/* ACTION REQUIRED: HOD Departmental Priorities */}
+      <div className="bg-white rounded-2xl shadow-xs border border-slate-200 p-5 space-y-3">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping" />
+            <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Department Action Required
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-slate-400">Academic Governance</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          {/* Timetable Approvals */}
+          {pendingTimetables.length > 0 ? (
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex flex-col justify-between space-y-2">
+              <div>
+                <div className="flex items-center justify-between font-bold text-rose-900">
+                  <span>Timetable Approvals Pending</span>
+                  <span className="text-xs font-mono font-bold">{pendingTimetables.length} Drafts</span>
+                </div>
+                <p className="text-[11px] text-rose-800 mt-1">
+                  Draft class schedules have been generated and require HOD departmental sign-off.
+                </p>
+              </div>
+              <Link
+                href="/hod/approvals"
+                className="self-start px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+              >
+                <span>Review & Approve</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          ) : (
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <span className="font-bold text-slate-900 block">Timetables Approved</span>
+                <span className="text-[11px] text-slate-500">All departmental schedules published.</span>
+              </div>
+            </div>
+          )}
+
+          {/* Attendance Governance */}
+          <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200 flex flex-col justify-between space-y-2">
+            <div>
+              <div className="flex items-center justify-between font-bold text-blue-900">
+                <span>Department Attendance Tracking</span>
+                <span className="text-[10px] bg-blue-100 text-blue-800 font-mono px-1.5 py-0.5 rounded">Roster Watch</span>
+              </div>
+              <p className="text-[11px] text-blue-800 mt-1">
+                Monitor student attendance percentages and flag chronic absenteeism across cohorts.
+              </p>
+            </div>
+            <Link
+              href="/hod/attendance"
+              className="self-start px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+            >
+              <span>Monitor Attendance</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Faculty Workload */}
+          <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 flex flex-col justify-between space-y-2">
+            <div>
+              <div className="flex items-center justify-between font-bold text-amber-900">
+                <span>Faculty Workload & Roster</span>
+                <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded">{totalFaculty} Faculty</span>
+              </div>
+              <p className="text-[11px] text-amber-800 mt-1">
+                Audit weekly teaching hours distribution and subject allocations.
+              </p>
+            </div>
+            <Link
+              href="/hod/faculty"
+              className="self-start px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-[11px] transition shadow-xs flex items-center gap-1"
+            >
+              <span>Audit Workload</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ShieldCheck, AlertTriangle, CheckCircle2, Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/Toast";
 
 interface TimetableItem {
   id: string;
@@ -86,10 +87,10 @@ export default function HODApprovalsClient({
           window.location.reload();
         }, 1200);
       } else {
-        alert(data.message || "Approval failed.");
+        toast.error(data.message || "Approval failed.");
       }
     } catch (err) {
-      alert("Network error approving timetable.");
+      toast.error("Network error approving timetable.");
     } finally {
       setApproving(false);
     }
