@@ -2,7 +2,8 @@
 // One Source of Truth for Academics, Timetables, Attendance, Fees, and LMS
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
