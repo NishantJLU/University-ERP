@@ -15,17 +15,43 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase().trim() },
+    const identifier = email.trim();
+    let user = await prisma.user.findUnique({
+      where: { email: identifier.toLowerCase() },
       include: {
         facultyProfile: true,
         studentProfile: true,
       },
     });
 
+    if (!user) {
+      // Allow students to authenticate with their official Registration Number or Roll Number
+      const student = await prisma.student.findFirst({
+        where: {
+          OR: [
+            { registrationNo: identifier },
+            { registrationNo: identifier.toUpperCase() },
+            { rollNumber: identifier },
+            { rollNumber: identifier.toUpperCase() },
+          ],
+        },
+        include: {
+          user: {
+            include: {
+              facultyProfile: true,
+              studentProfile: true,
+            },
+          },
+        },
+      });
+      if (student?.user) {
+        user = student.user;
+      }
+    }
+
     if (!user || !user.isActive) {
       return NextResponse.json(
-        { success: false, message: "Invalid credentials or inactive account." },
+        { success: false, message: "Invalid email/ID or password. Please check your credentials and try again." },
         { status: 401 }
       );
     }
@@ -33,7 +59,7 @@ export async function POST(req: Request) {
     const isValid = await comparePassword(password, user.passwordHash);
     if (!isValid) {
       return NextResponse.json(
-        { success: false, message: "Invalid credentials or password." },
+        { success: false, message: "Invalid email/ID or password. Please check your credentials and try again." },
         { status: 401 }
       );
     }
