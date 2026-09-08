@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import AdminDashboardClient from "@/components/admin/AdminDashboardClient";
+import { detectTimetableConflicts } from "@/lib/timetable-engine";
 
 export default async function AdminDashboardPage() {
   const user = await getCurrentUser();
@@ -25,6 +26,8 @@ export default async function AdminDashboardPage() {
     programs,
     sections,
     semesters,
+    departmentsWithCounts,
+    periods,
   ] = await Promise.all([
     prisma.student.count(),
     prisma.faculty.count(),
@@ -36,7 +39,7 @@ export default async function AdminDashboardPage() {
     prisma.notice.count({ where: { priority: { in: ["URGENT", "HIGH"] } } }),
     prisma.auditLog.findMany({
       orderBy: { createdAt: "desc" },
-      take: 6,
+      take: 8,
     }),
     prisma.studentFeeDue.findMany({
       select: { totalAmount: true, paidAmount: true, status: true },
@@ -58,7 +61,32 @@ export default async function AdminDashboardPage() {
       orderBy: { number: "asc" },
       take: 30,
     }),
+    prisma.department.findMany({
+      include: {
+        programs: { select: { id: true } },
+        faculty: { select: { id: true } },
+      },
+    }),
+    prisma.timetablePeriod.findMany({
+      select: {
+        subjectId: true,
+        facultyId: true,
+        roomId: true,
+        sectionId: true,
+        dayOfWeek: true,
+        periodNumber: true,
+        startTime: true,
+        endTime: true,
+      },
+    }),
   ]);
+
+  const conflicts = await detectTimetableConflicts(periods);
+  const timetableConflictsCount = conflicts.length;
+
+  const incompleteDeptsCount = departmentsWithCounts.filter(
+    (d) => d.programs.length === 0 || d.faculty.length === 0
+  ).length;
 
   const totalBilled = feeDues.reduce((acc, d) => acc + d.totalAmount, 0);
   const totalCollected = feeDues.reduce((acc, d) => acc + d.paidAmount, 0);
@@ -83,6 +111,8 @@ export default async function AdminDashboardPage() {
         unassignedStudentsCount,
         unpaidFeeDuesCount,
         urgentNoticesCount,
+        timetableConflictsCount,
+        incompleteDeptsCount,
       }}
       recentAudits={recentAudits.map((a) => ({
         id: a.id,
@@ -90,6 +120,7 @@ export default async function AdminDashboardPage() {
         entity: a.entity,
         actorName: a.actorName,
         actorRole: a.actorRole,
+        details: a.details,
         createdAt: a.createdAt.toISOString(),
       }))}
       masterData={{

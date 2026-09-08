@@ -29,3 +29,20 @@ export function formatTime(timeStr: string): string {
   const formattedHour = hour % 12 || 12;
   return `${formattedHour}:${m} ${ampm}`;
 }
+
+export function formatDateTime(date: Date | string): string {
+  if (!date) return "";
+  const d = new Date(date);
+  const datePart = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(d);
+  const timePart = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(d);
+  return `${datePart} • ${timePart}`;
+}
+

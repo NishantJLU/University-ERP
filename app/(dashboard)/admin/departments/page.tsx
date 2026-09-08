@@ -2,8 +2,13 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DepartmentsClient from "@/components/admin/DepartmentsClient";
+import { Suspense } from "react";
 
-export default async function AdminDepartmentsPage() {
+export default async function AdminDepartmentsPage({
+  searchParams,
+}: {
+  searchParams?: { status?: string };
+}) {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") {
     redirect("/login");
@@ -27,5 +32,12 @@ export default async function AdminDepartmentsPage() {
     facultyCount: d.faculty.length,
   }));
 
-  return <DepartmentsClient initialDepartments={formatted} />;
+  return (
+    <Suspense fallback={<div className="p-8 text-xs text-slate-400">Loading department registry...</div>}>
+      <DepartmentsClient
+        initialDepartments={formatted}
+        initialStatus={searchParams?.status}
+      />
+    </Suspense>
+  );
 }

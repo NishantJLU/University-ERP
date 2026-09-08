@@ -25,38 +25,16 @@ export default function JLULogo({
   const subColor = isWhite ? "text-slate-300" : "text-rose-600";
   const taglineColor = isWhite ? "text-amber-400" : "text-slate-500";
 
-  // Official JLU Diamond Crest Symbol
+  // Official JLU Flame Torch Emblem
   const Symbol = (
     <div
-      className={`${sizeMap[size].symbol} rounded-xl bg-gradient-to-br from-rose-700 via-rose-600 to-rose-900 flex items-center justify-center text-white font-black shadow-md border border-rose-400/30 shrink-0 relative overflow-hidden group`}
+      className={`${sizeMap[size].symbol} rounded-xl bg-white flex items-center justify-center p-1 shadow-xs border border-slate-200/80 shrink-0 relative overflow-hidden group`}
     >
-      {/* Facet Sheen */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />
-      
-      {/* Diamond & Academic Icon Graphic */}
-      <svg
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-4/5 h-4/5 text-white drop-shadow-sm"
-      >
-        {/* Diamond Silhouette */}
-        <polygon
-          points="24,4 40,16 24,44 8,16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-        />
-        {/* Inner Diamond Facet Lines */}
-        <line x1="8" y1="16" x2="40" y2="16" stroke="currentColor" strokeWidth="2" strokeOpacity="0.7" />
-        <line x1="16" y1="16" x2="24" y2="4" stroke="currentColor" strokeWidth="2" strokeOpacity="0.7" />
-        <line x1="32" y1="16" x2="24" y2="4" stroke="currentColor" strokeWidth="2" strokeOpacity="0.7" />
-        <line x1="16" y1="16" x2="24" y2="44" stroke="currentColor" strokeWidth="2" strokeOpacity="0.7" />
-        <line x1="32" y1="16" x2="24" y2="44" stroke="currentColor" strokeWidth="2" strokeOpacity="0.7" />
-        {/* Academic Center Star */}
-        <circle cx="24" cy="22" r="3" fill="#FDE047" />
-      </svg>
+      <img
+        src="/images/jlu-flame.png"
+        alt="JLU Official Flame Emblem"
+        className="w-full h-full object-contain"
+      />
     </div>
   );
 
@@ -91,11 +69,11 @@ export default function JLULogo({
         </div>
         <div className="flex items-center gap-1.5 mt-0.5">
           <span className={`font-semibold uppercase tracking-wider ${sizeMap[size].sub} ${subColor}`}>
-            BHOPAL, MADHYA PRADESH
+            DIGITAL CAMPUS
           </span>
           <span className={`hidden sm:inline text-[9px] ${taglineColor}`}>•</span>
-          <span className={`hidden sm:inline italic text-[10px] font-medium ${taglineColor}`}>
-            &ldquo;Central India&apos;s Diamond University&rdquo;
+          <span className={`hidden sm:inline text-[10px] font-medium ${taglineColor}`}>
+            Bhopal, MP
           </span>
         </div>
       </div>
