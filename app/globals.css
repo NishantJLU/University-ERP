@@ -29,6 +29,19 @@
   --ring: 221 83% 53%;
   
   --radius: 0.5rem;
+  
+  /* JLU Enterprise Institutional Design Tokens */
+  --jlu-maroon: #800020;
+  --jlu-maroon-dark: #5c0017;
+  --jlu-maroon-light: #9f1239;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --surface-subtle: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --status-success: #047857;
+  --status-warning: #b45309;
+  --status-critical: #b91c1c;
 }
 
 body {

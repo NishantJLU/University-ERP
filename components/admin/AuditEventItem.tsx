@@ -23,138 +23,114 @@ export interface AuditLogItem {
   details?: string | null;
 }
 
+const ACTION_LABELS: Record<string, string> = {
+  USER_LOGIN: "User Login",
+  STUDENT_ENROLLED: "Student Enrolled",
+  STUDENT_CREATED: "Student Created",
+  FACULTY_ONBOARDED: "Faculty Onboarded",
+  FACULTY_UPDATED: "Faculty Updated",
+  DEPARTMENT_CREATED: "Department Created",
+  DEPARTMENT_UPDATED: "Department Updated",
+  NOTICE_PUBLISHED: "Notice Published",
+  TIMETABLE_APPROVED: "Timetable Approved",
+  TIMETABLE_PUBLISHED: "Timetable Published",
+  PAYMENT_VERIFIED: "Payment Verified",
+  PAYMENT_RECONCILED: "Payment Reconciled",
+  ATTENDANCE_RECORDED: "Attendance Recorded",
+  ATTENDANCE_MARKED: "Attendance Marked",
+  ACADEMIC_YEAR_CONFIGURED: "Academic Year Configured",
+};
+
+const ROLE_LABELS: Record<string, string> = {
+  ADMIN: "Administrator",
+  TEACHER: "Faculty",
+  STUDENT: "Student",
+  HOD: "Head of Department",
+  ACCOUNTS: "Finance / Bursar",
+  MANAGEMENT: "Executive Board",
+  SYSTEM: "System Automation",
+};
+
 export function AuditEventItem({ log }: { log: AuditLogItem }) {
-  const getEventMeta = (action: string) => {
+  const getEventIcon = (action: string) => {
     switch (action) {
       case "USER_LOGIN":
-        return {
-          icon: LogIn,
-          iconColor: "text-blue-600 bg-blue-50 border-blue-200",
-          actionBadge: "bg-blue-50 text-blue-700 border-blue-200",
-          readableAction: "User Login",
-        };
+        return LogIn;
       case "STUDENT_ENROLLED":
       case "STUDENT_CREATED":
-        return {
-          icon: UserPlus,
-          iconColor: "text-purple-600 bg-purple-50 border-purple-200",
-          actionBadge: "bg-purple-50 text-purple-700 border-purple-200",
-          readableAction: "Student Enrolled",
-        };
+        return UserPlus;
       case "FACULTY_ONBOARDED":
       case "FACULTY_UPDATED":
-        return {
-          icon: Users,
-          iconColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
-          actionBadge: "bg-emerald-50 text-emerald-700 border-emerald-200",
-          readableAction: "Faculty Updated",
-        };
+        return Users;
       case "DEPARTMENT_CREATED":
       case "DEPARTMENT_UPDATED":
-        return {
-          icon: Building,
-          iconColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
-          actionBadge: "bg-indigo-50 text-indigo-700 border-indigo-200",
-          readableAction: "Department Action",
-        };
+        return Building;
       case "NOTICE_PUBLISHED":
-        return {
-          icon: Bell,
-          iconColor: "text-amber-600 bg-amber-50 border-amber-200",
-          actionBadge: "bg-amber-50 text-amber-700 border-amber-200",
-          readableAction: "Notice Published",
-        };
+        return Bell;
       case "TIMETABLE_APPROVED":
       case "TIMETABLE_PUBLISHED":
-        return {
-          icon: CalendarCheck,
-          iconColor: "text-cyan-600 bg-cyan-50 border-cyan-200",
-          actionBadge: "bg-cyan-50 text-cyan-700 border-cyan-200",
-          readableAction: "Timetable Event",
-        };
+        return CalendarCheck;
       case "PAYMENT_VERIFIED":
       case "PAYMENT_RECONCILED":
-        return {
-          icon: CreditCard,
-          iconColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
-          actionBadge: "bg-emerald-50 text-emerald-700 border-emerald-200",
-          readableAction: "Payment Verified",
-        };
+        return CreditCard;
       case "ATTENDANCE_RECORDED":
       case "ATTENDANCE_MARKED":
-        return {
-          icon: CheckCircle,
-          iconColor: "text-teal-600 bg-teal-50 border-teal-200",
-          actionBadge: "bg-teal-50 text-teal-700 border-teal-200",
-          readableAction: "Attendance Recorded",
-        };
+        return CheckCircle;
       case "ACADEMIC_YEAR_CONFIGURED":
-        return {
-          icon: Settings,
-          iconColor: "text-violet-600 bg-violet-50 border-violet-200",
-          actionBadge: "bg-violet-50 text-violet-700 border-violet-200",
-          readableAction: "System Configured",
-        };
+        return Settings;
       default:
-        return {
-          icon: FileText,
-          iconColor: "text-slate-600 bg-slate-50 border-slate-200",
-          actionBadge: "bg-slate-50 text-slate-700 border-slate-200",
-          readableAction: action.replace(/_/g, " "),
-        };
+        return FileText;
     }
   };
 
-  const meta = getEventMeta(log.action);
-  const IconComponent = meta.icon;
+  const IconComponent = getEventIcon(log.action);
+  const eventLabel = ACTION_LABELS[log.action] || log.action.replace(/_/g, " ");
+  const roleLabel = ROLE_LABELS[log.actorRole] || log.actorRole;
 
-  // Attempt to parse readable target detail
-  let targetDetail = "";
+  // Clean, readable target details
+  let detailSnippet = "";
   if (log.details) {
     try {
       const parsed = typeof log.details === "string" ? JSON.parse(log.details) : log.details;
-      if (parsed.name) targetDetail = parsed.name;
-      else if (parsed.title) targetDetail = parsed.title;
-      else if (parsed.program) targetDetail = parsed.program;
-      else if (parsed.role) targetDetail = `Role: ${parsed.role}`;
+      if (parsed.name) detailSnippet = parsed.name;
+      else if (parsed.title) detailSnippet = parsed.title;
+      else if (parsed.program) detailSnippet = parsed.program;
+      else if (parsed.role && log.action !== "USER_LOGIN") detailSnippet = `Role: ${parsed.role}`;
     } catch {
-      targetDetail = String(log.details);
+      detailSnippet = String(log.details);
     }
   }
 
+  // Format short clean time of day: e.g. "11:42 AM" or date if older
+  const timestamp = formatDateTime(log.createdAt);
+
   return (
-    <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-200/80 hover:bg-slate-50 hover:border-slate-300 transition flex items-start gap-3">
-      <div className={`p-2 rounded-lg border shrink-0 ${meta.iconColor}`}>
+    <div className="py-2.5 px-3 hover:bg-slate-50/80 transition rounded flex items-start gap-3 text-xs border-b border-slate-100 last:border-b-0">
+      <div className="mt-0.5 text-slate-400 shrink-0">
         <IconComponent className="w-3.5 h-3.5" />
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span
-              className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border uppercase shrink-0 ${meta.actionBadge}`}
-            >
-              {log.action}
-            </span>
-            <span className="text-xs font-bold text-slate-900 truncate">
-              {log.actorName}
-            </span>
-            <span className="text-[10px] font-semibold text-slate-500 bg-slate-200/60 px-1.5 py-0.2 rounded shrink-0">
-              {log.actorRole}
-            </span>
-          </div>
-
-          <span className="text-[10px] text-slate-500 font-mono shrink-0">
-            {formatDateTime(log.createdAt)}
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold text-slate-900 tracking-tight">
+            {eventLabel}
+          </span>
+          <span className="text-[11px] text-slate-500 font-mono shrink-0">
+            {timestamp}
           </span>
         </div>
 
-        <div className="flex items-center justify-between gap-2 mt-1 text-[11px] text-slate-600">
-          <span className="font-mono text-slate-500 truncate">
-            Target: <span className="text-slate-800 font-semibold">{log.entity}</span>
-            {targetDetail ? ` • ${targetDetail}` : ""}
-          </span>
-        </div>
+        <p className="text-[11px] text-slate-600 mt-0.5">
+          <span className="font-medium text-slate-800">{log.actorName}</span>
+          <span className="text-slate-500"> • {roleLabel}</span>
+          {log.entity && log.entity !== "User" && (
+            <span className="text-slate-500">
+              {" "}
+              — {log.entity}
+              {detailSnippet ? ` (${detailSnippet})` : ""}
+            </span>
+          )}
+        </p>
       </div>
     </div>
   );

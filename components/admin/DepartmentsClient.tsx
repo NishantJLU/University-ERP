@@ -162,7 +162,7 @@ export default function DepartmentsClient({
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold shadow-sm transition flex items-center gap-1.5 shrink-0"
+          className="px-4 py-2 bg-[#800020] hover:bg-[#6e001c] text-white rounded-md text-xs font-bold shadow-xs transition flex items-center gap-1.5 shrink-0"
           id="btn-add-department"
         >
           <Plus className="w-4 h-4" />
@@ -171,7 +171,7 @@ export default function DepartmentsClient({
       </div>
 
       {/* Multi-Faceted Filter & Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3">
+      <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
           {/* Search Input */}
           <div className="relative flex-1">
@@ -181,7 +181,7 @@ export default function DepartmentsClient({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by department name, code, school, or building..."
-              className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-rose-500 focus:bg-white"
+              className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#800020] focus:bg-white"
               id="input-department-search"
             />
             {search && (
@@ -201,13 +201,13 @@ export default function DepartmentsClient({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-rose-500 font-medium text-slate-700"
+              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#800020] font-medium text-slate-700"
               aria-label="Filter by setup status"
               id="select-status-filter"
             >
               <option value="ALL">Status: All Departments</option>
-              <option value="CONFIGURED">✓ Configured Only</option>
-              <option value="NEEDS_SETUP">⚠ Needs Setup Only</option>
+              <option value="CONFIGURED">Configured Only</option>
+              <option value="NEEDS_SETUP">Needs Setup Only</option>
             </select>
           </div>
 
@@ -216,7 +216,7 @@ export default function DepartmentsClient({
             <select
               value={facultyGroupFilter}
               onChange={(e) => setFacultyGroupFilter(e.target.value)}
-              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-rose-500 font-medium text-slate-700"
+              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#800020] font-medium text-slate-700"
               aria-label="Filter by faculty school"
               id="select-faculty-filter"
             >
@@ -234,7 +234,7 @@ export default function DepartmentsClient({
             <select
               value={programsFilter}
               onChange={(e) => setProgramsFilter(e.target.value)}
-              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-rose-500 font-medium text-slate-700"
+              className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#800020] font-medium text-slate-700"
               aria-label="Filter by program count"
               id="select-programs-filter"
             >
@@ -259,22 +259,22 @@ export default function DepartmentsClient({
                 <span className="text-slate-300">•</span>
                 <span className="text-slate-600 font-medium">Active filters:</span>
                 {search && (
-                  <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[11px] font-medium border border-slate-200">
+                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-medium border border-slate-200">
                     Query: &quot;{search}&quot;
                   </span>
                 )}
                 {statusFilter !== "ALL" && (
-                  <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 text-[11px] font-medium border border-amber-200">
+                  <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-900 text-[11px] font-medium border border-amber-200">
                     {statusFilter === "CONFIGURED" ? "Configured" : "Needs Setup"}
                   </span>
                 )}
                 {facultyGroupFilter !== "ALL" && (
-                  <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 text-[11px] font-medium border border-blue-200">
+                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-800 text-[11px] font-medium border border-slate-200">
                     {facultyGroupFilter}
                   </span>
                 )}
                 {programsFilter !== "ALL" && (
-                  <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-800 text-[11px] font-medium border border-purple-200">
+                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-800 text-[11px] font-medium border border-slate-200">
                     Programs: {programsFilter}
                   </span>
                 )}
@@ -286,7 +286,7 @@ export default function DepartmentsClient({
             <button
               type="button"
               onClick={clearAllFilters}
-              className="text-rose-600 hover:text-rose-700 font-bold hover:underline flex items-center gap-1 text-[11px]"
+              className="text-[#800020] hover:text-[#5c0017] font-semibold hover:underline flex items-center gap-1 text-[11px]"
               id="btn-clear-filters"
             >
               <X className="w-3.5 h-3.5" />
@@ -298,7 +298,7 @@ export default function DepartmentsClient({
 
       {/* Departments Grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((dept) => {
             const health = getDepartmentHealthStatus(dept.facultyCount, dept.programsCount);
             const isIncomplete = health !== "CONFIGURED";
@@ -306,10 +306,10 @@ export default function DepartmentsClient({
             return (
               <div
                 key={dept.id}
-                className={`bg-white rounded-2xl shadow-xs border p-6 space-y-3 flex flex-col justify-between hover:shadow-md transition relative ${
+                className={`bg-white rounded-lg border p-5 space-y-3 flex flex-col justify-between hover:border-slate-300 transition relative ${
                   isIncomplete
-                    ? "border-amber-200/90 bg-amber-50/10 hover:border-amber-300"
-                    : "border-slate-200/90 hover:border-slate-300"
+                    ? "border-slate-200 border-l-4 border-l-amber-500"
+                    : "border-slate-200 shadow-2xs"
                 }`}
               >
                 <div>
@@ -383,7 +383,7 @@ export default function DepartmentsClient({
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="px-3.5 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-semibold"
+                className="px-3.5 py-1.5 bg-[#800020] hover:bg-[#6e001c] text-white rounded-md text-xs font-semibold"
               >
                 Reset Filters
               </button>
@@ -391,7 +391,7 @@ export default function DepartmentsClient({
               <button
                 type="button"
                 onClick={() => setDrawerOpen(true)}
-                className="px-3.5 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-semibold"
+                className="px-3.5 py-1.5 bg-[#800020] hover:bg-[#6e001c] text-white rounded-md text-xs font-semibold"
               >
                 Add New Department
               </button>
