@@ -30,37 +30,37 @@ export function AttentionCard({
       case "critical":
         return {
           wrapper: isDominant
-            ? "border border-rose-300 border-l-4 border-l-rose-700 bg-rose-50/40 p-5 rounded-lg"
-            : "border border-rose-300 border-l-4 border-l-rose-700 bg-rose-50/20 p-4 rounded-lg",
-          icon: <ShieldAlert className="w-4 h-4 text-rose-700 shrink-0" />,
-          value: "text-rose-950",
-          badge: "bg-rose-100 text-rose-800 border-rose-200",
+            ? "border border-[#FECDD3] border-l-4 border-l-[#C2414B] bg-[#FEF2F2] p-5 rounded-lg shadow-xs"
+            : "border border-[#FECDD3] border-l-4 border-l-[#C2414B] bg-[#FEF2F2]/60 p-4 rounded-lg shadow-xs",
+          icon: <ShieldAlert className="w-4 h-4 text-[#C2414B] shrink-0" />,
+          value: "text-[#172B4D]",
+          badge: "bg-[#FEF2F2] text-[#C2414B] border-[#FECDD3]",
           defaultBadge: "CRITICAL",
-          subtext: "text-rose-900",
-          actionClass: "text-rose-700 hover:text-rose-900 font-semibold",
+          subtext: "text-[#475569]",
+          actionClass: "text-[#C2414B] hover:text-[#9F1239] font-semibold",
         };
       case "warning":
         return {
           wrapper:
-            "border border-slate-200 border-l-4 border-l-amber-500 bg-white hover:border-slate-300 p-4 rounded-lg",
-          icon: <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />,
-          value: "text-slate-900",
-          badge: "bg-amber-50 text-amber-800 border-amber-200",
+            "border border-[#E5E7EB] border-l-4 border-l-[#B7791F] bg-[#FFFFFF] hover:border-[#CBD5E1] p-4 rounded-lg shadow-xs",
+          icon: <AlertTriangle className="w-4 h-4 text-[#B7791F] shrink-0" />,
+          value: "text-[#172B4D]",
+          badge: "bg-[#FFFAEB] text-[#B7791F] border-[#FDE68A]",
           defaultBadge: "REQUIRES REVIEW",
-          subtext: "text-slate-600",
-          actionClass: "text-amber-800 hover:text-amber-900 font-medium",
+          subtext: "text-[#475569]",
+          actionClass: "text-[#B7791F] hover:text-[#8D5B0F] font-semibold",
         };
       case "healthy":
       default:
         return {
           wrapper:
-            "border border-slate-200 bg-white hover:border-slate-300 p-4 rounded-lg opacity-90",
-          icon: <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />,
-          value: "text-slate-800",
-          badge: "bg-slate-100 text-slate-700 border-slate-200",
+            "border border-[#E5E7EB] border-l-4 border-l-[#16845B] bg-[#FFFFFF] hover:border-[#CBD5E1] p-4 rounded-lg shadow-xs",
+          icon: <CheckCircle2 className="w-4 h-4 text-[#16845B] shrink-0" />,
+          value: "text-[#172B4D]",
+          badge: "bg-[#ECFDF3] text-[#16845B] border-[#A7F3D0]",
           defaultBadge: "HEALTHY",
-          subtext: "text-slate-500",
-          actionClass: "text-slate-600 hover:text-slate-900 font-normal",
+          subtext: "text-[#475569]",
+          actionClass: "text-[#16845B] hover:text-[#116645] font-semibold",
         };
     }
   };
@@ -74,7 +74,7 @@ export function AttentionCard({
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-2">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#172B4D]">
             {config.icon}
             <span>{title}</span>
           </div>
@@ -94,7 +94,7 @@ export function AttentionCard({
         <p className={`text-xs mt-1 leading-snug ${config.subtext}`}>{statusText}</p>
       </div>
 
-      <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+      <div className="mt-3 pt-2.5 border-t border-[#E5E7EB] flex items-center justify-between text-xs">
         <Link
           href={href}
           className={`${config.actionClass} hover:underline focus:outline-none focus:underline`}

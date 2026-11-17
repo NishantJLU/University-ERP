@@ -46,3 +46,41 @@ export function formatDateTime(date: Date | string): string {
   return `${datePart} • ${timePart}`;
 }
 
+export function formatEnum(val: string): string {
+  if (!val) return "";
+  // Specific mappings for known ERP states
+  const customMap: Record<string, string> = {
+    PARTIALLY_PAID: "Partially paid",
+    PAID: "Paid",
+    PENDING: "Pending",
+    OVERDUE: "Overdue",
+    PRESENT: "Present",
+    ABSENT: "Absent",
+    LATE: "Late",
+    EXCUSED: "Excused",
+    THEORY: "Theory",
+    LAB: "Lab / Practical",
+    HYBRID: "Hybrid",
+    CLASSROOM: "Classroom",
+    SEMINAR_HALL: "Seminar Hall",
+    SANDBOX_GATEWAY: "Online Gateway",
+    UPI: "UPI",
+    CARD: "Credit / Debit Card",
+    NETBANKING: "Net Banking",
+    FINALIZED: "Finalized",
+    DRAFT: "Draft",
+    PUBLISHED: "Published",
+    APPROVED: "Approved",
+    UNDERGRADUATE: "Undergraduate",
+    POSTGRADUATE: "Postgraduate",
+  };
+
+  if (customMap[val]) return customMap[val];
+
+  return val
+    .toLowerCase()
+    .split("_")
+    .map((w, idx) => (idx === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(" ");
+}
+

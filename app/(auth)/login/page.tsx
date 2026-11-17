@@ -73,7 +73,7 @@ const DEMO_ACCOUNTS = [
     meta: "Office of the Registrar",
     icon: ShieldCheck,
     desc: "University master data, faculties, schools, programs, timetable & audits",
-    color: "border-rose-200 bg-rose-50/70 hover:border-rose-400 text-rose-900",
+    color: "border-[#8B1E3F]/30 bg-[#FDF2F4] hover:border-[#8B1E3F] text-[#8B1E3F]",
   },
   {
     role: "MANAGEMENT" as Role,
@@ -185,11 +185,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F5F6F8] flex flex-col justify-between">
       {/* Accessible Skip Link */}
       <a
         href="#login-form"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-rose-600 text-white font-bold rounded-lg shadow-lg text-xs"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[#8B1E3F] text-white font-bold rounded-lg shadow-lg text-xs"
       >
         Skip to login
       </a>
@@ -197,10 +197,10 @@ export default function LoginPage() {
       {/* Main Grid: Context Panel on Desktop, Direct Login Focus on Mobile */}
       <div className="flex-1 flex flex-col lg:flex-row items-stretch">
         {/* Left Side: Clean JLU Institutional Branding & Platform Context */}
-        <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative bg-gradient-to-br from-slate-950 via-slate-900 to-rose-950 p-10 xl:p-14 flex-col justify-between border-r border-slate-800 text-white overflow-hidden">
+        <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 relative bg-gradient-to-br from-[#172B4D] via-[#701831] to-[#8B1E3F] p-10 xl:p-14 flex-col justify-between border-r border-[#E5E7EB] text-white overflow-hidden">
           {/* Subtle background grid accent */}
-          <div className="absolute inset-0 bg-[radial-gradient(#e11d48_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
           {/* Institutional Lockup */}
           <div className="relative z-10">
@@ -209,8 +209,8 @@ export default function LoginPage() {
 
           {/* Clean Primary Identity & Context Statement */}
           <div className="relative z-10 my-auto py-8 space-y-5 max-w-lg">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-rose-300 border border-rose-500/20 backdrop-blur-xs">
-              <Sparkles className="w-3.5 h-3.5 text-rose-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-rose-200 border border-white/20 backdrop-blur-xs">
+              <Sparkles className="w-3.5 h-3.5 text-rose-300" />
               <span>Unified Academic Platform</span>
             </div>
 
@@ -218,34 +218,34 @@ export default function LoginPage() {
               University ERP & Learning Management System
             </h2>
 
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white/80 text-sm leading-relaxed">
               Manage academics, learning, attendance, dynamic timetables, and university services in one place.
             </p>
 
             {/* Secondary Institutional Context Pills (Clean, non-competing) */}
-            <div className="pt-4 border-t border-slate-800/80">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-3">
+            <div className="pt-4 border-t border-white/15">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-rose-200 block mb-3">
                 Institutional Context
               </span>
               <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
+                <div className="p-2.5 rounded-xl bg-white/10 border border-white/15">
                   <span className="font-extrabold text-white block text-sm">232-Acre</span>
-                  <span className="text-[10px] text-slate-400">Campus</span>
+                  <span className="text-[10px] text-white/70">Campus</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
+                <div className="p-2.5 rounded-xl bg-white/10 border border-white/15">
                   <span className="font-extrabold text-white block text-sm">50+</span>
-                  <span className="text-[10px] text-slate-400">Programs</span>
+                  <span className="text-[10px] text-white/70">Programs</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
+                <div className="p-2.5 rounded-xl bg-white/10 border border-white/15">
                   <span className="font-extrabold text-white block text-sm">45+</span>
-                  <span className="text-[10px] text-slate-400">Global Ties</span>
+                  <span className="text-[10px] text-white/70">Global Ties</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Subtle Institutional Secondary Footer */}
-          <div className="relative z-10 text-xs text-slate-400 pt-4 border-t border-slate-800 flex items-center justify-between">
+          <div className="relative z-10 text-xs text-white/70 pt-4 border-t border-white/15 flex items-center justify-between">
             <span>Jagran Lakecity University</span>
             <span className="font-mono text-[11px]">Academic Year 2026–2027</span>
           </div>
@@ -262,17 +262,17 @@ export default function LoginPage() {
             {/* Login Heading */}
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-rose-600 uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#8B1E3F] uppercase tracking-wider">
                   JLU Digital Campus
                 </span>
-                <span className="text-[10px] font-mono text-slate-400">
+                <span className="text-[10px] font-mono text-[#8490A0]">
                   SSL Encrypted
                 </span>
               </div>
-              <h1 className="text-2xl font-black text-slate-900 mt-1">
+              <h1 className="text-2xl font-black text-[#172B4D] mt-1">
                 Welcome Back
               </h1>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-[#475569] mt-1">
                 Sign in with your official university credentials to continue to your dashboard.
               </p>
             </div>
@@ -281,14 +281,14 @@ export default function LoginPage() {
             {error && (
               <div
                 role="alert"
-                className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 flex items-start gap-2.5 animate-in fade-in"
+                className="p-3.5 bg-[#FEF2F2] border border-[#C2414B]/30 rounded-xl text-xs text-[#C2414B] flex items-start gap-2.5 animate-in fade-in"
               >
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-[#C2414B] shrink-0 mt-0.5" />
                 <div className="flex-1 font-medium">{error}</div>
                 <button
                   type="button"
                   onClick={() => setError(null)}
-                  className="text-rose-500 hover:text-rose-700 p-0.5"
+                  className="text-[#C2414B] hover:opacity-80 p-0.5"
                   aria-label="Dismiss error message"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -300,11 +300,11 @@ export default function LoginPage() {
             <form id="login-form" onSubmit={handleLogin} noValidate className="space-y-4 text-xs">
               {/* Field: University Email / Registration ID */}
               <div>
-                <label htmlFor="user-identifier" className="block font-semibold text-slate-800 mb-1">
-                  University Email / Registration ID <span className="text-rose-600">*</span>
+                <label htmlFor="user-identifier" className="block font-semibold text-[#172B4D] mb-1">
+                  University Email / Registration ID <span className="text-[#8B1E3F]">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Mail className="w-4 h-4 text-[#8490A0] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     id="user-identifier"
                     name="identifier"
@@ -320,15 +320,15 @@ export default function LoginPage() {
                     }}
                     placeholder="Enter your university ID or email"
                     aria-describedby="identifier-help"
-                    className={`w-full pl-9 pr-3 py-2.5 bg-slate-50 border rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition ${
-                      fieldErrors.email ? "border-rose-400 bg-rose-50/30" : "border-slate-200"
+                    className={`w-full pl-9 pr-3 py-2.5 bg-[#F9FAFB] border rounded-xl text-xs text-[#172B4D] placeholder:text-[#8490A0] focus:bg-white focus:ring-2 focus:ring-[#8B1E3F] focus:border-[#8B1E3F] focus:outline-none transition ${
+                      fieldErrors.email ? "border-[#C2414B] bg-[#FEF2F2]" : "border-[#E5E7EB]"
                     }`}
                   />
                 </div>
                 {fieldErrors.email ? (
-                  <p className="text-[11px] text-rose-600 mt-1 font-medium">{fieldErrors.email}</p>
+                  <p className="text-[11px] text-[#C2414B] mt-1 font-medium">{fieldErrors.email}</p>
                 ) : (
-                  <p id="identifier-help" className="text-[11px] text-slate-500 mt-1">
+                  <p id="identifier-help" className="text-[11px] text-[#8490A0] mt-1">
                     Students may use their university registration ID. Faculty and staff may use their official university credentials.
                   </p>
                 )}
@@ -337,19 +337,19 @@ export default function LoginPage() {
               {/* Field: Password */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label htmlFor="user-password" className="font-semibold text-slate-800">
-                    Password <span className="text-rose-600">*</span>
+                  <label htmlFor="user-password" className="font-semibold text-[#172B4D]">
+                    Password <span className="text-[#8B1E3F]">*</span>
                   </label>
                   <button
                     type="button"
                     onClick={() => setForgotPasswordOpen(true)}
-                    className="text-rose-600 hover:text-rose-700 hover:underline text-[11px] font-semibold cursor-pointer"
+                    className="text-[#8B1E3F] hover:text-[#701831] hover:underline text-[11px] font-semibold cursor-pointer"
                   >
                     Forgot password?
                   </button>
                 </div>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Lock className="w-4 h-4 text-[#8490A0] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     id="user-password"
                     name="password"
@@ -364,43 +364,43 @@ export default function LoginPage() {
                       }
                     }}
                     placeholder="Enter your password"
-                    className={`w-full pl-9 pr-10 py-2.5 bg-slate-50 border rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition ${
-                      fieldErrors.password ? "border-rose-400 bg-rose-50/30" : "border-slate-200"
+                    className={`w-full pl-9 pr-10 py-2.5 bg-[#F9FAFB] border rounded-xl text-xs text-[#172B4D] placeholder:text-[#8490A0] focus:bg-white focus:ring-2 focus:ring-[#8B1E3F] focus:border-[#8B1E3F] focus:outline-none transition ${
+                      fieldErrors.password ? "border-[#C2414B] bg-[#FEF2F2]" : "border-[#E5E7EB]"
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-md focus:outline-none"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#8490A0] hover:text-[#172B4D] rounded-md focus:outline-none"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {fieldErrors.password && (
-                  <p className="text-[11px] text-rose-600 mt-1 font-medium">{fieldErrors.password}</p>
+                  <p className="text-[11px] text-[#C2414B] mt-1 font-medium">{fieldErrors.password}</p>
                 )}
               </div>
 
               {/* Remember Device & Security Tag */}
               <div className="flex items-center justify-between pt-1">
-                <label className="flex items-center gap-2 cursor-pointer text-slate-600 select-none">
+                <label className="flex items-center gap-2 cursor-pointer text-[#475569] select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-slate-300 text-rose-600 focus:ring-rose-500 w-3.5 h-3.5"
+                    className="rounded border-[#E5E7EB] text-[#8B1E3F] focus:ring-[#8B1E3F] w-3.5 h-3.5"
                   />
                   <span className="text-xs">Remember this device</span>
                 </label>
-                <span className="text-[11px] text-slate-400">7-day active session</span>
+                <span className="text-[11px] text-[#8490A0]">7-day active session</span>
               </div>
 
               {/* Primary Sign In Button */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 px-4 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50 text-xs cursor-pointer focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
+                className="w-full py-2.5 px-4 bg-[#8B1E3F] hover:bg-[#701831] active:bg-[#5a1327] text-white font-bold rounded-xl shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50 text-xs cursor-pointer focus:ring-2 focus:ring-[#8B1E3F] focus:ring-offset-2"
               >
                 {loading ? (
                   <>
@@ -417,15 +417,15 @@ export default function LoginPage() {
             </form>
 
             {/* Mode Switcher: Production vs Demo Evaluation Mode */}
-            <div className="pt-4 border-t border-slate-200">
-              <div className="bg-slate-100 p-1 rounded-xl flex gap-1 mb-3">
+            <div className="pt-4 border-t border-[#E5E7EB]">
+              <div className="bg-[#F5F6F8] p-1 rounded-xl flex gap-1 mb-3">
                 <button
                   type="button"
                   onClick={() => setAuthTab("production")}
                   className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition cursor-pointer ${
                     authTab === "production"
-                      ? "bg-white text-slate-900 shadow-xs"
-                      : "text-slate-500 hover:text-slate-700"
+                      ? "bg-white text-[#172B4D] shadow-xs"
+                      : "text-[#475569] hover:text-[#172B4D]"
                   }`}
                 >
                   Official Sign-In
@@ -435,8 +435,8 @@ export default function LoginPage() {
                   onClick={() => setAuthTab("demo")}
                   className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
                     authTab === "demo"
-                      ? "bg-rose-600 text-white shadow-xs"
-                      : "text-slate-500 hover:text-slate-700"
+                      ? "bg-[#8B1E3F] text-white shadow-xs"
+                      : "text-[#475569] hover:text-[#172B4D]"
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
@@ -531,7 +531,7 @@ export default function LoginPage() {
           <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-4 border border-slate-200">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-rose-50 text-rose-600">
+                <div className="p-2 rounded-xl bg-[#FDF2F4] text-[#8B1E3F]">
                   <Lock className="w-5 h-5" />
                 </div>
                 <div>
@@ -558,7 +558,7 @@ export default function LoginPage() {
               <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5 text-[11px]">
                 <p>
                   <strong className="text-slate-900">Email:</strong>{" "}
-                  <a href="mailto:support@jlu.edu.in" className="text-rose-600 hover:underline">
+                  <a href="mailto:support@jlu.edu.in" className="text-[#8B1E3F] hover:underline font-semibold">
                     support@jlu.edu.in
                   </a>
                 </p>

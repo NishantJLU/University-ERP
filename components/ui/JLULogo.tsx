@@ -21,14 +21,14 @@ export default function JLULogo({
   };
 
   const isWhite = variant === "white";
-  const textColor = isWhite ? "text-white" : "text-slate-900";
-  const subColor = isWhite ? "text-slate-300" : "text-rose-600";
-  const taglineColor = isWhite ? "text-amber-400" : "text-slate-500";
+  const textColor = isWhite ? "text-white" : "text-[#172B4D]";
+  const subColor = isWhite ? "text-rose-300" : "text-[#8B1E3F]";
+  const taglineColor = isWhite ? "text-amber-400" : "text-[#8490A0]";
 
   // Official JLU Flame Torch Emblem
   const Symbol = (
     <div
-      className={`${sizeMap[size].symbol} rounded-xl bg-white flex items-center justify-center p-1 shadow-xs border border-slate-200/80 shrink-0 relative overflow-hidden group`}
+      className={`${sizeMap[size].symbol} rounded-xl bg-white flex items-center justify-center p-1 shadow-xs border border-[#E5E7EB] shrink-0 relative overflow-hidden group`}
     >
       <img
         src="/images/jlu-flame.png"

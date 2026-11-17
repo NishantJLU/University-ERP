@@ -2,8 +2,6 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import TimetableWeeklyGrid from "@/components/timetable/TimetableWeeklyGrid";
-import PrintScheduleButton from "@/components/timetable/PrintScheduleButton";
-import { CalendarDays } from "lucide-react";
 
 export default async function StudentTimetablePage() {
   const user = await getCurrentUser();
@@ -36,21 +34,25 @@ export default async function StudentTimetablePage() {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-4 font-sans text-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
-            Academic Schedule • Section {student.section?.name}
-          </span>
-          <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
-            Weekly Class Timetable
+          <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
+            <span className="hover:text-slate-800">Dashboard</span>
+            <span>/</span>
+            <span className="text-slate-600">Academics</span>
+            <span>/</span>
+            <span className="text-slate-900 font-medium">Timetable Schedule</span>
+          </nav>
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+            Academic Timetable & Lecture Schedule
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Synchronized directly with university room bookings and faculty allocations
+            Cohort Section: <span className="font-semibold text-slate-800">{student.section?.name}</span> • Term:{" "}
+            <span className="text-slate-800">Semester {student.currentSemester.number}</span> • Program:{" "}
+            <span className="text-slate-800">{student.program.code}</span>
           </p>
         </div>
-
-        <PrintScheduleButton />
       </div>
 
       <TimetableWeeklyGrid

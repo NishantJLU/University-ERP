@@ -145,13 +145,13 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
     {
       title: "Academics",
       items: [
-        { label: "Class Timetable", href: "/student/timetable", icon: CalendarDays },
-        { label: "Attendance Ledger", href: "/student/attendance", icon: CheckSquare },
-        { label: "Exam Results", href: "/student/results", icon: Award },
+        { label: "Timetable", href: "/student/timetable", icon: CalendarDays },
+        { label: "Attendance", href: "/student/attendance", icon: CheckSquare },
+        { label: "Results", href: "/student/results", icon: Award },
       ],
     },
     {
-      title: "JLU Learning",
+      title: "Learning & Courses",
       items: [
         { label: "My Courses", href: "/student/lms", icon: BookOpen },
         { label: "Assignments", href: "/student/assignments", icon: FileText },
@@ -159,16 +159,15 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
       ],
     },
     {
-      title: "Bursar & Treasury",
+      title: "Fees & Accounts",
       items: [
-        { label: "Fees & Payment", href: "/student/fees", icon: CreditCard },
-        { label: "Official Receipts", href: "/student/receipts", icon: Receipt },
+        { label: "Fees", href: "/student/fees", icon: CreditCard },
+        { label: "Receipts", href: "/student/receipts", icon: Receipt },
       ],
     },
     {
-      title: "Campus Life & Notices",
+      title: "Campus Notices",
       items: [
-        { label: "Campus Life & Clubs", href: "/student/campus-life", icon: Flame, badge: "JLU Life" },
         { label: "University Notices", href: "/student/notices", icon: Bell },
       ],
     },
@@ -321,51 +320,58 @@ export default function Sidebar({
       {/* Mobile Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden"
           onClick={onClose}
         />
       )}
 
-      {/* Dark Sidebar Panel */}
+      {/* Clean White Institutional Sidebar Panel */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] lg:max-w-none jlu-sidebar-desktop bg-slate-950 text-slate-300 border-r border-slate-800/80 flex flex-col select-none transition-transform duration-200 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] lg:max-w-none jlu-sidebar-desktop bg-[#FFFFFF] text-[#475569] border-r border-[#E5E7EB] flex flex-col select-none transition-transform duration-200 ease-in-out lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Lockup */}
-        <div className="h-20 flex items-center justify-between px-5 border-b border-slate-800/80 bg-slate-950/80 shrink-0 overflow-hidden">
-          <Link href={`/${role.toLowerCase()}/dashboard`} className="flex items-center gap-2.5 min-w-0">
-            <JLULogo variant="white" size="md" />
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] bg-[#FFFFFF] shrink-0 overflow-hidden">
+          <Link
+            href={`/${role.toLowerCase()}/dashboard`}
+            className="flex items-center gap-2.5 min-w-0 group"
+          >
+            <JLULogo variant="full" size="md" />
           </Link>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 lg:hidden shrink-0"
+            className="p-1.5 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-[#F5F6F8] lg:hidden shrink-0 transition"
+            aria-label="Close menu"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Institutional Positioning Ribbon */}
-        <div className="px-5 py-2 bg-gradient-to-r from-rose-950/60 to-slate-900 border-b border-slate-800/60 flex items-center justify-between text-[10px] text-amber-300/90 font-medium shrink-0 overflow-hidden">
+        <div className="px-4 py-1.5 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between text-[10px] text-[#475569] font-medium shrink-0">
           <span className="flex items-center gap-1.5 truncate">
-            <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
-            <span className="truncate">Diamond University</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8B1E3F] shrink-0" />
+            <span className="text-[#8B1E3F] font-semibold truncate">Central India&apos;s Diamond University</span>
           </span>
-          <span className="text-slate-500 font-mono shrink-0 pl-2">232 Acres</span>
+          <span className="text-[#8490A0] font-mono shrink-0 pl-2">232 Acres</span>
         </div>
 
         {/* Nav Links */}
-        <nav className="flex-1 overflow-y-auto px-3.5 py-4 space-y-6">
+        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-1">
               {section.title && (
-                <div className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">
+                <div className="px-2.5 pb-1 text-[10px] font-bold uppercase tracking-wider text-[#8490A0] truncate">
                   {section.title}
                 </div>
               )}
               {section.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== `/${role.toLowerCase()}/dashboard`);
+                const isActive =
+                  pathname === item.href ||
+                  (pathname.startsWith(item.href) &&
+                    item.href !== `/${role.toLowerCase()}/dashboard`);
 
                 return (
                   <Link
@@ -374,29 +380,25 @@ export default function Sidebar({
                     onClick={() => {
                       if (window.innerWidth < 1024) onClose();
                     }}
-                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group ${
+                    className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group ${
                       isActive
-                        ? "bg-rose-600 text-white shadow-xs font-bold"
-                        : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        ? "bg-[#FDF2F4] text-[#8B1E3F] font-semibold border-l-[3px] border-[#8B1E3F] pl-2.5 shadow-2xs"
+                        : "text-[#475569] hover:text-[#172B4D] hover:bg-[#F5F6F8]"
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-1">
                       <Icon
-                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                          isActive ? "text-white" : "text-slate-400 group-hover:text-slate-200"
+                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
+                          isActive
+                            ? "text-[#8B1E3F]"
+                            : "text-[#8490A0] group-hover:text-[#172B4D]"
                         }`}
                       />
                       <span className="truncate">{item.label}</span>
                     </div>
 
                     {item.badge && (
-                      <span
-                        className={`px-1.5 py-0.2 text-[9px] rounded-full font-bold font-mono shrink-0 ${
-                          isActive
-                            ? "bg-white/20 text-white"
-                            : "bg-rose-950 text-rose-300 border border-rose-800/60"
-                        }`}
-                      >
+                      <span className="px-2 py-0.5 text-[9px] font-mono font-bold rounded-full bg-[#FDF2F4] text-[#8B1E3F] border border-[#FBE4E9] shrink-0">
                         {item.badge}
                       </span>
                     )}
@@ -408,12 +410,21 @@ export default function Sidebar({
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-4 border-t border-slate-800/80 bg-slate-950/80 text-[11px] text-slate-500 flex items-center justify-between shrink-0 min-w-0">
+        <div className="p-3.5 border-t border-[#E5E7EB] bg-[#FFFFFF] text-xs text-[#475569] flex items-center justify-between shrink-0 min-w-0">
           <div className="min-w-0 truncate mr-2">
-            <p className="font-bold text-slate-400 truncate">JLU Digital Campus</p>
-            <p className="text-[10px] text-slate-600 font-mono truncate">v2.4 • Bhopal, MP</p>
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold text-[#172B4D] truncate">JLU Digital Campus</span>
+              <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-sm bg-[#FDF2F4] text-[#8B1E3F] border border-[#FBE4E9]">
+                {role}
+              </span>
+            </div>
+            <p className="text-[10px] text-[#8490A0] font-mono truncate mt-0.5">
+              AY {JLU_PROFILE.currentAcademicYear} • Central DB
+            </p>
           </div>
-          <div className="w-2 h-2 shrink-0 rounded-full bg-emerald-500 shadow-2xs shadow-emerald-500/50" title="Central Relational Server Online" />
+          <div className="flex items-center gap-1.5 shrink-0" title="Central Academic Database Online">
+            <span className="w-2 h-2 rounded-full bg-[#16845B]" />
+          </div>
         </div>
 
         {/* Dedicated Drag-to-Resize Handle */}
@@ -462,25 +473,25 @@ export default function Sidebar({
           <div
             className={`w-[2px] h-full transition-colors duration-150 ${
               isDragging
-                ? "bg-rose-500 shadow-sm shadow-rose-500/50"
-                : "bg-slate-800/80 group-hover:bg-rose-500/90 group-focus:bg-rose-500/90"
+                ? "bg-[#8B1E3F] shadow-xs shadow-[#8B1E3F]/40"
+                : "bg-transparent group-hover:bg-[#8B1E3F]/70 group-focus:bg-[#8B1E3F]/70"
             }`}
           />
           {/* Center tactile grip pill */}
           <div
-            className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-8 rounded-full border border-slate-700 bg-slate-900 flex items-center justify-center transition-all duration-150 shadow-md ${
+            className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-8 rounded-full border border-[#E5E7EB] bg-[#FFFFFF] flex items-center justify-center transition-all duration-150 shadow-xs ${
               isDragging
-                ? "opacity-100 bg-rose-950 border-rose-500 text-rose-400 scale-110 ring-2 ring-rose-500/30"
-                : "opacity-0 group-hover:opacity-100 group-focus:opacity-100 text-slate-400 hover:text-slate-200"
+                ? "opacity-100 bg-[#FDF2F4] border-[#8B1E3F] text-[#8B1E3F] scale-110 ring-2 ring-[#8B1E3F]/20"
+                : "opacity-0 group-hover:opacity-100 group-focus:opacity-100 text-[#8490A0] hover:text-[#172B4D]"
             }`}
           >
             <GripVertical className="w-3 h-3" />
           </div>
           {/* Width indicator badge while dragging */}
           {isDragging && (
-            <div className="absolute top-20 left-4 px-2 py-1 bg-slate-900 text-rose-300 text-[10px] font-mono font-bold rounded-md border border-rose-500/40 shadow-xl pointer-events-none whitespace-nowrap z-50 flex items-center gap-1.5">
+            <div className="absolute top-20 left-4 px-2 py-1 bg-[#FFFFFF] text-[#8B1E3F] text-[10px] font-mono font-bold rounded-md border border-[#FBE4E9] shadow-md pointer-events-none whitespace-nowrap z-50 flex items-center gap-1.5">
               <span>{dragPx}px</span>
-              <span className="text-[9px] text-slate-500 font-normal">(220–420)</span>
+              <span className="text-[9px] text-[#8490A0] font-normal">(220–420)</span>
             </div>
           )}
         </div>

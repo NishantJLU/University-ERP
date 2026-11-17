@@ -102,7 +102,7 @@ export default function DashboardClientLayout({
     <ToastProvider>
       <div
         ref={layoutContainerRef}
-        className="min-h-screen bg-slate-50 flex"
+        className="min-h-screen bg-[#F5F6F8] flex"
         style={
           {
             "--sidebar-width": `${sidebarWidth}px`,
@@ -127,7 +127,7 @@ export default function DashboardClientLayout({
             onOpenSidebar={() => setSidebarOpen(true)}
             onOpenSearch={() => setCommandPaletteOpen(true)}
           />
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+          <main className="flex-1 p-3 sm:p-4 lg:p-5 max-w-[1600px] w-full mx-auto">
             {children}
           </main>
         </div>
