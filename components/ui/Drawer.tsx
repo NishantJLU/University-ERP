@@ -50,7 +50,7 @@ export default function Drawer({
   }[maxWidth];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-[60] overflow-hidden">
       {/* Backdrop */}
       <div
         onClick={onClose}

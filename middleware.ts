@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 // Role-based route access configuration
 const ROLE_ROUTE_PREFIXES: Record<string, string[]> = {
+  "/student/resources": ["STUDENT", "TEACHER", "HOD", "ADMIN"],
   "/admin": ["ADMIN"],
   "/hod": ["HOD", "ADMIN"],
   "/teacher": ["TEACHER", "HOD", "ADMIN"],
@@ -32,10 +33,10 @@ function parseJwtPayload(token: string): any | null {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Find matching protected prefix
-  const matchingPrefix = Object.keys(ROLE_ROUTE_PREFIXES).find((prefix) =>
-    pathname.startsWith(prefix)
-  );
+  // Find matching protected prefix (most specific first)
+  const matchingPrefix = Object.keys(ROLE_ROUTE_PREFIXES)
+    .sort((a, b) => b.length - a.length)
+    .find((prefix) => pathname.startsWith(prefix));
 
   if (!matchingPrefix) {
     return NextResponse.next();

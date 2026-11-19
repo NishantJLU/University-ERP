@@ -49,10 +49,10 @@ export default async function HODAttendancePage() {
           Recent Class Attendance Sessions Conducted
         </h2>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[700px] text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase text-slate-500">
+              <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase text-slate-500 whitespace-nowrap">
                 <th className="p-3">Date</th>
                 <th className="p-3">Subject</th>
                 <th className="p-3">Section</th>

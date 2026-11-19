@@ -13,10 +13,33 @@ export default async function StudentFeesPage() {
     where: { id: user.studentId },
     include: {
       user: true,
-      program: true,
+      program: {
+        include: {
+          department: true,
+        },
+      },
       currentSemester: true,
       feeDues: {
-        include: { feeStructure: true },
+        include: {
+          feeStructure: {
+            include: {
+              semester: true,
+              academicYear: true,
+              program: true,
+            },
+          },
+          transactions: {
+            include: { receipt: true },
+            orderBy: { createdAt: "desc" },
+          },
+        },
+        orderBy: {
+          feeStructure: {
+            semester: {
+              number: "asc",
+            },
+          },
+        },
       },
       paymentTransactions: {
         include: { receipt: true },

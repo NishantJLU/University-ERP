@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   Menu,
@@ -43,6 +43,40 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
   const [notifOpen, setNotifOpen] = useState(false);
   const [switching, setSwitching] = useState(false);
   const [unreadNotifs, setUnreadNotifs] = useState(2);
+
+  const roleMenuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const notifMenuRef = useRef<HTMLDivElement>(null);
+
+  // Outside click listener to dismiss all dropdown menus
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (roleMenuRef.current && !roleMenuRef.current.contains(event.target as Node)) {
+        setRoleMenuOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+      if (notifMenuRef.current && !notifMenuRef.current.contains(event.target as Node)) {
+        setNotifOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setRoleMenuOpen(false);
+        setUserMenuOpen(false);
+        setNotifOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const handleOpenSearch = () => {
     if (onOpenSearch) {
@@ -88,19 +122,19 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
   return (
     <header className="sticky top-0 z-30 h-16 bg-[#FFFFFF] text-[#172B4D] border-b border-[#E5E7EB] px-4 sm:px-6 flex items-center justify-between select-none shadow-2xs">
       {/* Left: Mobile Toggle + Breadcrumbs */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={onOpenSidebar}
-          className="p-1.5 -ml-1.5 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-[#F5F6F8] lg:hidden focus:outline-none transition"
+          className="p-1.5 -ml-1.5 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-[#F5F6F8] lg:hidden focus:outline-none transition shrink-0"
           aria-label="Open sidebar"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         {/* Functional Breadcrumb Navigation Context */}
-        <div className="flex items-center gap-1.5 text-xs text-[#8490A0] font-medium">
-          <span className="font-semibold text-[#172B4D] tracking-wide">JLU Digital Campus</span>
-          <span className="text-[#CBD5E1]">/</span>
+        <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#8490A0] font-medium min-w-0 overflow-hidden">
+          <span className="font-semibold text-[#172B4D] tracking-wide shrink-0">JLU Digital Campus</span>
+          <span className="text-[#CBD5E1] shrink-0">/</span>
           {pathParts.map((part, index) => {
             const isLast = index === pathParts.length - 1;
             const labelMap: Record<string, string> = {
@@ -114,21 +148,24 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
               quizzes: "Quizzes",
               dashboard: "Dashboard",
               profile: "Profile",
+              department: "Department",
+              resources: "Resources",
+              faculty: "Faculty Roster",
             };
             const displayLabel = labelMap[part] || part.replace("-", " ");
 
             return (
-              <span key={part} className="flex items-center gap-1.5">
+              <span key={part} className="flex items-center gap-1.5 min-w-0">
                 <span
                   className={
                     isLast
-                      ? "text-[#172B4D] font-bold capitalize"
-                      : "text-[#8490A0] capitalize hover:text-[#172B4D]"
+                      ? "text-[#172B4D] font-bold capitalize truncate max-w-[140px] md:max-w-none"
+                      : "text-[#8490A0] capitalize hover:text-[#172B4D] truncate max-w-[100px] md:max-w-none"
                   }
                 >
                   {displayLabel}
                 </span>
-                {!isLast && <span className="text-[#CBD5E1]">/</span>}
+                {!isLast && <span className="text-[#CBD5E1] shrink-0">/</span>}
               </span>
             );
           })}
@@ -167,7 +204,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         </button>
 
         {/* Quick Role Switcher for seamless testing */}
-        <div className="relative">
+        <div className="relative" ref={roleMenuRef}>
           <button
             type="button"
             onClick={() => {
@@ -218,7 +255,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         </div>
 
         {/* Notifications Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={notifMenuRef}>
           <button
             type="button"
             onClick={() => {
@@ -274,7 +311,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         </div>
 
         {/* Standard User Profile Menu */}
-        <div className="relative">
+        <div className="relative" ref={userMenuRef}>
           <button
             type="button"
             onClick={() => {

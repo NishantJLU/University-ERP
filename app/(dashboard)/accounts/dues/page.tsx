@@ -38,10 +38,10 @@ export default async function AccountsDuesPage() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[850px] text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase text-slate-500">
+              <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase text-slate-500 whitespace-nowrap">
                 <th className="p-3">Roll No</th>
                 <th className="p-3">Student Name</th>
                 <th className="p-3">Program</th>

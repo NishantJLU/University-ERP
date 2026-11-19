@@ -175,7 +175,7 @@ export default function StudentReceiptsClient({ receipts }: StudentReceiptsClien
 
       {/* Printable Receipt Voucher Container */}
       {selectedReceipt && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 print:p-0 print:static print:bg-transparent print:z-auto">
+        <div className="fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 print:p-0 print:static print:bg-transparent print:z-auto">
           <div className="bg-white rounded-sm max-w-xl w-full p-6 shadow-xl space-y-4 border border-slate-300 print:border-none print:shadow-none print:p-4 print:max-w-none">
             {/* Modal actions (hidden on print) */}
             <div className="flex items-center justify-between pb-2 border-b border-slate-200 print:hidden">

@@ -696,7 +696,7 @@ export default function LMSCourseHub({
 
       {/* Assignment Submission Modal */}
       {submittingAssignment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 space-y-4 border border-slate-200">
             <h3 className="text-sm font-bold text-slate-900">
               Submit Assignment: {submittingAssignment.title}

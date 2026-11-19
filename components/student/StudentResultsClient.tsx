@@ -595,7 +595,7 @@ export default function StudentResultsClient({ student }: StudentResultsClientPr
 
       {/* Re-evaluation Modal */}
       {reevalModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-sm shadow-xl max-w-md w-full p-5 space-y-3 border border-slate-300">
             <div className="flex items-center justify-between pb-2 border-b border-slate-200">
               <div className="flex items-center gap-1.5">

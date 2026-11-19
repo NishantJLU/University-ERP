@@ -124,6 +124,7 @@ model Semester {
   feeStructures  FeeStructure[]
   enrollments    Enrollment[]
   exams          Exam[]
+  learningMaterials LearningMaterial[]
 }
 
 model Subject {
@@ -148,6 +149,7 @@ model Subject {
   quizzes        Quiz[]
   examSchedules  ExamSchedule[]
   examResults    ExamResult[]
+  learningMaterials LearningMaterial[]
 }
 
 model Section {
@@ -513,17 +515,27 @@ model Lesson {
 }
 
 model LearningMaterial {
-  id           String    @id @default(uuid())
-  courseId     String
+  id           String      @id @default(uuid())
+  courseId     String?
+  subjectId    String?
+  semesterId   String?
+  category     String      @default("STUDY_MATERIALS") // ACADEMIC_CALENDAR, COURSE_SYLLABUS, LECTURE_NOTES, STUDY_MATERIALS, PYQ, POLICIES, GUIDELINES, EXAM_RESOURCES
   title        String
+  description  String?
   fileUrl      String
-  fileType     String    @default("PDF") // PDF, PPT, DOC, ZIP
-  fileSize     String    @default("2.4 MB")
+  fileType     String      @default("PDF") // PDF, PPT, DOC, ZIP
+  fileSize     String      @default("2.4 MB")
   uploadedById String
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime    @default(now())
 
-  course       LMSCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  uploadedBy   User      @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  course       LMSCourse?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  subject      Subject?    @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  semester     Semester?   @relation(fields: [semesterId], references: [id], onDelete: SetNull)
+  uploadedBy   User        @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([subjectId])
+  @@index([semesterId])
 }
 
 model Assignment {

@@ -11,11 +11,18 @@ import {
   ChevronUp,
   Printer,
   ShieldCheck,
-  Info,
+  Download,
+  FileText,
+  Clock,
+  Sparkles,
+  Calendar,
+  X,
+  FileSpreadsheet,
 } from "lucide-react";
 import { formatCurrency, formatDate, formatEnum } from "@/lib/utils";
 import SandboxPaymentModal from "@/components/payment/SandboxPaymentModal";
 import Link from "next/link";
+import JLULogo from "@/components/ui/JLULogo";
 
 interface StudentFeesClientProps {
   student: any;
@@ -33,9 +40,16 @@ export default function StudentFeesClient({
   const [expandedBreakdownId, setExpandedBreakdownId] = useState<string | null>(null);
   const [expandedTxnId, setExpandedTxnId] = useState<string | null>(null);
 
+  // Document Modal States: 'statement' | 'consolidated' | 'single_receipt' | null
+  const [activeDocType, setActiveDocType] = useState<"statement" | "consolidated" | "receipt" | null>(null);
+  const [activeReceiptTxn, setActiveReceiptTxn] = useState<any | null>(null);
+
+  // 1. Calculations across all semesters
   const totalFees = feeDues.reduce((acc, d) => acc + d.totalAmount, 0);
   const totalPaid = feeDues.reduce((acc, d) => acc + d.paidAmount, 0);
-  const totalPending = totalFees - totalPaid;
+  const totalOutstanding = Math.max(0, totalFees - totalPaid);
+  const paidSemestersCount = feeDues.filter((d) => d.paidAmount >= d.totalAmount).length;
+  const pendingSemestersCount = feeDues.filter((d) => d.paidAmount < d.totalAmount).length;
 
   // Evaluation of overdue status
   const today = new Date();
@@ -73,330 +87,337 @@ export default function StudentFeesClient({
     setExpandedTxnId(expandedTxnId === id ? null : id);
   };
 
+  const openSingleReceipt = (txn: any) => {
+    setActiveReceiptTxn(txn);
+    setActiveDocType("receipt");
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="space-y-4 font-sans text-slate-800">
-      {/* Institutional Breadcrumb & Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+    <div className="space-y-5 font-sans text-slate-800">
+      {/* Top Breadcrumb & Document Actions */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[#E5E7EB] pb-3">
         <div>
-          <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
-            <Link href="/student/dashboard" className="hover:text-slate-800">
+          <nav className="flex items-center gap-1.5 text-xs text-[#8490A0] mb-1">
+            <Link href="/student/dashboard" className="hover:text-[#172B4D]">
               Dashboard
             </Link>
             <span>/</span>
-            <span className="text-slate-600">Finance & Accounts</span>
+            <span className="text-[#475569]">Finance & Accounts</span>
             <span>/</span>
-            <span className="text-slate-900 font-medium">Fee Ledger</span>
+            <span className="text-[#172B4D] font-semibold">Semester Fee Ledger</span>
           </nav>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-            Financial Ledger & Fee Payments
+          <h1 className="text-xl font-extrabold text-[#172B4D] tracking-tight">
+            Semester Fee Management & Institutional Ledger
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Student: <span className="font-semibold text-slate-800">{student.user.name}</span> • Roll No:{" "}
-            <span className="font-mono text-slate-800">{student.rollNumber}</span> • Program:{" "}
-            <span className="text-slate-800">{student.program.code} (Sem {student.currentSemester.number})</span>
+          <p className="text-xs text-[#475569] mt-0.5">
+            Student: <span className="font-semibold text-[#172B4D]">{student.user.name}</span> • Roll No:{" "}
+            <span className="font-mono text-[#8B1E3F] font-bold">{student.rollNumber}</span> • Program:{" "}
+            <span className="text-[#172B4D]">{student.program.name} ({student.program.code})</span>
           </p>
         </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          <Link
-            href="/student/receipts"
-            className="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-sm text-xs font-semibold flex items-center gap-1.5 transition"
+        {/* Action Buttons for Document Downloads */}
+        <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+          <button
+            type="button"
+            onClick={() => setActiveDocType("statement")}
+            className="px-3 py-1.5 bg-white hover:bg-[#F9FAFB] border border-[#E5E7EB] text-[#172B4D] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
+            title="Download complete university fee statement"
           >
-            <ReceiptIcon className="w-3.5 h-3.5 text-slate-500" />
-            Voucher Receipts
-          </Link>
+            <FileSpreadsheet className="w-3.5 h-3.5 text-[#8B1E3F]" />
+            <span>Download Fee Statement</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveDocType("consolidated")}
+            className="px-3 py-1.5 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
+            title="Download consolidated all-semester fee records"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download All Fee Records</span>
+          </button>
         </div>
       </div>
 
       {/* Gateway Simulation Notice */}
-      <div className="px-3 py-2 rounded-sm bg-slate-100 border border-slate-300 text-slate-700 text-xs flex items-center justify-between gap-2">
+      <div className="px-3.5 py-2.5 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] text-[#475569] text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
         <div className="flex items-center gap-2">
-          <span className="px-1.5 py-0.2 rounded-xs font-bold text-[10px] uppercase bg-slate-700 text-white">
-            Sandbox Active
+          <span className="px-2 py-0.5 rounded-md font-bold text-[10px] uppercase bg-[#FDF2F4] text-[#8B1E3F] border border-[#FBE4E9]">
+            Active Clearing Gateway
           </span>
-          <span className="text-[11px] text-slate-600">
-            Payment transactions execute via simulated university clearing gateway. Digital seal vouchers are issued immediately.
+          <span className="text-[11px] text-[#475569]">
+            University automated fee reconciliation is active. Transactions generate digitally sealed audit receipts instantly.
           </span>
         </div>
-        <span className="text-[11px] font-mono text-slate-500 shrink-0 hidden md:inline">
-          Terminal ID: JLU-BNK-3029
+        <span className="text-[10px] font-mono text-[#8490A0] shrink-0">
+          Terminal ID: JLU-BNK-3029 • SSL Secured
         </span>
       </div>
 
-      {/* Dense Ledger KPI Strip */}
-      <div className="border border-slate-300 bg-white rounded-sm p-3 grid grid-cols-2 md:grid-cols-4 gap-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-        <div className="pr-3">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
-            Total Billed Fees
+      {/* 2. Fee Summary Cards (Task 3.B) */}
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8490A0] block">
+            Total Programme Fees
           </span>
-          <p className="text-xl font-bold text-slate-900 mt-0.5">{formatCurrency(totalFees)}</p>
-          <span className="text-[10px] text-slate-500">AY 2026–2027 Schedule</span>
+          <p className="text-xl font-extrabold text-[#172B4D] font-mono">
+            {formatCurrency(totalFees)}
+          </p>
+          <span className="text-[10px] text-[#475569] block">All Mapped Semesters</span>
         </div>
 
-        <div className="pt-2 md:pt-0 md:px-3">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
-            Realized Collections
+        <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8490A0] block">
+            Total Amount Paid
           </span>
-          <p className="text-xl font-bold text-slate-800 mt-0.5">{formatCurrency(totalPaid)}</p>
-          <span className="text-[10px] text-emerald-700 font-medium">Reconciled to Student Account</span>
+          <p className="text-xl font-extrabold text-[#16845B] font-mono">
+            {formatCurrency(totalPaid)}
+          </p>
+          <span className="text-[10px] text-[#16845B] font-medium block">Cleared & Reconciled</span>
         </div>
 
-        <div className="pt-2 md:pt-0 md:px-3">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
-            Net Outstanding Dues
+        <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8490A0] block">
+            Total Outstanding Fees
           </span>
-          <p className="text-xl font-bold text-slate-900 mt-0.5">{formatCurrency(totalPending)}</p>
-          <span className="text-[10px] text-slate-500">Subject to university fee regulations</span>
+          <p className={`text-xl font-extrabold font-mono ${totalOutstanding > 0 ? "text-[#C2414B]" : "text-[#16845B]"}`}>
+            {formatCurrency(totalOutstanding)}
+          </p>
+          <span className="text-[10px] text-[#8490A0] block">Net Current Dues</span>
         </div>
 
-        <div className="pt-2 md:pt-0 md:pl-3">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
-            Account Status
+        <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8490A0] block">
+            Paid Semesters
           </span>
-          <div className="mt-1">
-            {isOverdue && totalPending > 0 ? (
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 border border-red-300 px-2 py-0.5 rounded-xs">
-                <AlertTriangle className="w-3 h-3 text-red-600" />
-                Overdue by {overdueDays} days
-              </span>
-            ) : totalPending === 0 ? (
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-xs">
-                <CheckCircle2 className="w-3 h-3 text-emerald-700" />
-                All Dues Cleared
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-2 py-0.5 rounded-xs">
-                Payment Pending
-              </span>
-            )}
-          </div>
-          <span className="text-[10px] text-slate-500 block mt-0.5">
-            Due date: Sep 30, 2026
+          <p className="text-xl font-extrabold text-[#172B4D]">
+            {paidSemestersCount} <span className="text-xs font-normal text-[#8490A0]">/ {feeDues.length}</span>
+          </p>
+          <span className="text-[10px] text-[#16845B] font-medium block">Fully Settled Terms</span>
+        </div>
+
+        <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-1 col-span-2 lg:col-span-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8490A0] block">
+            Pending Semesters
+          </span>
+          <p className={`text-xl font-extrabold ${pendingSemestersCount > 0 ? "text-[#B7791F]" : "text-[#16845B]"}`}>
+            {pendingSemestersCount} <span className="text-xs font-normal text-[#8490A0]">Pending</span>
+          </p>
+          <span className="text-[10px] text-[#475569] block">
+            {pendingSemestersCount === 0 ? "Account in Good Standing" : "Action Required"}
           </span>
         </div>
       </div>
 
-      {/* Main Tabular Data Grid: Semester Fee Invoices & Dues */}
-      <div className="border border-slate-300 bg-white rounded-sm overflow-hidden">
-        <div className="px-3.5 py-2.5 bg-slate-50 border-b border-slate-300 flex items-center justify-between">
+      {/* 3. All Semester Fee Records Table (Task 3.A & 3.C) */}
+      <div className="border border-[#E5E7EB] bg-white rounded-xl shadow-xs overflow-hidden space-y-0">
+        <div className="px-4 py-3 bg-[#F9FAFB] border-b border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-              Semester Fee Invoices & Demand Ledger
+            <h2 className="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
+              <CreditCard className="w-4 h-4 text-[#8B1E3F]" />
+              <span>All Semester Fee Records ({feeDues.length} Terms)</span>
             </h2>
-            <p className="text-[11px] text-slate-500">
-              Demand notes issued by the University Bursar & Comptroller of Finance
+            <p className="text-[11px] text-[#475569] mt-0.5">
+              Comprehensive institutional record of semester tuition, laboratories, examinations, and clearance status
             </p>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded-xs">
-            {feeDues.length} Demand Note(s)
+          <span className="text-[10px] font-mono text-[#8490A0] bg-white border border-[#E5E7EB] px-2 py-0.5 rounded-md self-start sm:self-auto font-semibold">
+            Program: {student.program.code}
           </span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-xs min-w-[850px] border-collapse">
             <thead>
-              <tr className="bg-slate-100 border-b border-slate-300 text-[10px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-2.5 px-3">Fee Head / Title</th>
-                <th className="py-2.5 px-3">Due Date</th>
-                <th className="py-2.5 px-3 min-w-[260px]">Fee Breakdown (Itemized)</th>
-                <th className="py-2.5 px-3 text-right">Total Billed</th>
-                <th className="py-2.5 px-3 text-right">Paid</th>
-                <th className="py-2.5 px-3 text-right">Balance Due</th>
-                <th className="py-2.5 px-3 text-center">Status</th>
-                <th className="py-2.5 px-3 text-right">Action</th>
+              <tr className="bg-[#F9FAFB] border-b border-[#E5E7EB] text-[10px] font-bold uppercase tracking-wider text-[#8490A0]">
+                <th className="py-3 px-3.5">Semester & Year</th>
+                <th className="py-3 px-3">Total Fee</th>
+                <th className="py-3 px-3">Amount Paid</th>
+                <th className="py-3 px-3">Outstanding Balance</th>
+                <th className="py-3 px-3 text-center">Payment Status</th>
+                <th className="py-3 px-3">Payment Date</th>
+                <th className="py-3 px-3">Transaction ID</th>
+                <th className="py-3 px-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-[#E5E7EB]">
               {feeDues.map((due) => {
-                const pending = due.totalAmount - due.paidAmount;
-                const dueOverdue = new Date(due.dueDate).getTime() < today.getTime() && pending > 0;
-                const daysLate = Math.max(
-                  1,
-                  Math.floor((today.getTime() - new Date(due.dueDate).getTime()) / (1000 * 60 * 60 * 24))
-                );
+                const pending = Math.max(0, due.totalAmount - due.paidAmount);
+                const isPaid = pending === 0;
                 const isExpanded = expandedBreakdownId === due.id;
 
+                // Find latest transaction and receipt for this due
+                const dueTxns = due.transactions || [];
+                const latestTxn = dueTxns[0] || transactions.find((t) => t.studentFeeDueId === due.id);
+                const paymentDate = latestTxn ? formatDate(latestTxn.createdAt) : "—";
+                const txnId = latestTxn ? latestTxn.transactionId : "—";
+
                 const breakdownItems = [
-                  { label: "Tuition", amount: due.feeStructure.tuitionFee },
-                  { label: "Laboratory", amount: due.feeStructure.labFee },
-                  { label: "Library", amount: due.feeStructure.libraryFee },
-                  { label: "Examination", amount: due.feeStructure.examFee },
-                  { label: "Amenities", amount: due.feeStructure.otherFee || 2000 },
+                  { label: "Tuition Fee", amount: due.feeStructure.tuitionFee, desc: "Academic Instruction & Faculty Core" },
+                  { label: "Laboratory Fee", amount: due.feeStructure.labFee, desc: "Computing Infrastructure & Lab Supplies" },
+                  { label: "Library Fee", amount: due.feeStructure.libraryFee, desc: "Physical Library, IEEE/ACM Digital Access" },
+                  { label: "Examination Fee", amount: due.feeStructure.examFee, desc: "End-Term Assessment, Moderation & Grade Cards" },
+                  { label: "Amenities & Welfare", amount: due.feeStructure.otherFee || 2000, desc: "Campus High-Speed Wi-Fi & Student Services" },
                 ];
 
                 return (
                   <React.Fragment key={due.id}>
-                    <tr className="hover:bg-slate-50/80 transition-colors">
-                      {/* Fee Head */}
-                      <td className="py-2.5 px-3 align-top">
-                        <div className="font-semibold text-slate-900">{due.feeStructure.title}</div>
-                        <div className="text-[10px] text-slate-500 font-mono mt-0.5">
-                          Ref: INV-{due.id.slice(0, 8).toUpperCase()}
+                    <tr className="hover:bg-[#F9FAFB] transition">
+                      {/* Semester Number & Academic Year */}
+                      <td className="py-3 px-3.5 align-top">
+                        <div className="font-bold text-[#172B4D]">
+                          Semester {due.feeStructure.semester?.number || "?"}
+                        </div>
+                        <div className="text-[11px] text-[#475569]">
+                          {due.feeStructure.title}
+                        </div>
+                        <div className="text-[10px] text-[#8490A0] font-mono mt-0.5">
+                          {due.feeStructure.academicYear?.name || "AY 2026–2027"}
                         </div>
                       </td>
 
-                      {/* Due Date */}
-                      <td className="py-2.5 px-3 align-top whitespace-nowrap">
-                        <div className="font-medium text-slate-800">{formatDate(due.dueDate)}</div>
-                        {dueOverdue && (
-                          <div className="text-[10px] text-red-600 font-semibold mt-0.5">
-                            Overdue +{daysLate}d
-                          </div>
-                        )}
-                      </td>
-
-                      {/* Breakdown Summary */}
-                      <td className="py-2.5 px-3 align-top">
-                        <div className="text-[11px] space-y-1">
-                          <div className="flex flex-wrap items-center gap-1 text-slate-600">
-                            <span className="bg-slate-100 px-1 py-0.2 rounded-xs border border-slate-200">
-                              Tuition: {formatCurrency(due.feeStructure.tuitionFee)}
-                            </span>
-                            <span className="bg-slate-100 px-1 py-0.2 rounded-xs border border-slate-200">
-                              Lab: {formatCurrency(due.feeStructure.labFee)}
-                            </span>
-                            <span className="bg-slate-100 px-1 py-0.2 rounded-xs border border-slate-200">
-                              Lib: {formatCurrency(due.feeStructure.libraryFee)}
-                            </span>
-                            <span className="bg-slate-100 px-1 py-0.2 rounded-xs border border-slate-200">
-                              Exam: {formatCurrency(due.feeStructure.examFee)}
-                            </span>
-                            <span className="bg-slate-100 px-1 py-0.2 rounded-xs border border-slate-200">
-                              Amenities: {formatCurrency(due.feeStructure.otherFee || 2000)}
-                            </span>
-                          </div>
-
-                          <button
-                            type="button"
-                            onClick={() => toggleBreakdown(due.id)}
-                            className="text-[10px] font-semibold text-blue-700 hover:text-blue-900 flex items-center gap-0.5"
-                          >
-                            {isExpanded ? (
-                              <>
-                                <span>Hide Itemized Schedule</span>
-                                <ChevronUp className="w-3 h-3" />
-                              </>
-                            ) : (
-                              <>
-                                <span>Show Full Schedule Details</span>
-                                <ChevronDown className="w-3 h-3" />
-                              </>
-                            )}
-                          </button>
-                        </div>
-                      </td>
-
-                      {/* Total Amount */}
-                      <td className="py-2.5 px-3 text-right font-semibold text-slate-900 align-top whitespace-nowrap">
+                      {/* Total Semester Fee */}
+                      <td className="py-3 px-3 align-top font-bold text-[#172B4D] font-mono">
                         {formatCurrency(due.totalAmount)}
                       </td>
 
-                      {/* Paid Amount */}
-                      <td className="py-2.5 px-3 text-right font-medium text-slate-700 align-top whitespace-nowrap">
+                      {/* Amount Paid */}
+                      <td className="py-3 px-3 align-top font-bold text-[#16845B] font-mono">
                         {formatCurrency(due.paidAmount)}
                       </td>
 
-                      {/* Balance Due */}
-                      <td className="py-2.5 px-3 text-right align-top whitespace-nowrap font-bold">
-                        <span className={pending > 0 ? "text-red-700" : "text-emerald-700"}>
+                      {/* Outstanding Balance */}
+                      <td className="py-3 px-3 align-top font-mono font-bold">
+                        <span className={pending > 0 ? "text-[#C2414B]" : "text-[#16845B]"}>
                           {formatCurrency(pending)}
                         </span>
                       </td>
 
-                      {/* Status */}
-                      <td className="py-2.5 px-3 text-center align-top whitespace-nowrap">
-                        {pending === 0 ? (
-                          <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xs">
+                      {/* Payment Status */}
+                      <td className="py-3 px-3 align-top text-center">
+                        {isPaid ? (
+                          <span className="inline-block px-2.5 py-0.5 text-[10px] font-bold bg-[#ECFDF3] text-[#16845B] border border-[#A7F3D0] rounded-md">
                             Paid in Full
                           </span>
-                        ) : dueOverdue ? (
-                          <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-red-50 text-red-700 border border-red-300 rounded-xs">
-                            Overdue
+                        ) : due.paidAmount > 0 ? (
+                          <span className="inline-block px-2.5 py-0.5 text-[10px] font-bold bg-[#FFFAEB] text-[#B7791F] border border-[#FDE68A] rounded-md">
+                            Partially Paid
                           </span>
                         ) : (
-                          <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-300 rounded-xs">
+                          <span className="inline-block px-2.5 py-0.5 text-[10px] font-bold bg-[#FEF2F2] text-[#C2414B] border border-[#FECACA] rounded-md">
                             Pending
                           </span>
                         )}
                       </td>
 
-                      {/* Action */}
-                      <td className="py-2.5 px-3 text-right align-top whitespace-nowrap">
-                        {pending > 0 ? (
-                          <div className="flex items-center justify-end gap-1.5">
-                            {pending > 25000 && (
-                              <button
-                                type="button"
-                                onClick={() => handleOpenPay(due, 25000)}
-                                className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-sm transition"
-                              >
-                                Pay ₹25k
-                              </button>
-                            )}
+                      {/* Payment Date */}
+                      <td className="py-3 px-3 align-top text-[#475569] font-medium whitespace-nowrap">
+                        {paymentDate}
+                      </td>
+
+                      {/* Transaction ID */}
+                      <td className="py-3 px-3 align-top font-mono text-[11px] text-[#475569] max-w-[150px] truncate" title={txnId}>
+                        {txnId !== "—" ? (
+                          <span className="text-[#172B4D] font-medium">{txnId}</span>
+                        ) : (
+                          <span className="text-[#8490A0]">—</span>
+                        )}
+                      </td>
+
+                      {/* Action Buttons */}
+                      <td className="py-3 px-3.5 align-top text-right whitespace-nowrap space-y-1">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => toggleBreakdown(due.id)}
+                            className="px-2 py-1 text-[11px] font-semibold text-[#475569] hover:text-[#172B4D] bg-[#F9FAFB] hover:bg-[#F5F6F8] border border-[#E5E7EB] rounded-md flex items-center gap-1 transition"
+                            title="Expand semester fee breakdown"
+                          >
+                            <span>{isExpanded ? "Hide" : "Details"}</span>
+                            {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                          </button>
+
+                          {pending > 0 ? (
                             <button
                               type="button"
                               onClick={() => handleOpenPay(due, pending)}
-                              className="px-2.5 py-1 text-[11px] font-bold bg-blue-700 hover:bg-blue-800 text-white rounded-sm border border-blue-800 transition flex items-center gap-1"
+                              className="px-2.5 py-1 text-[11px] font-bold bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-md transition shadow-2xs flex items-center gap-1"
                             >
                               <CreditCard className="w-3 h-3" />
-                              Pay Balance
+                              <span>Pay {formatCurrency(pending)}</span>
                             </button>
-                          </div>
-                        ) : (
-                          <span className="text-slate-400 text-xs font-mono">Settled</span>
-                        )}
+                          ) : (
+                            latestTxn && (
+                              <button
+                                type="button"
+                                onClick={() => openSingleReceipt(latestTxn)}
+                                className="px-2.5 py-1 text-[11px] font-semibold bg-[#ECFDF3] hover:bg-[#D1FAE5] text-[#16845B] border border-[#A7F3D0] rounded-md flex items-center gap-1 transition cursor-pointer"
+                              >
+                                <ReceiptIcon className="w-3 h-3" />
+                                <span>Receipt</span>
+                              </button>
+                            )
+                          )}
+                        </div>
                       </td>
                     </tr>
 
-                    {/* Expandable Itemized Schedule Row */}
+                    {/* Expandable Semester Fee Breakdown */}
                     {isExpanded && (
-                      <tr className="bg-slate-50/70 border-y border-slate-200">
-                        <td colSpan={8} className="p-3">
-                          <div className="bg-white border border-slate-300 rounded-xs p-3">
-                            <div className="text-[11px] font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center justify-between">
-                              <span>Official Statutory Schedule of Charges — {due.feeStructure.title}</span>
-                              <span className="text-slate-500 font-mono">Billed to: {student.rollNumber}</span>
+                      <tr className="bg-[#F9FAFB] border-y border-[#E5E7EB]">
+                        <td colSpan={8} className="p-4">
+                          <div className="bg-white border border-[#E5E7EB] rounded-lg p-4 space-y-3 shadow-2xs">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-[#E5E7EB] gap-1">
+                              <div>
+                                <h3 className="text-xs font-bold text-[#172B4D] uppercase tracking-wider">
+                                  Official Itemized Fee Schedule • {due.feeStructure.title}
+                                </h3>
+                                <p className="text-[11px] text-[#475569]">
+                                  Sanctioned by Academic Council for Semester {due.feeStructure.semester?.number || "?"}
+                                </p>
+                              </div>
+                              <span className="text-[10px] font-mono text-[#8490A0]">
+                                Due Date: {formatDate(due.dueDate)}
+                              </span>
                             </div>
-                            <table className="w-full text-left text-xs border border-slate-200">
-                              <thead>
-                                <tr className="bg-slate-100 text-[10px] font-bold uppercase text-slate-600 border-b border-slate-200">
-                                  <th className="p-2">Line Item Head</th>
-                                  <th className="p-2">Statutory Allocation Description</th>
-                                  <th className="p-2 text-right">Sanctioned Amount</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-slate-100">
-                                {breakdownItems.map((item, idx) => (
-                                  <tr key={idx} className="hover:bg-slate-50/50">
-                                    <td className="p-2 font-medium text-slate-800">{item.label} Fee</td>
-                                    <td className="p-2 text-slate-500 text-[11px]">
-                                      {item.label === "Tuition"
-                                        ? "Academic Instruction & Faculty Costs"
-                                        : item.label === "Laboratory"
-                                        ? "Computing Labs, Equipment & Software Licensing"
-                                        : item.label === "Library"
-                                        ? "Central Library, IEEE/ACM Subscriptions"
-                                        : item.label === "Examination"
-                                        ? "End-Term Assessment, Moderation & Grade Cards"
-                                        : "Campus Amenities, High-Speed Wi-Fi & Student Welfare"}
+
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-left text-xs border border-[#E5E7EB] border-collapse">
+                                <thead>
+                                  <tr className="bg-[#F9FAFB] text-[10px] font-bold uppercase text-[#8490A0] border-b border-[#E5E7EB]">
+                                    <th className="p-2">Fee Head</th>
+                                    <th className="p-2">Statutory Allocation Description</th>
+                                    <th className="p-2 text-right">Sanctioned Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[#E5E7EB]">
+                                  {breakdownItems.map((item, idx) => (
+                                    <tr key={idx} className="hover:bg-[#F9FAFB]">
+                                      <td className="p-2 font-semibold text-[#172B4D]">{item.label}</td>
+                                      <td className="p-2 text-[#475569] text-[11px]">{item.desc}</td>
+                                      <td className="p-2 text-right font-mono font-bold text-[#172B4D]">
+                                        {formatCurrency(item.amount)}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                <tfoot>
+                                  <tr className="bg-[#F9FAFB] font-bold border-t border-[#E5E7EB]">
+                                    <td colSpan={2} className="p-2 text-[#172B4D]">
+                                      Total Semester Bill
                                     </td>
-                                    <td className="p-2 text-right font-mono text-slate-800">
-                                      {formatCurrency(item.amount)}
+                                    <td className="p-2 text-right font-mono text-[#172B4D]">
+                                      {formatCurrency(due.totalAmount)}
                                     </td>
                                   </tr>
-                                ))}
-                              </tbody>
-                              <tfoot>
-                                <tr className="bg-slate-50 font-bold border-t border-slate-200">
-                                  <td colSpan={2} className="p-2 text-slate-900">
-                                    Reconciled Total Billed
-                                  </td>
-                                  <td className="p-2 text-right font-mono text-slate-900">
-                                    {formatCurrency(due.totalAmount)}
-                                  </td>
-                                </tr>
-                              </tfoot>
-                            </table>
+                                </tfoot>
+                              </table>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -409,144 +430,74 @@ export default function StudentFeesClient({
         </div>
       </div>
 
-      {/* Payment Transactions & Receipts Table */}
-      <div className="border border-slate-300 bg-white rounded-sm overflow-hidden">
-        <div className="px-3.5 py-2.5 bg-slate-50 border-b border-slate-300 flex items-center justify-between">
+      {/* 4. Transactions & Audit Vouchers */}
+      <div className="border border-[#E5E7EB] bg-white rounded-xl shadow-xs overflow-hidden">
+        <div className="px-4 py-3 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between">
           <div>
-            <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-              Payment Transactions & Digital Vouchers
+            <h2 className="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
+              <ReceiptIcon className="w-4 h-4 text-[#8B1E3F]" />
+              <span>Payment Clearing Ledger & Official Receipts</span>
             </h2>
-            <p className="text-[11px] text-slate-500">
-              Audit trail of clearing transactions and university receipt vouchers
+            <p className="text-[11px] text-[#475569] mt-0.5">
+              Verified clearing transactions with cryptographic verification hashes
             </p>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded-xs">
-            {transactions.length} Record(s)
+          <span className="text-xs font-mono text-[#8490A0] bg-white border border-[#E5E7EB] px-2 py-0.5 rounded-md font-semibold">
+            {transactions.length} Verified Clearing Record(s)
           </span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-xs min-w-[750px] border-collapse">
             <thead>
-              <tr className="bg-slate-100 border-b border-slate-300 text-[10px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-2.5 px-3">Receipt / Voucher No.</th>
-                <th className="py-2.5 px-3">Transaction Date</th>
-                <th className="py-2.5 px-3">Channel</th>
-                <th className="py-2.5 px-3 text-right">Amount Settled</th>
-                <th className="py-2.5 px-3 text-center">Status</th>
-                <th className="py-2.5 px-3 text-right">Voucher</th>
+              <tr className="bg-[#F9FAFB] border-b border-[#E5E7EB] text-[10px] font-bold uppercase tracking-wider text-[#8490A0]">
+                <th className="py-3 px-3.5">Voucher / Receipt No.</th>
+                <th className="py-3 px-3">Transaction Date</th>
+                <th className="py-3 px-3">Clearing Channel</th>
+                <th className="py-3 px-3 text-right">Amount Settled</th>
+                <th className="py-3 px-3 text-center">Gateway Status</th>
+                <th className="py-3 px-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-[#E5E7EB]">
               {transactions.length > 0 ? (
-                transactions.map((txn) => {
-                  const isExpanded = expandedTxnId === txn.id;
-                  const methodLabel =
-                    txn.paymentMethod === "UPI" || txn.paymentMethod.includes("UPI")
-                      ? "UPI / QR"
-                      : txn.paymentMethod === "CARD" || txn.paymentMethod.includes("CARD")
-                      ? "Debit/Credit Card"
-                      : txn.paymentMethod === "NETBANKING" || txn.paymentMethod.includes("NET")
-                      ? "Net Banking"
-                      : "Online Clearing";
-
-                  return (
-                    <React.Fragment key={txn.id}>
-                      <tr className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-2.5 px-3">
-                          <div className="font-semibold text-slate-900 font-mono">
-                            {txn.receipt ? txn.receipt.receiptNumber : txn.transactionId.slice(0, 16) + "..."}
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => toggleTxnExpand(txn.id)}
-                            className="text-[10px] text-blue-700 hover:underline flex items-center gap-0.5 mt-0.5"
-                          >
-                            {isExpanded ? (
-                              <>
-                                <span>Hide Details</span>
-                                <ChevronUp className="w-3 h-3" />
-                              </>
-                            ) : (
-                              <>
-                                <span>Audit Identifiers</span>
-                                <ChevronDown className="w-3 h-3" />
-                              </>
-                            )}
-                          </button>
-                        </td>
-
-                        <td className="py-2.5 px-3 text-slate-700 whitespace-nowrap">
-                          {formatDate(txn.createdAt)}
-                        </td>
-
-                        <td className="py-2.5 px-3">
-                          <span className="px-1.5 py-0.5 text-[10px] font-medium bg-slate-100 border border-slate-300 text-slate-700 rounded-xs">
-                            {methodLabel}
-                          </span>
-                        </td>
-
-                        <td className="py-2.5 px-3 text-right font-bold text-slate-900 font-mono whitespace-nowrap">
-                          {formatCurrency(txn.amount)}
-                        </td>
-
-                        <td className="py-2.5 px-3 text-center whitespace-nowrap">
-                          <span className="inline-block px-2 py-0.5 rounded-xs text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
-                            {formatEnum(txn.status)}
-                          </span>
-                        </td>
-
-                        <td className="py-2.5 px-3 text-right whitespace-nowrap">
-                          {txn.receipt ? (
-                            <Link
-                              href="/student/receipts"
-                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-300 rounded-sm text-xs font-semibold text-slate-700 transition"
-                            >
-                              <Printer className="w-3 h-3 text-slate-500" />
-                              Print
-                            </Link>
-                          ) : (
-                            <span className="text-slate-400 font-mono">—</span>
-                          )}
-                        </td>
-                      </tr>
-
-                      {/* Expandable Audit Trail */}
-                      {isExpanded && (
-                        <tr className="bg-slate-50/70 border-y border-slate-200">
-                          <td colSpan={6} className="p-3">
-                            <div className="bg-white p-2.5 border border-slate-300 rounded-xs grid grid-cols-1 md:grid-cols-3 gap-2 text-xs font-mono">
-                              <div>
-                                <span className="text-[10px] uppercase font-bold text-slate-400 block font-sans">
-                                  University Txn Reference
-                                </span>
-                                <span className="text-slate-900 select-all text-[11px]">{txn.transactionId}</span>
-                              </div>
-                              <div>
-                                <span className="text-[10px] uppercase font-bold text-slate-400 block font-sans">
-                                  Bank Settlement Ref No.
-                                </span>
-                                <span className="text-slate-700 select-all text-[11px]">{txn.referenceNo}</span>
-                              </div>
-                              <div>
-                                <span className="text-[10px] uppercase font-bold text-slate-400 block font-sans">
-                                  SHA-256 Digital Signature
-                                </span>
-                                <span className="text-[10px] text-slate-500 truncate block select-all">
-                                  {txn.receipt?.receiptHash || txn.gatewayToken || "VERIFIED-SANDBOX-AUTH"}
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                    </React.Fragment>
-                  );
-                })
+                transactions.map((txn) => (
+                  <tr key={txn.id} className="hover:bg-[#F9FAFB] transition">
+                    <td className="py-3 px-3.5 font-mono font-bold text-[#172B4D]">
+                      {txn.receipt?.receiptNumber || txn.transactionId}
+                    </td>
+                    <td className="py-3 px-3 text-[#475569]">
+                      {formatDate(txn.createdAt)}
+                    </td>
+                    <td className="py-3 px-3">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-[#F9FAFB] border border-[#E5E7EB] text-[#172B4D]">
+                        {txn.paymentMethod.replace(/_/g, " ")}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-right font-mono font-bold text-[#16845B]">
+                      {formatCurrency(txn.amount)}
+                    </td>
+                    <td className="py-3 px-3 text-center">
+                      <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-[#ECFDF3] text-[#16845B] border border-[#A7F3D0]">
+                        {formatEnum(txn.status)}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3.5 text-right">
+                      <button
+                        type="button"
+                        onClick={() => openSingleReceipt(txn)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-[#F9FAFB] border border-[#E5E7EB] rounded-md text-xs font-semibold text-[#172B4D] transition shadow-2xs cursor-pointer"
+                      >
+                        <Printer className="w-3.5 h-3.5 text-[#8B1E3F]" />
+                        <span>View Voucher</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-4 px-3 text-center text-slate-500 text-xs">
-                    No transactions recorded for the current billing cycle.
+                  <td colSpan={6} className="py-6 px-4 text-center text-xs text-[#8490A0]">
+                    No clearing transactions recorded.
                   </td>
                 </tr>
               )}
@@ -555,41 +506,319 @@ export default function StudentFeesClient({
         </div>
       </div>
 
-      {/* Institutional Bank Remittance & Bursar Advice */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-        <div className="border border-slate-300 bg-white rounded-sm p-3.5 space-y-2">
-          <div className="flex items-center gap-1.5 text-slate-900 font-bold uppercase tracking-wider text-[11px]">
-            <Building className="w-3.5 h-3.5 text-slate-700" />
-            <span>Statutory University Bank Account (NEFT / RTGS)</span>
-          </div>
-          <p className="text-[11px] text-slate-500">
-            Remittances through institutional wire transfer must reference the student Roll Number in the payment narration.
-          </p>
-          <div className="bg-slate-50 border border-slate-200 rounded-xs p-2.5 font-mono text-[11px] space-y-1 text-slate-700">
-            <div><span className="text-slate-400 font-sans">Beneficiary:</span> Jagran Lakecity University Fee Collection A/C</div>
-            <div><span className="text-slate-400 font-sans">Bank & Branch:</span> State Bank of India, JLU Campus Branch</div>
-            <div><span className="text-slate-400 font-sans">Account No:</span> 409283019283 (Current A/C)</div>
-            <div><span className="text-slate-400 font-sans">IFSC Code:</span> SBIN0021940</div>
+      {/* ========================================================================= */}
+      {/* DOCUMENT PREVIEW MODALS FOR DOWNLOAD / PRINT */}
+      {/* ========================================================================= */}
+
+      {/* Modal 1: Official Student Fee Statement (Task 3.D.3) */}
+      {activeDocType === "statement" && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full border border-[#E5E7EB] overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="px-6 py-3.5 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between print:hidden">
+              <span className="text-xs font-bold text-[#172B4D] flex items-center gap-2">
+                <FileSpreadsheet className="w-4 h-4 text-[#8B1E3F]" />
+                <span>Official Student Fee Statement</span>
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-3 py-1.5 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print / Save PDF</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDocType(null)}
+                  className="p-1 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-slate-200 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Printable Document Body */}
+            <div className="p-8 overflow-y-auto space-y-6 text-xs text-[#172B4D] print:p-0">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b-2 border-[#8B1E3F] pb-4">
+                <JLULogo variant="full" size="md" />
+                <div className="text-right">
+                  <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-wider block">
+                    Office of the University Bursar
+                  </span>
+                  <h2 className="text-base font-extrabold text-[#172B4D]">Student Fee Account Statement</h2>
+                  <span className="text-[10px] text-[#8490A0] font-mono">
+                    Generated: {formatDate(new Date())}
+                  </span>
+                </div>
+              </div>
+
+              {/* Student Biodata */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F9FAFB] p-3.5 rounded-lg border border-[#E5E7EB] text-xs">
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Student Name</span>
+                  <span className="font-bold text-[#172B4D]">{student.user.name}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Roll Number</span>
+                  <span className="font-bold font-mono text-[#172B4D]">{student.rollNumber}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Programme</span>
+                  <span className="font-medium text-[#172B4D]">{student.program.code} - {student.program.name}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Current Standing</span>
+                  <span className="font-medium text-[#172B4D]">Semester {student.currentSemester.number}</span>
+                </div>
+              </div>
+
+              {/* Multi-Semester Table */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-bold text-[#172B4D] uppercase tracking-wider">
+                  Semester Demand & Payment Summary
+                </h3>
+                <table className="w-full text-left text-xs border border-[#E5E7EB] border-collapse">
+                  <thead>
+                    <tr className="bg-[#F9FAFB] text-[10px] font-bold uppercase text-[#8490A0] border-b border-[#E5E7EB]">
+                      <th className="p-2.5">Term</th>
+                      <th className="p-2.5">Academic Session</th>
+                      <th className="p-2.5 text-right">Sanctioned Fee</th>
+                      <th className="p-2.5 text-right">Amount Paid</th>
+                      <th className="p-2.5 text-right">Outstanding</th>
+                      <th className="p-2.5 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#E5E7EB]">
+                    {feeDues.map((due) => {
+                      const bal = Math.max(0, due.totalAmount - due.paidAmount);
+                      return (
+                        <tr key={due.id}>
+                          <td className="p-2.5 font-bold">Semester {due.feeStructure.semester?.number}</td>
+                          <td className="p-2.5 text-[#475569]">{due.feeStructure.academicYear?.name || "AY 2026-27"}</td>
+                          <td className="p-2.5 text-right font-mono">{formatCurrency(due.totalAmount)}</td>
+                          <td className="p-2.5 text-right font-mono text-[#16845B] font-semibold">{formatCurrency(due.paidAmount)}</td>
+                          <td className="p-2.5 text-right font-mono font-bold text-[#172B4D]">{formatCurrency(bal)}</td>
+                          <td className="p-2.5 text-center font-bold text-[10px]">
+                            {bal === 0 ? "PAID" : due.paidAmount > 0 ? "PARTIAL" : "PENDING"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr className="bg-[#F9FAFB] font-bold border-t-2 border-[#172B4D]">
+                      <td colSpan={2} className="p-2.5 text-[#172B4D]">Cumulative Totals</td>
+                      <td className="p-2.5 text-right font-mono">{formatCurrency(totalFees)}</td>
+                      <td className="p-2.5 text-right font-mono text-[#16845B]">{formatCurrency(totalPaid)}</td>
+                      <td className="p-2.5 text-right font-mono text-[#C2414B]">{formatCurrency(totalOutstanding)}</td>
+                      <td className="p-2.5 text-center">{totalOutstanding === 0 ? "CLEARED" : "DUE"}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+              {/* Institutional Endorsement */}
+              <div className="pt-6 border-t border-[#E5E7EB] flex items-center justify-between text-[11px] text-[#8490A0]">
+                <div>
+                  <span className="block font-semibold text-[#172B4D]">Jagran Lakecity University, Bhopal</span>
+                  <span>Mugaliyachap, Near Bilkisganj, MP 462044</span>
+                </div>
+                <div className="text-right">
+                  <div className="w-24 h-8 border-b border-dashed border-[#8490A0] mb-1 mx-auto" />
+                  <span className="font-semibold text-[#172B4D] block">Comptroller of Finance</span>
+                  <span>Official University Clearing Seal</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      )}
 
-        <div className="border border-slate-300 bg-white rounded-sm p-3.5 space-y-2">
-          <div className="flex items-center gap-1.5 text-slate-900 font-bold uppercase tracking-wider text-[11px]">
-            <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
-            <span>Bursar Policy & Reconciliation Notes</span>
+      {/* Modal 2: Consolidated All Fee Records (Task 3.D.2) */}
+      {activeDocType === "consolidated" && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full border border-[#E5E7EB] overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="px-6 py-3.5 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between print:hidden">
+              <span className="text-xs font-bold text-[#172B4D] flex items-center gap-2">
+                <ReceiptIcon className="w-4 h-4 text-[#8B1E3F]" />
+                <span>Consolidated Multi-Semester Fee Records</span>
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-3 py-1.5 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print / Save PDF</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDocType(null)}
+                  className="p-1 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-slate-200 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-8 overflow-y-auto space-y-6 text-xs text-[#172B4D] print:p-0">
+              <div className="flex items-center justify-between border-b-2 border-[#8B1E3F] pb-4">
+                <JLULogo variant="full" size="md" />
+                <div className="text-right">
+                  <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-wider block">
+                    Institutional Record
+                  </span>
+                  <h2 className="text-base font-extrabold text-[#172B4D]">Consolidated Fee Ledger</h2>
+                  <span className="text-[10px] text-[#8490A0] font-mono">
+                    Ref: JLU-ALL-FEE-{student.rollNumber}
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-[#F9FAFB] p-3 rounded-lg border border-[#E5E7EB] flex justify-between text-xs">
+                <div>
+                  <span className="text-[#8490A0] text-[10px] uppercase font-bold block">Student</span>
+                  <span className="font-bold text-sm text-[#172B4D]">{student.user.name}</span>
+                  <span className="text-[#475569] block">Roll No: {student.rollNumber}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[#8490A0] text-[10px] uppercase font-bold block">Programme Enrolled</span>
+                  <span className="font-semibold text-[#172B4D]">{student.program.name}</span>
+                  <span className="text-[#475569] block">{student.program.department?.name || "School of Engineering"}</span>
+                </div>
+              </div>
+
+              {/* Itemized by semester */}
+              <div className="space-y-4">
+                {feeDues.map((due) => (
+                  <div key={due.id} className="border border-[#E5E7EB] rounded-lg p-3 space-y-2">
+                    <div className="flex justify-between items-center bg-[#F9FAFB] p-2 rounded text-xs font-bold">
+                      <span className="text-[#8B1E3F]">Semester {due.feeStructure.semester?.number} Composite Fee</span>
+                      <span className="font-mono">{formatCurrency(due.totalAmount)}</span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 text-[11px] text-[#475569] px-2">
+                      <div>Tuition: {formatCurrency(due.feeStructure.tuitionFee)}</div>
+                      <div>Laboratory: {formatCurrency(due.feeStructure.labFee)}</div>
+                      <div>Library: {formatCurrency(due.feeStructure.libraryFee)}</div>
+                      <div>Examination: {formatCurrency(due.feeStructure.examFee)}</div>
+                    </div>
+                    <div className="flex justify-between items-center px-2 pt-1 border-t border-[#E5E7EB] text-[11px]">
+                      <span>Amount Cleared: <strong className="text-[#16845B] font-mono">{formatCurrency(due.paidAmount)}</strong></span>
+                      <span>Balance Outstanding: <strong className="text-[#C2414B] font-mono">{formatCurrency(due.totalAmount - due.paidAmount)}</strong></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 bg-[#ECFDF3] border border-[#A7F3D0] rounded-lg text-xs flex justify-between items-center font-bold text-[#16845B]">
+                <span>Total Cumulative Settled Amount:</span>
+                <span className="font-mono text-base">{formatCurrency(totalPaid)}</span>
+              </div>
+            </div>
           </div>
-          <p className="text-[11px] text-slate-500">
-            Official guidelines governing tuition installment deadlines and late fee grace periods:
-          </p>
-          <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-600">
-            <li>Payments completed via the portal reflect immediately with signed digital receipts.</li>
-            <li>Wire transfer slips must be submitted to the Accounts Desk (Admin Block) within 3 working days.</li>
-            <li>Admit cards for End-Semester Examinations require zero outstanding dues prior to hall ticket issuance.</li>
-          </ul>
         </div>
-      </div>
+      )}
 
-      {/* Payment Gateway Modal */}
+      {/* Modal 3: Individual Semester Receipt (Task 3.D.1) */}
+      {activeDocType === "receipt" && activeReceiptTxn && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-2xl max-w-xl w-full border border-[#E5E7EB] overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="px-6 py-3.5 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between print:hidden">
+              <span className="text-xs font-bold text-[#172B4D] flex items-center gap-2">
+                <ReceiptIcon className="w-4 h-4 text-[#8B1E3F]" />
+                <span>Official Fee Payment Receipt</span>
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-3 py-1.5 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow-xs cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print Receipt</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveDocType(null);
+                    setActiveReceiptTxn(null);
+                  }}
+                  className="p-1 rounded-lg text-[#8490A0] hover:text-[#172B4D] hover:bg-slate-200 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-8 overflow-y-auto space-y-5 text-xs text-[#172B4D] print:p-0">
+              <div className="flex items-center justify-between border-b-2 border-[#8B1E3F] pb-4">
+                <JLULogo variant="full" size="md" />
+                <div className="text-right">
+                  <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-wider block">
+                    Official Fee Receipt
+                  </span>
+                  <h2 className="text-sm font-extrabold text-[#172B4D]">
+                    {activeReceiptTxn.receipt?.receiptNumber || "REC-2026-VERIFIED"}
+                  </h2>
+                  <span className="text-[10px] text-[#8490A0] font-mono">
+                    Date: {formatDate(activeReceiptTxn.createdAt)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 bg-[#F9FAFB] p-3.5 rounded-lg border border-[#E5E7EB] text-xs">
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Student Name</span>
+                  <span className="font-bold text-[#172B4D]">{student.user.name}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Roll Number</span>
+                  <span className="font-bold font-mono text-[#172B4D]">{student.rollNumber}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Programme</span>
+                  <span className="font-medium text-[#172B4D]">{student.program.code}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#8490A0] uppercase font-bold block">Payment Channel</span>
+                  <span className="font-medium text-[#172B4D]">{activeReceiptTxn.paymentMethod}</span>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-lg bg-[#ECFDF3] border border-[#A7F3D0] flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-bold uppercase text-[#16845B] block">Amount Received</span>
+                  <span className="text-xl font-extrabold text-[#16845B] font-mono">
+                    {formatCurrency(activeReceiptTxn.amount)}
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-[#16845B] border border-[#A7F3D0]">
+                    CLEARED & SETTLED
+                  </span>
+                  <span className="text-[10px] text-[#16845B] block mt-1 font-mono">
+                    Ref: {activeReceiptTxn.referenceNo || "SBX_AUTO"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] space-y-1 font-mono text-[10px] text-[#475569]">
+                <div className="text-[10px] font-bold uppercase text-[#8490A0] font-sans">
+                  Digital Verification Signature
+                </div>
+                <div className="break-all select-all text-[#172B4D]">
+                  {activeReceiptTxn.receipt?.receiptHash || "SHA256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sandbox Payment Modal */}
       {selectedDue && (
         <SandboxPaymentModal
           isOpen={modalOpen}

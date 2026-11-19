@@ -322,7 +322,7 @@ export default function CommandPalette({ isOpen, onClose, userRole }: CommandPal
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center pt-20 p-4">
+    <div className="fixed inset-0 z-[70] overflow-y-auto flex items-start justify-center pt-20 p-4">
       {/* Backdrop */}
       <div
         onClick={onClose}

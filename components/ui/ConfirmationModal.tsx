@@ -47,7 +47,7 @@ export default function ConfirmationModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[60] overflow-y-auto flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
         onClick={isLoading ? undefined : onClose}

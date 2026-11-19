@@ -141,7 +141,26 @@ async function main() {
   });
 
   // 4. Semesters & Sections
-  // BTech CSE Sem 3
+  // BTech CSE Sem 1 & 2 (Historical)
+  const semBTech1 = await prisma.semester.create({
+    data: {
+      number: 1,
+      academicYearId: ay.id,
+      programId: progBTech.id,
+      isActive: false,
+    },
+  });
+
+  const semBTech2 = await prisma.semester.create({
+    data: {
+      number: 2,
+      academicYearId: ay.id,
+      programId: progBTech.id,
+      isActive: false,
+    },
+  });
+
+  // BTech CSE Sem 3 (Current Active)
   const semBTech3 = await prisma.semester.create({
     data: {
       number: 3,
@@ -679,8 +698,40 @@ async function main() {
     });
   }
 
-  // 13. Fees & Sandbox Payments
-  const feeBTech = await prisma.feeStructure.create({
+  // 13. Fees & Sandbox Payments (Multi-Semester Authentic Records)
+  const feeBTechSem1 = await prisma.feeStructure.create({
+    data: {
+      programId: progBTech.id,
+      semesterId: semBTech1.id,
+      academicYearId: ay.id,
+      title: "B.Tech CSE Semester 1 Composite Fee",
+      tuitionFee: 45000,
+      labFee: 15000,
+      libraryFee: 4000,
+      examFee: 3000,
+      otherFee: 3000,
+      totalAmount: 70000,
+      dueDate: new Date("2025-09-30"),
+    },
+  });
+
+  const feeBTechSem2 = await prisma.feeStructure.create({
+    data: {
+      programId: progBTech.id,
+      semesterId: semBTech2.id,
+      academicYearId: ay.id,
+      title: "B.Tech CSE Semester 2 Composite Fee",
+      tuitionFee: 47000,
+      labFee: 15000,
+      libraryFee: 4000,
+      examFee: 3000,
+      otherFee: 3000,
+      totalAmount: 72000,
+      dueDate: new Date("2026-02-28"),
+    },
+  });
+
+  const feeBTechSem3 = await prisma.feeStructure.create({
     data: {
       programId: progBTech.id,
       semesterId: semBTech3.id,
@@ -696,32 +747,109 @@ async function main() {
     },
   });
 
-  // Assign fees to students
+  // Assign multi-semester fees to students
   for (const st of secAStudents) {
     const isPrimary = st.id === primaryStudent.id;
-    // Aarav has paid 25,000; 50,000 pending
-    const paidAmount = isPrimary ? 25000 : 75000;
-    const status = isPrimary ? "PARTIALLY_PAID" : "PAID";
 
-    const due = await prisma.studentFeeDue.create({
+    // Semester 1: Fully Settled
+    const dueSem1 = await prisma.studentFeeDue.create({
       data: {
         studentId: st.id,
-        feeStructureId: feeBTech.id,
+        feeStructureId: feeBTechSem1.id,
+        totalAmount: 70000,
+        paidAmount: 70000,
+        status: "PAID",
+        dueDate: new Date("2025-09-30"),
+      },
+    });
+
+    const txnSem1 = await prisma.paymentTransaction.create({
+      data: {
+        transactionId: `TXN-UNIV-20250915-${st.rollNumber.slice(-4)}`,
+        referenceNo: `SBX_REF_771029${st.rollNumber.slice(-2)}`,
+        studentId: st.id,
+        studentFeeDueId: dueSem1.id,
+        amount: 70000,
+        paymentMethod: "SANDBOX_GATEWAY",
+        status: "SUCCESSFUL",
+        gatewayToken: `tok_sandbox_verified_sig_771029${st.rollNumber.slice(-2)}`,
+        metadata: JSON.stringify({ mode: "NETBANKING", bank: "HDFC Bank", authCode: "APX-65120" }),
+        createdAt: new Date("2025-09-15T10:15:00Z"),
+      },
+    });
+
+    await prisma.receipt.create({
+      data: {
+        receiptNumber: `REC-2025-0010${st.rollNumber.slice(-2)}`,
+        paymentTransactionId: txnSem1.id,
+        studentId: st.id,
+        amountPaid: 70000,
+        receiptHash: "SHA256:4d81f5c6b7e8d9a0f1e2c3b4a5968778412356980fedcba98765432101234567",
+        createdAt: new Date("2025-09-15T10:15:05Z"),
+      },
+    });
+
+    // Semester 2: Fully Settled
+    const dueSem2 = await prisma.studentFeeDue.create({
+      data: {
+        studentId: st.id,
+        feeStructureId: feeBTechSem2.id,
+        totalAmount: 72000,
+        paidAmount: 72000,
+        status: "PAID",
+        dueDate: new Date("2026-02-28"),
+      },
+    });
+
+    const txnSem2 = await prisma.paymentTransaction.create({
+      data: {
+        transactionId: `TXN-UNIV-20260218-${st.rollNumber.slice(-4)}`,
+        referenceNo: `SBX_REF_819203${st.rollNumber.slice(-2)}`,
+        studentId: st.id,
+        studentFeeDueId: dueSem2.id,
+        amount: 72000,
+        paymentMethod: "SANDBOX_GATEWAY",
+        status: "SUCCESSFUL",
+        gatewayToken: `tok_sandbox_verified_sig_819203${st.rollNumber.slice(-2)}`,
+        metadata: JSON.stringify({ mode: "CARD", bank: "ICICI Bank", authCode: "APX-71932" }),
+        createdAt: new Date("2026-02-18T11:45:00Z"),
+      },
+    });
+
+    await prisma.receipt.create({
+      data: {
+        receiptNumber: `REC-2026-0028${st.rollNumber.slice(-2)}`,
+        paymentTransactionId: txnSem2.id,
+        studentId: st.id,
+        amountPaid: 72000,
+        receiptHash: "SHA256:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b",
+        createdAt: new Date("2026-02-18T11:45:05Z"),
+      },
+    });
+
+    // Semester 3: Current term (Aarav has paid 25,000; others paid 75,000)
+    const paidAmountSem3 = isPrimary ? 25000 : 75000;
+    const statusSem3 = isPrimary ? "PARTIALLY_PAID" : "PAID";
+
+    const dueSem3 = await prisma.studentFeeDue.create({
+      data: {
+        studentId: st.id,
+        feeStructureId: feeBTechSem3.id,
         totalAmount: 75000,
-        paidAmount,
-        status,
+        paidAmount: paidAmountSem3,
+        status: statusSem3,
         dueDate: new Date("2026-09-30"),
       },
     });
 
     if (isPrimary) {
-      // Create transaction and receipt for Aarav's past installment
-      const txn = await prisma.paymentTransaction.create({
+      // Transaction and receipt for Aarav's installment
+      const txnSem3 = await prisma.paymentTransaction.create({
         data: {
           transactionId: "TXN-UNIV-20260810-0912",
           referenceNo: "SBX_REF_88192301",
           studentId: st.id,
-          studentFeeDueId: due.id,
+          studentFeeDueId: dueSem3.id,
           amount: 25000,
           paymentMethod: "SANDBOX_GATEWAY",
           status: "SUCCESSFUL",
@@ -734,10 +862,37 @@ async function main() {
       await prisma.receipt.create({
         data: {
           receiptNumber: "REC-2026-004812",
-          paymentTransactionId: txn.id,
+          paymentTransactionId: txnSem3.id,
           studentId: st.id,
           amountPaid: 25000,
           receiptHash: "SHA256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+          createdAt: new Date("2026-08-10T14:30:05Z"),
+        },
+      });
+    } else {
+      const txnSem3 = await prisma.paymentTransaction.create({
+        data: {
+          transactionId: `TXN-UNIV-20260810-${st.rollNumber.slice(-4)}`,
+          referenceNo: `SBX_REF_881923${st.rollNumber.slice(-2)}`,
+          studentId: st.id,
+          studentFeeDueId: dueSem3.id,
+          amount: 75000,
+          paymentMethod: "SANDBOX_GATEWAY",
+          status: "SUCCESSFUL",
+          gatewayToken: `tok_sandbox_verified_sig_881923${st.rollNumber.slice(-2)}`,
+          metadata: JSON.stringify({ mode: "UPI", bank: "State Bank of India", authCode: "APX-81273" }),
+          createdAt: new Date("2026-08-10T14:30:00Z"),
+        },
+      });
+
+      await prisma.receipt.create({
+        data: {
+          receiptNumber: `REC-2026-0048${st.rollNumber.slice(-2)}`,
+          paymentTransactionId: txnSem3.id,
+          studentId: st.id,
+          amountPaid: 75000,
+          receiptHash: `SHA256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d90${st.rollNumber.slice(-2)}`,
+          createdAt: new Date("2026-08-10T14:30:05Z"),
         },
       });
     }
@@ -794,15 +949,93 @@ async function main() {
     },
   });
 
-  await prisma.learningMaterial.create({
-    data: {
-      courseId: lmsDBMS.id,
-      title: "DBMS Lecture Notes - Unit 1 & 2 Comprehensive Guide.pdf",
-      fileUrl: "/materials/dbms_unit1_2.pdf",
-      fileType: "PDF",
-      fileSize: "4.8 MB",
-      uploadedById: userHOD_CS.id,
-    },
+  // 15. Centralized Academic Resources (8 Categories)
+  await prisma.learningMaterial.createMany({
+    data: [
+      {
+        title: "Jagran Lakecity University Academic Calendar (AY 2026-2027)",
+        category: "ACADEMIC_CALENDAR",
+        description: "Official institutional calendar detailing term dates, teaching periods, holiday list, practical schedules, and graduation convocations.",
+        fileUrl: "/materials/JLU_Academic_Calendar_2026-27.pdf",
+        fileType: "PDF",
+        fileSize: "1.8 MB",
+        uploadedById: userAdmin.id,
+      },
+      {
+        title: "B.Tech CSE Semester 3 - Course Curriculum & Syllabus Handbook",
+        category: "COURSE_SYLLABUS",
+        description: "Official board of studies approved syllabus for B.Tech CSE Semester 3, including credit matrices, prerequisite chains, and reference textbooks.",
+        fileUrl: "/materials/BTech_CSE_Sem3_Syllabus.pdf",
+        fileType: "PDF",
+        fileSize: "2.4 MB",
+        courseId: lmsDBMS.id,
+        subjectId: subDBMS.id,
+        semesterId: semBTech3.id,
+        uploadedById: userHOD_CS.id,
+      },
+      {
+        title: "CS301 Relational Database Systems - Complete Unit 1 to 4 Notes",
+        category: "LECTURE_NOTES",
+        description: "Comprehensive lecture slides and transcribed notes covering relational algebra, SQL optimization, 3NF/BCNF normalization, and indexing.",
+        fileUrl: "/materials/DBMS_Complete_Lecture_Notes.pdf",
+        fileType: "PDF",
+        fileSize: "5.2 MB",
+        courseId: lmsDBMS.id,
+        subjectId: subDBMS.id,
+        semesterId: semBTech3.id,
+        uploadedById: userHOD_CS.id,
+      },
+      {
+        title: "CS302 Data Structures & Algorithms - Lab Manual & Code Repository",
+        category: "STUDY_MATERIALS",
+        description: "Lab exercise problem sets, algorithmic complexity proofs, and C++/Java reference implementations for trees, graphs, and dynamic programming.",
+        fileUrl: "/materials/DSA_Lab_Manual_Code.zip",
+        fileType: "ZIP",
+        fileSize: "12.6 MB",
+        semesterId: semBTech3.id,
+        uploadedById: userHOD_CS.id,
+      },
+      {
+        title: "CS301 Relational Database Management Systems - End-Term PYQ (2023-2025)",
+        category: "PYQ",
+        description: "Consolidated previous three years' end-semester examination question papers with model solution guidelines and marking rubrics.",
+        fileUrl: "/materials/DBMS_EndTerm_PYQ_2023_2025.pdf",
+        fileType: "PDF",
+        fileSize: "3.1 MB",
+        courseId: lmsDBMS.id,
+        subjectId: subDBMS.id,
+        semesterId: semBTech3.id,
+        uploadedById: userHOD_CS.id,
+      },
+      {
+        title: "JLU Code of Student Conduct & Academic Integrity Policy",
+        category: "POLICIES",
+        description: "Statutory university guidelines on disciplinary standards, 75% attendance threshold rules, anti-ragging safeguards, and library borrowing policies.",
+        fileUrl: "/materials/JLU_Student_Conduct_Policy.pdf",
+        fileType: "PDF",
+        fileSize: "1.2 MB",
+        uploadedById: userAdmin.id,
+      },
+      {
+        title: "Continuous Internal Assessment (CIA) & Practical Norms 2026",
+        category: "GUIDELINES",
+        description: "Standard operating procedures for mid-term tests, assignment submissions, lab viva grading criteria, and rubrics.",
+        fileUrl: "/materials/JLU_CIA_Evaluation_Norms.pdf",
+        fileType: "PDF",
+        fileSize: "1.5 MB",
+        uploadedById: userAdmin.id,
+      },
+      {
+        title: "Mid-Semester Examination Hall Allocation & Instructions for Candidates",
+        category: "EXAM_RESOURCES",
+        description: "Seating guidelines, examination hall entry protocols, permissible calculator models, and unfair means (UFM) regulations.",
+        fileUrl: "/materials/JLU_MidSem_Exam_Instructions.pdf",
+        fileType: "PDF",
+        fileSize: "980 KB",
+        semesterId: semBTech3.id,
+        uploadedById: userAdmin.id,
+      },
+    ],
   });
 
   // Assignment

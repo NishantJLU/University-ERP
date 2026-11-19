@@ -33,6 +33,7 @@ import {
   Sparkles,
   Flame,
   GripVertical,
+  BookMarked,
 } from "lucide-react";
 import { Role } from "@/types";
 import JLULogo from "@/components/ui/JLULogo";
@@ -63,6 +64,7 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
         { label: "Faculties & Schools", href: "/admin/departments", icon: Building },
         { label: "Degree Programs", href: "/admin/programs", icon: School },
         { label: "Subjects & Syllabus", href: "/admin/subjects", icon: BookOpen },
+        { label: "Academic Resources", href: "/student/resources", icon: BookMarked },
         { label: "Section Cohorts", href: "/admin/sections", icon: Layers },
         { label: "Rooms & Labs", href: "/admin/rooms", icon: DoorClosed },
         { label: "Faculty Allocation", href: "/admin/faculty-allocation", icon: Briefcase },
@@ -96,9 +98,10 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
     {
       items: [
         { label: "Dashboard", href: "/hod/dashboard", icon: LayoutDashboard },
-        { label: "My School / Dept", href: "/hod/faculty", icon: Building },
+        { label: "My School / Dept", href: "/hod/department", icon: Building },
         { label: "Faculty Roster", href: "/hod/faculty", icon: Users },
         { label: "Enrolled Students", href: "/hod/students", icon: GraduationCap },
+        { label: "Academic Resources", href: "/student/resources", icon: BookMarked },
       ],
     },
     {
@@ -129,6 +132,7 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
       title: "JLU Learning (LMS)",
       items: [
         { label: "LMS Courses", href: "/teacher/lms", icon: BookOpen },
+        { label: "Academic Resources", href: "/student/resources", icon: BookMarked },
         { label: "Grading Queue", href: "/teacher/submissions", icon: Award },
         { label: "Workload Analysis", href: "/teacher/workload", icon: Briefcase },
         { label: "Campus Notices", href: "/teacher/notices", icon: Bell },
@@ -154,6 +158,7 @@ const SIDEBAR_MENUS: Record<Role, NavSection[]> = {
       title: "Learning & Courses",
       items: [
         { label: "My Courses", href: "/student/lms", icon: BookOpen },
+        { label: "Academic Resources", href: "/student/resources", icon: BookMarked },
         { label: "Assignments", href: "/student/assignments", icon: FileText },
         { label: "Quizzes", href: "/student/quizzes", icon: HelpCircle },
       ],
@@ -370,12 +375,12 @@ export default function Sidebar({
                 const Icon = item.icon;
                 const isActive =
                   pathname === item.href ||
-                  (pathname.startsWith(item.href) &&
-                    item.href !== `/${role.toLowerCase()}/dashboard`);
+                  (item.href !== `/${role.toLowerCase()}/dashboard` &&
+                    pathname.startsWith(item.href + "/"));
 
                 return (
                   <Link
-                    key={item.href}
+                    key={`${item.href}-${item.label}`}
                     href={item.href}
                     onClick={() => {
                       if (window.innerWidth < 1024) onClose();
