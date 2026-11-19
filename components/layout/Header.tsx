@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   Menu,
   Bell,
@@ -43,10 +44,25 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
   const [notifOpen, setNotifOpen] = useState(false);
   const [switching, setSwitching] = useState(false);
   const [unreadNotifs, setUnreadNotifs] = useState(2);
+  const [dynamicBreadcrumbs, setDynamicBreadcrumbs] = useState<Record<string, string>>({});
 
   const roleMenuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const notifMenuRef = useRef<HTMLDivElement>(null);
+
+  // Dynamic breadcrumb listener for pages with dynamic IDs
+  useEffect(() => {
+    const handleTitle = (e: any) => {
+      if (e.detail?.id && e.detail?.title) {
+        setDynamicBreadcrumbs((prev) => ({
+          ...prev,
+          [e.detail.id]: e.detail.title,
+        }));
+      }
+    };
+    window.addEventListener("erp-breadcrumb-title", handleTitle);
+    return () => window.removeEventListener("erp-breadcrumb-title", handleTitle);
+  }, []);
 
   // Outside click listener to dismiss all dropdown menus
   useEffect(() => {
@@ -133,38 +149,74 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
 
         {/* Functional Breadcrumb Navigation Context */}
         <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#8490A0] font-medium min-w-0 overflow-hidden">
-          <span className="font-semibold text-[#172B4D] tracking-wide shrink-0">JLU Digital Campus</span>
+          <Link
+            href="/"
+            className="font-semibold text-[#172B4D] tracking-wide shrink-0 hover:text-[#8B1E3F] transition"
+          >
+            JLU Digital Campus
+          </Link>
           <span className="text-[#CBD5E1] shrink-0">/</span>
           {pathParts.map((part, index) => {
             const isLast = index === pathParts.length - 1;
             const labelMap: Record<string, string> = {
+              student: "Student Portal",
+              teacher: "Faculty Portal",
+              admin: "Administration",
+              hod: "HOD Portal",
+              accounts: "Accounts",
+              management: "Management",
               timetable: "Timetable",
               attendance: "Attendance",
-              fees: "Fees",
+              fees: "Fees & Dues",
               results: "Results",
               receipts: "Receipts",
-              lms: "Courses",
+              lms: "My Courses",
               assignments: "Assignments",
               quizzes: "Quizzes",
               dashboard: "Dashboard",
               profile: "Profile",
-              department: "Department",
-              resources: "Resources",
+              department: "My School / Dept",
+              resources: "Academic Resources",
               faculty: "Faculty Roster",
             };
-            const displayLabel = labelMap[part] || part.replace("-", " ");
+
+            const isId =
+              /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(part) ||
+              /^[a-z0-9_-]{20,}$/i.test(part);
+
+            let displayLabel = dynamicBreadcrumbs[part] || labelMap[part];
+            if (!displayLabel) {
+              if (isId) {
+                const prev = pathParts[index - 1];
+                if (prev === "lms" || prev === "courses") {
+                  displayLabel = "Course Workspace";
+                } else {
+                  displayLabel = "Overview";
+                }
+              } else {
+                displayLabel = part.replace(/-/g, " ");
+              }
+            }
+
+            let href = "/" + pathParts.slice(0, index + 1).join("/");
+            if (index === 0 && ["student", "teacher", "admin", "hod", "accounts", "management"].includes(part)) {
+              href = `/${part}/dashboard`;
+            }
 
             return (
-              <span key={part} className="flex items-center gap-1.5 min-w-0">
-                <span
-                  className={
-                    isLast
-                      ? "text-[#172B4D] font-bold capitalize truncate max-w-[140px] md:max-w-none"
-                      : "text-[#8490A0] capitalize hover:text-[#172B4D] truncate max-w-[100px] md:max-w-none"
-                  }
-                >
-                  {displayLabel}
-                </span>
+              <span key={`${part}-${index}`} className="flex items-center gap-1.5 min-w-0">
+                {isLast ? (
+                  <span className="text-[#172B4D] font-bold capitalize truncate max-w-[200px] md:max-w-none">
+                    {displayLabel}
+                  </span>
+                ) : (
+                  <Link
+                    href={href}
+                    className="text-[#8490A0] capitalize hover:text-[#8B1E3F] hover:underline transition truncate max-w-[120px] md:max-w-none"
+                  >
+                    {displayLabel}
+                  </Link>
+                )}
                 {!isLast && <span className="text-[#CBD5E1] shrink-0">/</span>}
               </span>
             );

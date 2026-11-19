@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BookOpen,
   FileText,
@@ -61,6 +61,20 @@ export default function LMSCourseHub({
   const [submittingAssignment, setSubmittingAssignment] = useState<any | null>(null);
   const [submissionText, setSubmissionText] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // Publish readable course title to header breadcrumb
+  useEffect(() => {
+    if (course?.id && course?.subject?.code) {
+      window.dispatchEvent(
+        new CustomEvent("erp-breadcrumb-title", {
+          detail: {
+            id: course.id,
+            title: `${course.subject.code} (${course.subject.name || "Course"})`,
+          },
+        })
+      );
+    }
+  }, [course?.id, course?.subject?.code, course?.subject?.name]);
 
   const handleQuizSubmit = async () => {
     if (!activeQuiz) return;
