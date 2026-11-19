@@ -102,7 +102,7 @@ export default function DashboardClientLayout({
     <ToastProvider>
       <div
         ref={layoutContainerRef}
-        className="min-h-screen bg-[#F7F7F9] flex"
+        className="min-h-screen bg-[#F8F9FA] flex"
         style={
           {
             "--sidebar-width": `${sidebarWidth}px`,

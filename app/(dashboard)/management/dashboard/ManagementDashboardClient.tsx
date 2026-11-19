@@ -51,7 +51,7 @@ interface ManagementDashboardClientProps {
   feeData: any[];
 }
 
-const DONUT_COLORS = ["#16845B", "#861F41", "#3567A5", "#B7791F", "#202435"];
+const DONUT_COLORS = ["#16845B", "#027EA1", "#F0C14B", "#546574", "#21313C"];
 
 export default function ManagementDashboardClient({
   stats,
@@ -73,13 +73,13 @@ export default function ManagementDashboardClient({
         accent="crimson"
         actions={
           <div className="flex items-center gap-2">
-            <div className="px-3 py-1.5 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] text-[#202435] text-xs font-semibold flex items-center gap-2 shadow-xs">
+            <div className="px-3 py-1.5 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0] text-[#21313C] text-xs font-semibold flex items-center gap-2 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-[#16845B] animate-pulse" />
               <span>Central Relational Core Online</span>
             </div>
             <Link
               href="/management/reports"
-              className="px-3.5 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Governance Reports</span>
@@ -160,47 +160,47 @@ export default function ManagementDashboardClient({
       </div>
 
       {/* 3. Official Institutional Profile Ribbon */}
-      <div className="rounded-xl bg-white text-[#202435] p-6 border border-[#E5E7EB] shadow-xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E5E7EB]">
+      <div className="rounded-xl bg-white text-[#21313C] p-6 border border-[#E2E8F0] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0]">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#861F41]" />
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#861F41]">
+            <Sparkles className="w-4 h-4 text-[#027EA1]" />
+            <h2 className="text-xs font-bold uppercase tracking-wider text-[#027EA1]">
               Official University Institutional Profile
             </h2>
           </div>
-          <span className="text-[10px] text-[#9299A8] font-mono">
+          <span className="text-[10px] text-[#8D9BA8] font-mono">
             Source: Official Jagran Lakecity University Charter (jlu.edu.in)
           </span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center">
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">232-Acre</span>
-            <span className="text-[10px] text-[#697386]">Green Campus</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">232-Acre</span>
+            <span className="text-[10px] text-[#546574]">Green Campus</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">2,500+</span>
-            <span className="text-[10px] text-[#697386]">Total Census</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">2,500+</span>
+            <span className="text-[10px] text-[#546574]">Total Census</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">50+</span>
-            <span className="text-[10px] text-[#697386]">Degree Programs</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">50+</span>
+            <span className="text-[10px] text-[#546574]">Degree Programs</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">45+</span>
-            <span className="text-[10px] text-[#697386]">Global Ties</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">45+</span>
+            <span className="text-[10px] text-[#546574]">Global Ties</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">42+</span>
-            <span className="text-[10px] text-[#697386]">Industry Tie-ups</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">42+</span>
+            <span className="text-[10px] text-[#546574]">Industry Tie-ups</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB]">
-            <span className="text-lg font-black text-[#202435] block">45+</span>
-            <span className="text-[10px] text-[#697386]">Advanced Labs</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0]">
+            <span className="text-lg font-black text-[#21313C] block">45+</span>
+            <span className="text-[10px] text-[#546574]">Advanced Labs</span>
           </div>
-          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] col-span-2 sm:col-span-1">
-            <span className="text-lg font-black text-[#202435] block">1-on-1</span>
-            <span className="text-[10px] text-[#697386]">Mentoring Ratio</span>
+          <div className="p-3 rounded-lg bg-[#F9FAFB] border border-[#E2E8F0] col-span-2 sm:col-span-1">
+            <span className="text-lg font-black text-[#21313C] block">1-on-1</span>
+            <span className="text-[10px] text-[#546574]">Mentoring Ratio</span>
           </div>
         </div>
       </div>
@@ -287,7 +287,7 @@ export default function ManagementDashboardClient({
                     fontWeight: "600",
                   }}
                 />
-                <Bar dataKey="students" fill="#861F41" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="students" fill="#027EA1" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -343,14 +343,14 @@ export default function ManagementDashboardClient({
           <div className="flex justify-center gap-6 text-xs pt-1 border-t border-slate-100">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#16845B]" />
-              <span className="text-[#697386] font-medium">
-                Collected: <span className="font-bold text-[#202435] font-mono">{formatCurrency(stats.totalCollected)}</span>
+              <span className="text-[#546574] font-medium">
+                Collected: <span className="font-bold text-[#21313C] font-mono">{formatCurrency(stats.totalCollected)}</span>
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#861F41]" />
-              <span className="text-[#697386] font-medium">
-                Outstanding: <span className="font-bold text-[#861F41] font-mono">{formatCurrency(stats.outstanding)}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#027EA1]" />
+              <span className="text-[#546574] font-medium">
+                Outstanding: <span className="font-bold text-[#027EA1] font-mono">{formatCurrency(stats.outstanding)}</span>
               </span>
             </div>
           </div>

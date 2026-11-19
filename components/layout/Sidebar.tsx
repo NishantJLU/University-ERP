@@ -332,12 +332,12 @@ export default function Sidebar({
 
       {/* Clean White Institutional Sidebar Panel */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] lg:max-w-none jlu-sidebar-desktop bg-[#FFFFFF] text-[#697386] border-r border-[#E5E7EB] flex flex-col select-none transition-transform duration-200 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] lg:max-w-none jlu-sidebar-desktop bg-[#FFFFFF] text-[#546574] border-r border-[#E2E8F0] flex flex-col select-none transition-transform duration-200 ease-in-out lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Lockup */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-[#E5E7EB] bg-[#FFFFFF] shrink-0 overflow-hidden">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#E2E8F0] bg-[#FFFFFF] shrink-0 overflow-hidden">
           <Link
             href={`/${role.toLowerCase()}/dashboard`}
             className="flex items-center gap-2.5 min-w-0 group"
@@ -346,7 +346,7 @@ export default function Sidebar({
           </Link>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#9299A8] hover:text-[#202435] hover:bg-[#F1F2F5] lg:hidden shrink-0 transition"
+            className="p-1.5 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-[#F1F3F5] lg:hidden shrink-0 transition"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -354,12 +354,12 @@ export default function Sidebar({
         </div>
 
         {/* Institutional Positioning Ribbon */}
-        <div className="px-4 py-1.5 bg-[#F1F2F5] border-b border-[#EEF0F3] flex items-center justify-between text-[10px] text-[#697386] font-medium shrink-0">
+        <div className="px-4 py-1.5 bg-[#F1F3F5] border-b border-[#EAEDF0] flex items-center justify-between text-[10px] text-[#546574] font-medium shrink-0">
           <span className="flex items-center gap-1.5 truncate">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#861F41] shrink-0" />
-            <span className="text-[#861F41] font-semibold truncate">Central India&apos;s Diamond University</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#027EA1] shrink-0" />
+            <span className="text-[#027EA1] font-semibold truncate">Central India&apos;s Diamond University</span>
           </span>
-          <span className="text-[#9299A8] font-mono shrink-0 pl-2">232 Acres</span>
+          <span className="text-[#8D9BA8] font-mono shrink-0 pl-2">232 Acres</span>
         </div>
 
         {/* Nav Links */}
@@ -367,7 +367,7 @@ export default function Sidebar({
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-1">
               {section.title && (
-                <div className="px-2.5 pb-1 text-[10px] font-bold uppercase tracking-wider text-[#9299A8] truncate">
+                <div className="px-2.5 pb-1 text-[10px] font-bold uppercase tracking-wider text-[#8D9BA8] truncate">
                   {section.title}
                 </div>
               )}
@@ -387,23 +387,23 @@ export default function Sidebar({
                     }}
                     className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group ${
                       isActive
-                        ? "bg-[#F9EEF2] text-[#64152F] font-semibold border-l-[3px] border-[#861F41] pl-2.5 shadow-2xs"
-                        : "text-[#697386] hover:text-[#202435] hover:bg-[#F1F2F5]"
+                        ? "bg-[#EAF5F8] text-[#015D77] font-semibold border-l-[3px] border-[#027EA1] pl-2.5 shadow-2xs"
+                        : "text-[#546574] hover:text-[#21313C] hover:bg-[#F1F3F5]"
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-1">
                       <Icon
                         className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
                           isActive
-                            ? "text-[#861F41]"
-                            : "text-[#9299A8] group-hover:text-[#202435]"
+                            ? "text-[#027EA1]"
+                            : "text-[#8D9BA8] group-hover:text-[#21313C]"
                         }`}
                       />
                       <span className="truncate">{item.label}</span>
                     </div>
 
                     {item.badge && (
-                      <span className="px-2 py-0.5 text-[9px] font-mono font-bold rounded-full bg-[#F9EEF2] text-[#861F41] border border-[#F4D3DE] shrink-0">
+                      <span className="px-2 py-0.5 text-[9px] font-mono font-bold rounded-full bg-[#EAF5F8] text-[#027EA1] border border-[#BEE1EC] shrink-0">
                         {item.badge}
                       </span>
                     )}
@@ -415,15 +415,15 @@ export default function Sidebar({
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-3.5 border-t border-[#EEF0F3] bg-[#FFFFFF] text-xs text-[#697386] flex items-center justify-between shrink-0 min-w-0">
+        <div className="p-3.5 border-t border-[#EAEDF0] bg-[#FFFFFF] text-xs text-[#546574] flex items-center justify-between shrink-0 min-w-0">
           <div className="min-w-0 truncate mr-2">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#202435] truncate">JLU Digital Campus</span>
-              <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-sm bg-[#F9EEF2] text-[#861F41] border border-[#F4D3DE]">
+              <span className="font-semibold text-[#21313C] truncate">JLU Digital Campus</span>
+              <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-sm bg-[#EAF5F8] text-[#027EA1] border border-[#BEE1EC]">
                 {role}
               </span>
             </div>
-            <p className="text-[10px] text-[#9299A8] font-mono truncate mt-0.5">
+            <p className="text-[10px] text-[#8D9BA8] font-mono truncate mt-0.5">
               AY {JLU_PROFILE.currentAcademicYear} • Central DB
             </p>
           </div>
@@ -478,25 +478,25 @@ export default function Sidebar({
           <div
             className={`w-[2px] h-full transition-colors duration-150 ${
               isDragging
-                ? "bg-[#861F41] shadow-xs shadow-[#861F41]/40"
-                : "bg-transparent group-hover:bg-[#861F41]/70 group-focus:bg-[#861F41]/70"
+                ? "bg-[#027EA1] shadow-xs shadow-[#027EA1]/40"
+                : "bg-transparent group-hover:bg-[#027EA1]/70 group-focus:bg-[#027EA1]/70"
             }`}
           />
           {/* Center tactile grip pill */}
           <div
-            className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-8 rounded-full border border-[#E5E7EB] bg-[#FFFFFF] flex items-center justify-center transition-all duration-150 shadow-xs ${
+            className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-8 rounded-full border border-[#E2E8F0] bg-[#FFFFFF] flex items-center justify-center transition-all duration-150 shadow-xs ${
               isDragging
-                ? "opacity-100 bg-[#F9EEF2] border-[#861F41] text-[#861F41] scale-110 ring-2 ring-[#861F41]/20"
-                : "opacity-0 group-hover:opacity-100 group-focus:opacity-100 text-[#9299A8] hover:text-[#202435]"
+                ? "opacity-100 bg-[#EAF5F8] border-[#027EA1] text-[#027EA1] scale-110 ring-2 ring-[#027EA1]/20"
+                : "opacity-0 group-hover:opacity-100 group-focus:opacity-100 text-[#8D9BA8] hover:text-[#21313C]"
             }`}
           >
             <GripVertical className="w-3 h-3" />
           </div>
           {/* Width indicator badge while dragging */}
           {isDragging && (
-            <div className="absolute top-20 left-4 px-2 py-1 bg-[#FFFFFF] text-[#861F41] text-[10px] font-mono font-bold rounded-md border border-[#F4D3DE] shadow-md pointer-events-none whitespace-nowrap z-50 flex items-center gap-1.5">
+            <div className="absolute top-20 left-4 px-2 py-1 bg-[#FFFFFF] text-[#027EA1] text-[10px] font-mono font-bold rounded-md border border-[#BEE1EC] shadow-md pointer-events-none whitespace-nowrap z-50 flex items-center gap-1.5">
               <span>{dragPx}px</span>
-              <span className="text-[9px] text-[#9299A8] font-normal">(220–420)</span>
+              <span className="text-[9px] text-[#8D9BA8] font-normal">(220–420)</span>
             </div>
           )}
         </div>

@@ -213,21 +213,21 @@ export default function StudentResourcesClient({
   return (
     <div className="space-y-5 font-sans text-slate-800">
       {/* 1. Header Banner & Action */}
-      <div className="bg-white rounded-xl border border-[#E5E7EB] border-l-4 border-l-[#861F41] p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-[#E2E8F0] border-l-4 border-l-[#027EA1] p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#F9EEF2] text-[#861F41] border border-[#861F41]/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#861F41]" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#EAF5F8] text-[#027EA1] border border-[#027EA1]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#027EA1]" />
               CENTRAL REPOSITORY
             </span>
-            <span className="text-xs text-[#9299A8]">AY 2026–2027</span>
+            <span className="text-xs text-[#8D9BA8]">AY 2026–2027</span>
             <span className="text-[#CBD5E1]">•</span>
-            <span className="text-xs text-[#697386]">All Faculties & Departments</span>
+            <span className="text-xs text-[#546574]">All Faculties & Departments</span>
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#202435]">
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#21313C]">
             Academic Documents & Learning Resources
           </h1>
-          <p className="text-xs sm:text-sm text-[#697386] mt-1 max-w-3xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#546574] mt-1 max-w-3xl leading-relaxed">
             Centralized institutional repository for academic calendars, official course syllabi, lecture presentations, previous year examination papers, and university guidelines.
           </p>
         </div>
@@ -237,7 +237,7 @@ export default function StudentResourcesClient({
             <button
               type="button"
               onClick={() => setUploadDrawerOpen(true)}
-              className="px-4 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Upload Resource</span>
@@ -247,23 +247,23 @@ export default function StudentResourcesClient({
       </div>
 
       {/* 2. Search & Filter Bar */}
-      <div className="bg-white rounded-xl border border-[#E5E7EB] p-4 shadow-xs space-y-3.5">
+      <div className="bg-white rounded-xl border border-[#E2E8F0] p-4 shadow-xs space-y-3.5">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Search Input */}
           <div className="relative flex-1 max-w-xl">
-            <Search className="w-4 h-4 text-[#9299A8] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#8D9BA8] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               placeholder="Search by title, subject code, or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-9 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] placeholder:text-[#9299A8] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+              className="w-full pl-9 pr-9 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] placeholder:text-[#8D9BA8] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#9299A8] hover:text-[#202435] p-1"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#8D9BA8] hover:text-[#21313C] p-1"
                 aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
@@ -274,12 +274,12 @@ export default function StudentResourcesClient({
           {/* Secondary Dropdown Filters */}
           <div className="flex flex-wrap items-center gap-2">
             {/* Semester Filter */}
-            <div className="flex items-center gap-1.5 text-xs text-[#697386]">
-              <span className="font-semibold text-[11px] text-[#9299A8] hidden sm:inline">Semester:</span>
+            <div className="flex items-center gap-1.5 text-xs text-[#546574]">
+              <span className="font-semibold text-[11px] text-[#8D9BA8] hidden sm:inline">Semester:</span>
               <select
                 value={selectedSemester}
                 onChange={(e) => setSelectedSemester(e.target.value)}
-                className="px-2.5 py-1.5 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs font-medium text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+                className="px-2.5 py-1.5 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs font-medium text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
               >
                 <option value="ALL">All Semesters</option>
                 {semesters.map((s) => (
@@ -291,12 +291,12 @@ export default function StudentResourcesClient({
             </div>
 
             {/* Subject Filter */}
-            <div className="flex items-center gap-1.5 text-xs text-[#697386]">
-              <span className="font-semibold text-[11px] text-[#9299A8] hidden sm:inline">Subject:</span>
+            <div className="flex items-center gap-1.5 text-xs text-[#546574]">
+              <span className="font-semibold text-[11px] text-[#8D9BA8] hidden sm:inline">Subject:</span>
               <select
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
-                className="px-2.5 py-1.5 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs font-medium text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41] max-w-[200px] truncate"
+                className="px-2.5 py-1.5 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs font-medium text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1] max-w-[200px] truncate"
               >
                 <option value="ALL">All Subjects</option>
                 {subjects.map((sub) => (
@@ -325,14 +325,14 @@ export default function StudentResourcesClient({
                 onClick={() => setSelectedCategory(cat.key)}
                 className={`px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer border ${
                   isSelected
-                    ? "bg-[#861F41] text-white border-[#861F41] shadow-2xs font-semibold"
-                    : "bg-[#F9FAFB] hover:bg-[#F7F7F9] text-[#697386] border-[#E5E7EB]"
+                    ? "bg-[#027EA1] text-white border-[#027EA1] shadow-2xs font-semibold"
+                    : "bg-[#F9FAFB] hover:bg-[#F8F9FA] text-[#546574] border-[#E2E8F0]"
                 }`}
               >
                 <span>{cat.label}</span>
                 <span
                   className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                    isSelected ? "bg-white/20 text-white" : "bg-[#E5E7EB] text-[#697386]"
+                    isSelected ? "bg-white/20 text-white" : "bg-[#E2E8F0] text-[#546574]"
                   }`}
                 >
                   {count}
@@ -354,7 +354,7 @@ export default function StudentResourcesClient({
             return (
               <div
                 key={res.id}
-                className="bg-white rounded-xl border border-[#E5E7EB] hover:border-[#861F41]/40 p-5 shadow-xs transition hover:shadow-sm flex flex-col justify-between group space-y-4"
+                className="bg-white rounded-xl border border-[#E2E8F0] hover:border-[#027EA1]/40 p-5 shadow-xs transition hover:shadow-sm flex flex-col justify-between group space-y-4"
               >
                 <div className="space-y-3">
                   {/* Category Pill & File Type */}
@@ -366,18 +366,18 @@ export default function StudentResourcesClient({
                       <span>{categoryMeta.label}</span>
                     </span>
 
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#F9FAFB] border border-[#E5E7EB] text-[#202435]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#F9FAFB] border border-[#E2E8F0] text-[#21313C]">
                       {res.fileType} • {res.fileSize}
                     </span>
                   </div>
 
                   {/* Title & Description */}
                   <div>
-                    <h3 className="text-sm font-bold text-[#202435] group-hover:text-[#861F41] transition leading-snug line-clamp-2">
+                    <h3 className="text-sm font-bold text-[#21313C] group-hover:text-[#027EA1] transition leading-snug line-clamp-2">
                       {res.title}
                     </h3>
                     {res.description && (
-                      <p className="text-xs text-[#697386] mt-1.5 leading-relaxed line-clamp-2">
+                      <p className="text-xs text-[#546574] mt-1.5 leading-relaxed line-clamp-2">
                         {res.description}
                       </p>
                     )}
@@ -387,12 +387,12 @@ export default function StudentResourcesClient({
                   {(res.subject || res.semester) && (
                     <div className="flex flex-wrap items-center gap-1.5 text-[11px] pt-1">
                       {res.subject && (
-                        <span className="px-2 py-0.5 rounded-md bg-[#F7F7F9] border border-[#E5E7EB] text-[#202435] font-mono">
+                        <span className="px-2 py-0.5 rounded-md bg-[#F8F9FA] border border-[#E2E8F0] text-[#21313C] font-mono">
                           {res.subject.code}
                         </span>
                       )}
                       {res.semester && (
-                        <span className="px-2 py-0.5 rounded-md bg-[#F7F7F9] border border-[#E5E7EB] text-[#697386]">
+                        <span className="px-2 py-0.5 rounded-md bg-[#F8F9FA] border border-[#E2E8F0] text-[#546574]">
                           Sem {res.semester.number}
                         </span>
                       )}
@@ -401,7 +401,7 @@ export default function StudentResourcesClient({
                 </div>
 
                 {/* Footer Metadata & Action Buttons */}
-                <div className="pt-3 border-t border-[#E5E7EB] flex items-center justify-between text-[11px] text-[#9299A8]">
+                <div className="pt-3 border-t border-[#E2E8F0] flex items-center justify-between text-[11px] text-[#8D9BA8]">
                   <div className="flex items-center gap-1.5 truncate mr-2" title={`Uploaded on ${formatDate(res.createdAt)}`}>
                     <Clock className="w-3.5 h-3.5 shrink-0" />
                     <span className="truncate">{formatDate(res.createdAt)}</span>
@@ -411,17 +411,17 @@ export default function StudentResourcesClient({
                     <button
                       type="button"
                       onClick={() => setPreviewResource(res)}
-                      className="px-2.5 py-1.5 bg-[#F9FAFB] hover:bg-[#F7F7F9] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold flex items-center gap-1 transition cursor-pointer"
+                      className="px-2.5 py-1.5 bg-[#F9FAFB] hover:bg-[#F8F9FA] text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold flex items-center gap-1 transition cursor-pointer"
                       title="Inspect Document Summary"
                     >
-                      <Eye className="w-3.5 h-3.5 text-[#9299A8]" />
+                      <Eye className="w-3.5 h-3.5 text-[#8D9BA8]" />
                       <span>Preview</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => handleDownload(res)}
-                      className="px-2.5 py-1.5 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold flex items-center gap-1 transition shadow-2xs cursor-pointer"
+                      className="px-2.5 py-1.5 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold flex items-center gap-1 transition shadow-2xs cursor-pointer"
                       title="Download Resource"
                     >
                       <Download className="w-3.5 h-3.5" />
@@ -435,12 +435,12 @@ export default function StudentResourcesClient({
         </div>
       ) : (
         /* Empty State */
-        <div className="p-12 bg-white rounded-xl border border-[#E5E7EB] text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-[#F9EEF2] text-[#861F41] flex items-center justify-center mx-auto">
+        <div className="p-12 bg-white rounded-xl border border-[#E2E8F0] text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-[#EAF5F8] text-[#027EA1] flex items-center justify-center mx-auto">
             <BookOpen className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-[#202435]">No academic resources found</h3>
-          <p className="text-xs text-[#697386] max-w-md mx-auto">
+          <h3 className="text-base font-bold text-[#21313C]">No academic resources found</h3>
+          <p className="text-xs text-[#546574] max-w-md mx-auto">
             No documents match your current filter parameters or search query. Try resetting filters to view all campus publications.
           </p>
           <button
@@ -451,7 +451,7 @@ export default function StudentResourcesClient({
               setSelectedSemester("ALL");
               setSelectedSubject("ALL");
             }}
-            className="px-4 py-2 bg-[#F9FAFB] hover:bg-[#F7F7F9] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold transition cursor-pointer"
+            className="px-4 py-2 bg-[#F9FAFB] hover:bg-[#F8F9FA] text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold transition cursor-pointer"
           >
             Reset All Filters
           </button>
@@ -461,18 +461,18 @@ export default function StudentResourcesClient({
       {/* 4. Document Preview Modal */}
       {previewResource && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-2xl max-w-xl w-full border border-[#E5E7EB] overflow-hidden flex flex-col max-h-[90vh]">
+          <div className="bg-white rounded-xl shadow-2xl max-w-xl w-full border border-[#E2E8F0] overflow-hidden flex flex-col max-h-[90vh]">
             {/* Modal Header */}
-            <div className="px-6 py-4 bg-[#F9FAFB] border-b border-[#E5E7EB] flex items-center justify-between">
+            <div className="px-6 py-4 bg-[#F9FAFB] border-b border-[#E2E8F0] flex items-center justify-between">
               <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                <span className="p-2 rounded-lg bg-[#F9EEF2] text-[#861F41]">
+                <span className="p-2 rounded-lg bg-[#EAF5F8] text-[#027EA1]">
                   <FileText className="w-5 h-5" />
                 </span>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#861F41]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#027EA1]">
                     {CATEGORIES.find((c) => c.key === previewResource.category)?.label || previewResource.category}
                   </span>
-                  <h3 className="text-sm font-bold text-[#202435] truncate">
+                  <h3 className="text-sm font-bold text-[#21313C] truncate">
                     {previewResource.title}
                   </h3>
                 </div>
@@ -480,34 +480,34 @@ export default function StudentResourcesClient({
               <button
                 type="button"
                 onClick={() => setPreviewResource(null)}
-                className="p-1.5 rounded-lg text-[#9299A8] hover:text-[#202435] hover:bg-slate-200 transition"
+                className="p-1.5 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-slate-200 transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Content */}
-            <div className="p-6 overflow-y-auto space-y-4 text-xs text-[#697386]">
-              <div className="p-3.5 bg-[#F9FAFB] rounded-lg border border-[#E5E7EB] space-y-2">
+            <div className="p-6 overflow-y-auto space-y-4 text-xs text-[#546574]">
+              <div className="p-3.5 bg-[#F9FAFB] rounded-lg border border-[#E2E8F0] space-y-2">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <span className="text-[10px] font-bold uppercase text-[#9299A8] block">Format</span>
-                    <span className="font-mono font-semibold text-[#202435]">
+                    <span className="text-[10px] font-bold uppercase text-[#8D9BA8] block">Format</span>
+                    <span className="font-mono font-semibold text-[#21313C]">
                       {previewResource.fileType} Document ({previewResource.fileSize})
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase text-[#9299A8] block">Published Date</span>
-                    <span className="font-semibold text-[#202435]">
+                    <span className="text-[10px] font-bold uppercase text-[#8D9BA8] block">Published Date</span>
+                    <span className="font-semibold text-[#21313C]">
                       {formatDate(previewResource.createdAt)}
                     </span>
                   </div>
                 </div>
 
                 {previewResource.subject && (
-                  <div className="pt-2 border-t border-[#E5E7EB]">
-                    <span className="text-[10px] font-bold uppercase text-[#9299A8] block">Associated Course</span>
-                    <span className="font-semibold text-[#202435]">
+                  <div className="pt-2 border-t border-[#E2E8F0]">
+                    <span className="text-[10px] font-bold uppercase text-[#8D9BA8] block">Associated Course</span>
+                    <span className="font-semibold text-[#21313C]">
                       {previewResource.subject.code}: {previewResource.subject.name}
                     </span>
                   </div>
@@ -515,10 +515,10 @@ export default function StudentResourcesClient({
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-[#202435] uppercase tracking-wider mb-1">
+                <h4 className="text-xs font-bold text-[#21313C] uppercase tracking-wider mb-1">
                   Document Overview & Abstract
                 </h4>
-                <p className="leading-relaxed bg-white p-3.5 rounded-lg border border-[#E5E7EB]">
+                <p className="leading-relaxed bg-white p-3.5 rounded-lg border border-[#E2E8F0]">
                   {previewResource.description ||
                     "This official university academic document contains prescribed study material, institutional guidelines, or syllabus structures authenticated by the academic dean's office."}
                 </p>
@@ -533,11 +533,11 @@ export default function StudentResourcesClient({
             </div>
 
             {/* Modal Footer */}
-            <div className="px-6 py-4 bg-[#F9FAFB] border-t border-[#E5E7EB] flex items-center justify-end gap-2.5">
+            <div className="px-6 py-4 bg-[#F9FAFB] border-t border-[#E2E8F0] flex items-center justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setPreviewResource(null)}
-                className="px-4 py-2 bg-white hover:bg-slate-50 text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold transition"
+                className="px-4 py-2 bg-white hover:bg-slate-50 text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold transition"
               >
                 Close Preview
               </button>
@@ -547,7 +547,7 @@ export default function StudentResourcesClient({
                   handleDownload(previewResource);
                   setPreviewResource(null);
                 }}
-                className="px-4 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+                className="px-4 py-2 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download Document</span>
@@ -566,8 +566,8 @@ export default function StudentResourcesClient({
       >
         <form onSubmit={handleUploadSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-[#202435] mb-1">
-              Resource Title <span className="text-[#861F41]">*</span>
+            <label className="block text-xs font-bold text-[#21313C] mb-1">
+              Resource Title <span className="text-[#027EA1]">*</span>
             </label>
             <input
               type="text"
@@ -575,18 +575,18 @@ export default function StudentResourcesClient({
               value={uploadForm.title}
               onChange={(e) => setUploadForm({ ...uploadForm, title: e.target.value })}
               placeholder="e.g. CS301 Database Systems - Unit 3 Relational Calculus"
-              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#202435] mb-1">
-              Resource Category <span className="text-[#861F41]">*</span>
+            <label className="block text-xs font-bold text-[#21313C] mb-1">
+              Resource Category <span className="text-[#027EA1]">*</span>
             </label>
             <select
               value={uploadForm.category}
               onChange={(e) => setUploadForm({ ...uploadForm, category: e.target.value })}
-              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
             >
               <option value="ACADEMIC_CALENDAR">Academic Calendar</option>
               <option value="COURSE_SYLLABUS">Course Syllabus</option>
@@ -601,13 +601,13 @@ export default function StudentResourcesClient({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#202435] mb-1">
+              <label className="block text-xs font-bold text-[#21313C] mb-1">
                 File Type
               </label>
               <select
                 value={uploadForm.fileType}
                 onChange={(e) => setUploadForm({ ...uploadForm, fileType: e.target.value })}
-                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
               >
                 <option value="PDF">PDF Document</option>
                 <option value="PPT">PowerPoint Presentation</option>
@@ -617,7 +617,7 @@ export default function StudentResourcesClient({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#202435] mb-1">
+              <label className="block text-xs font-bold text-[#21313C] mb-1">
                 Estimated File Size
               </label>
               <input
@@ -625,20 +625,20 @@ export default function StudentResourcesClient({
                 value={uploadForm.fileSize}
                 onChange={(e) => setUploadForm({ ...uploadForm, fileSize: e.target.value })}
                 placeholder="e.g. 3.2 MB"
-                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#202435] mb-1">
+              <label className="block text-xs font-bold text-[#21313C] mb-1">
                 Semester Association (Optional)
               </label>
               <select
                 value={uploadForm.semesterId}
                 onChange={(e) => setUploadForm({ ...uploadForm, semesterId: e.target.value })}
-                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
               >
                 <option value="NONE">General / No Specific Semester</option>
                 {semesters.map((s) => (
@@ -650,13 +650,13 @@ export default function StudentResourcesClient({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#202435] mb-1">
+              <label className="block text-xs font-bold text-[#21313C] mb-1">
                 Course Subject (Optional)
               </label>
               <select
                 value={uploadForm.subjectId}
                 onChange={(e) => setUploadForm({ ...uploadForm, subjectId: e.target.value })}
-                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:outline-none focus:ring-1 focus:ring-[#861F41] truncate"
+                className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:outline-none focus:ring-1 focus:ring-[#027EA1] truncate"
               >
                 <option value="NONE">No Specific Subject</option>
                 {subjects.map((sub) => (
@@ -669,7 +669,7 @@ export default function StudentResourcesClient({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#202435] mb-1">
+            <label className="block text-xs font-bold text-[#21313C] mb-1">
               Description & Learning Objectives
             </label>
             <textarea
@@ -677,7 +677,7 @@ export default function StudentResourcesClient({
               value={uploadForm.description}
               onChange={(e) => setUploadForm({ ...uploadForm, description: e.target.value })}
               placeholder="Provide context on topics covered, prerequisite units, or examination relevance..."
-              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-xs text-[#202435] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#861F41]"
+              className="w-full px-3 py-2 bg-[#F9FAFB] border border-[#E2E8F0] rounded-lg text-xs text-[#21313C] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#027EA1]"
             />
           </div>
 
@@ -685,14 +685,14 @@ export default function StudentResourcesClient({
             <button
               type="button"
               onClick={() => setUploadDrawerOpen(false)}
-              className="px-4 py-2 bg-white hover:bg-slate-50 text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold"
+              className="px-4 py-2 bg-white hover:bg-slate-50 text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={uploadLoading}
-              className="px-4 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5 disabled:opacity-50"
+              className="px-4 py-2 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5 disabled:opacity-50"
             >
               {uploadLoading ? (
                 <span>Publishing...</span>

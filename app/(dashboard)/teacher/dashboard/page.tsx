@@ -105,9 +105,9 @@ export default async function TeacherDashboardPage() {
             </Link>
             <Link
               href="/teacher/submissions"
-              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
             >
-              <Award className="w-3.5 h-3.5 text-[#861F41]" />
+              <Award className="w-3.5 h-3.5 text-[#027EA1]" />
               <span>Grading Queue ({pendingSubmissions.length})</span>
             </Link>
           </div>

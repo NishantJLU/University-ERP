@@ -3,52 +3,60 @@
 @tailwind utilities;
 
 :root {
-  /* Core Unified Institutional Palette */
-  --background: 240 10% 97.6%;     /* #F7F7F9 Main Application Canvas */
-  --foreground: 230 25% 16.7%;     /* #202435 Primary Text */
+  /* Official Jagran Lakecity University (JLU) Brand Palette (https://www.jlu.edu.in/) */
+  --background: 210 17% 98%;        /* #F8F9FA JLU Official Application Canvas */
+  --foreground: 206 29% 18%;        /* #21313C JLU Deep Slate Text */
   
-  --card: 0 0% 100%;               /* #FFFFFF Card & Sidebar */
-  --card-foreground: 230 25% 16.7%;
+  --card: 0 0% 100%;                  /* #FFFFFF Card & Sidebar */
+  --card-foreground: 206 29% 18%;
   
-  --primary: 340 62% 32.5%;        /* #861F41 Primary Burgundy */
-  --primary-hover: 340 65% 23.7%;  /* #64152F Dark Burgundy */
-  --primary-light: 333 50% 96.5%;  /* #F9EEF2 Light Burgundy */
+  --primary: 193 98% 32%;           /* #027EA1 Official JLU Lake Teal */
+  --primary-hover: 193 97% 27%;     /* #026A88 JLU Teal Hover */
+  --primary-dark: 193 98% 23%;      /* #015D77 JLU Deep Teal Active */
+  --primary-light: 193 45% 95%;     /* #EAF5F8 JLU Brand Tint Wash */
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 225 14% 95.3%;      /* #F1F2F5 Secondary Background */
-  --secondary-foreground: 218 12% 46.9%; /* #697386 Secondary Text */
+  --secondary: 210 14% 95%;         /* #F1F3F5 JLU Secondary Surface */
+  --secondary-foreground: 209 16% 39%; /* #546574 Secondary Text */
   
-  --muted: 225 14% 95.3%;          /* #F1F2F5 */
-  --muted-foreground: 222 11% 61.6%; /* #9299A8 Muted Text */
+  --muted: 210 14% 95%;             /* #F1F3F5 */
+  --muted-foreground: 208 13% 61%;  /* #8D9BA8 Muted Text */
   
-  --accent: 333 50% 96.5%;         /* #F9EEF2 */
-  --accent-foreground: 340 62% 32.5%;
+  --accent: 193 45% 95%;            /* #EAF5F8 */
+  --accent-foreground: 193 98% 32%; /* #027EA1 */
   
-  --destructive: 353 53% 50%;      /* #C23B4A Semantic Error */
+  --destructive: 353 53% 50%;         /* #C23B4A Semantic Error */
   --destructive-foreground: 0 0% 100%;
 
-  --border: 220 13% 91%;           /* #E5E7EB Default Border */
-  --border-subtle: 216 17% 94.5%;  /* #EEF0F3 Subtle Border */
-  --input: 220 13% 91%;
-  --ring: 340 62% 32.5%;           /* #861F41 */
+  --border: 215 28% 91%;              /* #E2E8F0 Default Border */
+  --border-subtle: 210 16% 93%;     /* #EAEDF0 Subtle Divider */
+  --input: 215 28% 91%;
+  --ring: 193 98% 32%;              /* #027EA1 */
   
   --radius: 0.625rem; /* 10px */
   
-  /* JLU Enterprise Institutional Design Tokens */
-  --jlu-burgundy: #861F41;
-  --jlu-burgundy-dark: #64152F;
-  --jlu-burgundy-light: #F9EEF2;
-  --jlu-text-primary: #202435;
-  --jlu-text-secondary: #697386;
-  --jlu-text-muted: #9299A8;
-  --surface-main: #F7F7F9;
+  /* JLU Official Brand Tokens */
+  --jlu-teal: #027EA1;
+  --jlu-teal-hover: #026A88;
+  --jlu-teal-dark: #015D77;
+  --jlu-teal-light: #EAF5F8;
+  --jlu-slate: #21313C;
+  --jlu-gold: #F0C14B;
+  --jlu-lime: #D4E4A0;
+  
+  --jlu-text-primary: #21313C;
+  --jlu-text-secondary: #546574;
+  --jlu-text-muted: #8D9BA8;
+  
+  --surface-main: #F8F9FA;
   --surface-card: #FFFFFF;
   --surface-sidebar: #FFFFFF;
-  --surface-secondary: #F1F2F5;
+  --surface-secondary: #F1F3F5;
   --surface-table-header: #F8F8FA;
-  --border-default: #E5E7EB;
-  --border-subtle: #EEF0F3;
-  --border-active: #861F41;
+  
+  --border-default: #E2E8F0;
+  --border-subtle: #EAEDF0;
+  --border-active: #027EA1;
   
   /* Semantic Status Semantics */
   --status-success: #16845B;
@@ -57,16 +65,16 @@
   --status-warning-bg: #FFF7E6;
   --status-danger: #C23B4A;
   --status-danger-bg: #FCEDEF;
-  --status-info: #3567A5;
-  --status-info-bg: #EDF3FA;
+  --status-info: #027EA1;
+  --status-info-bg: #EAF5F8;
 
   --sidebar-width: 260px;
 }
 
 body {
-  color: #202435;
-  background-color: #F7F7F9;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #21313C;
+  background-color: #F8F9FA;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -77,30 +85,30 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F7F9;
+  background: #F8F9FA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8DBE2;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B4B9C5;
+  background: #94A3B8;
 }
 
 /* Institutional Card System */
 .erp-card {
   background-color: #FFFFFF;
   border-radius: 0.75rem; /* 12px */
-  border: 1px solid #EEF0F3;
-  box-shadow: 0 1px 3px 0 rgba(32, 36, 53, 0.04), 0 1px 2px -1px rgba(32, 36, 53, 0.02);
+  border: 1px solid #EAEDF0;
+  box-shadow: 0 1px 3px 0 rgba(33, 49, 60, 0.04), 0 1px 2px -1px rgba(33, 49, 60, 0.02);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .erp-card-interactive {
   cursor: pointer;
 }
 .erp-card-interactive:hover {
-  border-color: #E5E7EB;
-  box-shadow: 0 4px 12px -2px rgba(32, 36, 53, 0.06), 0 2px 4px -2px rgba(32, 36, 53, 0.04);
+  border-color: #E2E8F0;
+  box-shadow: 0 4px 12px -2px rgba(33, 49, 60, 0.06), 0 2px 4px -2px rgba(33, 49, 60, 0.04);
   transform: translateY(-1px);
 }
 
@@ -110,7 +118,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #861F41;
+  background-color: #027EA1;
   color: #FFFFFF;
   font-size: 0.75rem;
   font-weight: 600;
@@ -120,7 +128,7 @@ body {
   cursor: pointer;
 }
 .btn-primary:hover {
-  background-color: #64152F;
+  background-color: #026A88;
 }
 
 .btn-secondary {
@@ -129,18 +137,19 @@ body {
   justify-content: center;
   gap: 0.5rem;
   background-color: #FFFFFF;
-  color: #861F41;
+  color: #027EA1;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #E2E8F0;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 .btn-secondary:hover {
-  background-color: #F9EEF2;
-  border-color: #861F41;
+  background-color: #EAF5F8;
+  border-color: #027EA1;
+  color: #015D77;
 }
 
 .btn-danger {
@@ -207,19 +216,20 @@ body {
   border: 1px solid #F9CBD2;
 }
 .status-badge-info {
-  background-color: #EDF3FA;
-  color: #3567A5;
-  border: 1px solid #BCD7F3;
+  background-color: #EAF5F8;
+  color: #027EA1;
+  border: 1px solid #BEE1EC;
 }
-.status-badge-burgundy {
-  background-color: #F9EEF2;
-  color: #861F41;
-  border: 1px solid #F4D3DE;
+.status-badge-teal,
+.status-badge-brand {
+  background-color: #EAF5F8;
+  color: #027EA1;
+  border: 1px solid #BEE1EC;
 }
 .status-badge-neutral {
-  background-color: #F1F2F5;
-  color: #697386;
-  border: 1px solid #E5E7EB;
+  background-color: #F1F3F5;
+  color: #546574;
+  border: 1px solid #E2E8F0;
 }
 
 /* Institutional Enterprise Data Table Styles */
@@ -231,42 +241,42 @@ body {
   text-align: left;
 }
 .erp-table th {
-  background-color: #F8F8FA;
-  border-bottom: 1px solid #EEF0F3;
+  background-color: #F8F9FA;
+  border-bottom: 1px solid #EAEDF0;
   padding: 0.625rem 0.875rem;
   font-weight: 600;
-  color: #697386;
+  color: #546574;
   text-transform: uppercase;
   font-size: 0.6875rem;
   letter-spacing: 0.04em;
 }
 .erp-table td {
   padding: 0.75rem 0.875rem;
-  border-bottom: 1px solid #EEF0F3;
-  color: #202435;
+  border-bottom: 1px solid #EAEDF0;
+  color: #21313C;
   vertical-align: middle;
 }
 .erp-table tr:last-child td {
   border-bottom: none;
 }
 .erp-table tr:hover td {
-  background-color: #F8F8FA;
+  background-color: #FAFBFC;
 }
 
 /* Form Input Standardization */
 .erp-input {
   background-color: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #E2E8F0;
   border-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
-  color: #202435;
+  color: #21313C;
   transition: all 0.15s ease-in-out;
 }
 .erp-input:focus {
   outline: none;
-  border-color: #861F41;
-  box-shadow: 0 0 0 2px rgba(134, 31, 65, 0.12);
+  border-color: #027EA1;
+  box-shadow: 0 0 0 2px rgba(2, 126, 161, 0.15);
 }
 
 /* Sidebar Resizable Layout */

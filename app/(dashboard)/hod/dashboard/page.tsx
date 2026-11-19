@@ -87,16 +87,16 @@ export default async function HODDashboardPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/hod/approvals"
-              className="px-3.5 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-[#027EA1] hover:bg-[#026A88] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Timetable Approvals ({pendingTimetables.length})</span>
             </Link>
             <Link
               href="/hod/reports"
-              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#21313C] border border-[#E2E8F0] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
             >
-              <BarChart3 className="w-3.5 h-3.5 text-[#861F41]" />
+              <BarChart3 className="w-3.5 h-3.5 text-[#027EA1]" />
               <span>School Analytics</span>
             </Link>
           </div>

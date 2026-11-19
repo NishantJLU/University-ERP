@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { LucideIcon, ArrowRight } from "lucide-react";
 
-export type MetricColor = "crimson" | "burgundy" | "green" | "blue" | "amber" | "purple" | "slate";
+export type MetricColor = "teal" | "gold" | "crimson" | "burgundy" | "green" | "blue" | "amber" | "purple" | "slate";
 
 export interface MetricCardProps {
   title: string;
@@ -27,61 +27,77 @@ const COLOR_VARIANTS: Record<
     badgeText: string;
   }
 > = {
-  burgundy: {
-    iconBg: "bg-[#F9EEF2]",
-    iconColor: "text-[#861F41]",
-    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
-    badgeText: "text-[#861F41]",
-  },
-  crimson: {
-    iconBg: "bg-[#F9EEF2]",
-    iconColor: "text-[#861F41]",
-    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
-    badgeText: "text-[#861F41]",
-  },
-  green: {
-    iconBg: "bg-[#EAF7F0]",
-    iconColor: "text-[#16845B]",
-    border: "border-[#EEF0F3] hover:border-[#16845B]/40",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#EAF7F0] border-[#B7EAD0]",
-    badgeText: "text-[#16845B]",
+  teal: {
+    iconBg: "bg-[#EAF5F8]",
+    iconColor: "text-[#027EA1]",
+    border: "border-[#EAEDF0] hover:border-[#027EA1]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF5F8] border-[#BEE1EC]",
+    badgeText: "text-[#027EA1]",
   },
   blue: {
-    iconBg: "bg-[#EDF3FA]",
-    iconColor: "text-[#3567A5]",
-    border: "border-[#EEF0F3] hover:border-[#3567A5]/40",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#EDF3FA] border-[#BCD7F3]",
-    badgeText: "text-[#3567A5]",
+    iconBg: "bg-[#EAF5F8]",
+    iconColor: "text-[#027EA1]",
+    border: "border-[#EAEDF0] hover:border-[#027EA1]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF5F8] border-[#BEE1EC]",
+    badgeText: "text-[#027EA1]",
+  },
+  gold: {
+    iconBg: "bg-[#FEF8E7]",
+    iconColor: "text-[#F0C14B]",
+    border: "border-[#EAEDF0] hover:border-[#F0C14B]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#FEF8E7] border-[#FDE5A9]",
+    badgeText: "text-[#B7791F]",
   },
   amber: {
     iconBg: "bg-[#FFF7E6]",
     iconColor: "text-[#B7791F]",
-    border: "border-[#EEF0F3] hover:border-[#B7791F]/40",
-    valueColor: "text-[#202435]",
+    border: "border-[#EAEDF0] hover:border-[#B7791F]/40",
+    valueColor: "text-[#21313C]",
     badgeBg: "bg-[#FFF7E6] border-[#FDE5A9]",
     badgeText: "text-[#B7791F]",
   },
+  green: {
+    iconBg: "bg-[#EAF7F0]",
+    iconColor: "text-[#16845B]",
+    border: "border-[#EAEDF0] hover:border-[#16845B]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF7F0] border-[#B7EAD0]",
+    badgeText: "text-[#16845B]",
+  },
+  burgundy: {
+    iconBg: "bg-[#EAF5F8]",
+    iconColor: "text-[#027EA1]",
+    border: "border-[#EAEDF0] hover:border-[#027EA1]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF5F8] border-[#BEE1EC]",
+    badgeText: "text-[#027EA1]",
+  },
+  crimson: {
+    iconBg: "bg-[#EAF5F8]",
+    iconColor: "text-[#027EA1]",
+    border: "border-[#EAEDF0] hover:border-[#027EA1]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF5F8] border-[#BEE1EC]",
+    badgeText: "text-[#027EA1]",
+  },
   purple: {
-    iconBg: "bg-[#F9EEF2]",
-    iconColor: "text-[#861F41]",
-    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
-    badgeText: "text-[#861F41]",
+    iconBg: "bg-[#EAF5F8]",
+    iconColor: "text-[#027EA1]",
+    border: "border-[#EAEDF0] hover:border-[#027EA1]/40",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#EAF5F8] border-[#BEE1EC]",
+    badgeText: "text-[#027EA1]",
   },
   slate: {
-    iconBg: "bg-[#F1F2F5]",
-    iconColor: "text-[#697386]",
-    border: "border-[#EEF0F3] hover:border-[#E5E7EB]",
-    valueColor: "text-[#202435]",
-    badgeBg: "bg-[#F1F2F5] border-[#E5E7EB]",
-    badgeText: "text-[#697386]",
+    iconBg: "bg-[#F1F3F5]",
+    iconColor: "text-[#546574]",
+    border: "border-[#EAEDF0] hover:border-[#E2E8F0]",
+    valueColor: "text-[#21313C]",
+    badgeBg: "bg-[#F1F3F5] border-[#E2E8F0]",
+    badgeText: "text-[#546574]",
   },
 };
 
@@ -90,13 +106,13 @@ export default function MetricCard({
   value,
   subtitle,
   icon,
-  color = "blue",
+  color = "teal",
   badge,
   href,
   actionText,
   className = "",
 }: MetricCardProps) {
-  const c = COLOR_VARIANTS[color] || COLOR_VARIANTS.blue;
+  const c = COLOR_VARIANTS[color] || COLOR_VARIANTS.teal;
 
   const renderIcon = () => {
     if (!icon) return null;
@@ -111,7 +127,7 @@ export default function MetricCard({
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#9299A8] truncate">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#8D9BA8] truncate">
             {title}
           </span>
           {icon && (
@@ -139,16 +155,16 @@ export default function MetricCard({
         </div>
 
         {subtitle && (
-          <div className="text-xs text-[#697386] mt-1.5 leading-relaxed">
+          <div className="text-xs text-[#546574] mt-1.5 leading-relaxed">
             {subtitle}
           </div>
         )}
       </div>
 
       {href && actionText && (
-        <div className="mt-3 pt-2.5 border-t border-[#EEF0F3] flex items-center justify-between text-xs font-semibold text-[#697386] group-hover:text-[#861F41] transition">
+        <div className="mt-3 pt-2.5 border-t border-[#EAEDF0] flex items-center justify-between text-xs font-semibold text-[#546574] group-hover:text-[#027EA1] transition">
           <span>{actionText}</span>
-          <ArrowRight className="w-3.5 h-3.5 text-[#9299A8] group-hover:text-[#861F41] group-hover:translate-x-0.5 transition" />
+          <ArrowRight className="w-3.5 h-3.5 text-[#8D9BA8] group-hover:text-[#027EA1] group-hover:translate-x-0.5 transition" />
         </div>
       )}
     </div>
