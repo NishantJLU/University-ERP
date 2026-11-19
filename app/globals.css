@@ -3,62 +3,69 @@
 @tailwind utilities;
 
 :root {
-  /* Core Institutional Palette (Light Institutional System) */
-  --background: 220 14% 96.9%; /* #F5F6F8 */
-  --foreground: 218 54% 20%;   /* #172B4D */
+  /* Core Unified Institutional Palette */
+  --background: 240 10% 97.6%;     /* #F7F7F9 Main Application Canvas */
+  --foreground: 230 25% 16.7%;     /* #202435 Primary Text */
   
-  --card: 0 0% 100%;           /* #FFFFFF */
-  --card-foreground: 218 54% 20%;
+  --card: 0 0% 100%;               /* #FFFFFF Card & Sidebar */
+  --card-foreground: 230 25% 16.7%;
   
-  --primary: 342 64% 33%;      /* #8B1E3F Burgundy */
+  --primary: 340 62% 32.5%;        /* #861F41 Primary Burgundy */
+  --primary-hover: 340 65% 23.7%;  /* #64152F Dark Burgundy */
+  --primary-light: 333 50% 96.5%;  /* #F9EEF2 Light Burgundy */
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 210 20% 98%;     /* #F9FAFB */
-  --secondary-foreground: 215 25% 27%; /* #475569 */
+  --secondary: 225 14% 95.3%;      /* #F1F2F5 Secondary Background */
+  --secondary-foreground: 218 12% 46.9%; /* #697386 Secondary Text */
   
-  --muted: 210 20% 98%;
-  --muted-foreground: 215 14% 57%; /* #8490A0 */
+  --muted: 225 14% 95.3%;          /* #F1F2F5 */
+  --muted-foreground: 222 11% 61.6%; /* #9299A8 Muted Text */
   
-  --accent: 342 64% 97%;       /* #FDF2F4 Light Burgundy */
-  --accent-foreground: 342 64% 33%;
+  --accent: 333 50% 96.5%;         /* #F9EEF2 */
+  --accent-foreground: 340 62% 32.5%;
   
-  --destructive: 355 53% 51%;   /* #C2414B */
+  --destructive: 353 53% 50%;      /* #C23B4A Semantic Error */
   --destructive-foreground: 0 0% 100%;
 
-  --border: 220 13% 91%;        /* #E5E7EB */
+  --border: 220 13% 91%;           /* #E5E7EB Default Border */
+  --border-subtle: 216 17% 94.5%;  /* #EEF0F3 Subtle Border */
   --input: 220 13% 91%;
-  --ring: 342 64% 33%;
+  --ring: 340 62% 32.5%;           /* #861F41 */
   
   --radius: 0.625rem; /* 10px */
   
   /* JLU Enterprise Institutional Design Tokens */
-  --jlu-burgundy: #8B1E3F;
-  --jlu-burgundy-hover: #701831;
-  --jlu-burgundy-light: #FDF2F4;
-  --jlu-navy: #172B4D;
-  --jlu-slate: #475569;
-  --jlu-muted: #8490A0;
-  --surface: #FFFFFF;
-  --surface-bg: #F5F6F8;
-  --surface-alt: #F9FAFB;
-  --border-light: #E5E7EB;
+  --jlu-burgundy: #861F41;
+  --jlu-burgundy-dark: #64152F;
+  --jlu-burgundy-light: #F9EEF2;
+  --jlu-text-primary: #202435;
+  --jlu-text-secondary: #697386;
+  --jlu-text-muted: #9299A8;
+  --surface-main: #F7F7F9;
+  --surface-card: #FFFFFF;
+  --surface-sidebar: #FFFFFF;
+  --surface-secondary: #F1F2F5;
+  --surface-table-header: #F8F8FA;
+  --border-default: #E5E7EB;
+  --border-subtle: #EEF0F3;
+  --border-active: #861F41;
   
-  /* Status Semantics */
+  /* Semantic Status Semantics */
   --status-success: #16845B;
-  --status-success-bg: #ECFDF3;
+  --status-success-bg: #EAF7F0;
   --status-warning: #B7791F;
-  --status-warning-bg: #FFFAEB;
-  --status-danger: #C2414B;
-  --status-danger-bg: #FEF2F2;
-  --status-info: #3574B9;
-  --status-info-bg: #EFF6FF;
+  --status-warning-bg: #FFF7E6;
+  --status-danger: #C23B4A;
+  --status-danger-bg: #FCEDEF;
+  --status-info: #3567A5;
+  --status-info-bg: #EDF3FA;
 
   --sidebar-width: 260px;
 }
 
 body {
-  color: #172B4D;
-  background-color: #F5F6F8;
+  color: #202435;
+  background-color: #F7F7F9;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -70,30 +77,30 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F6F8;
+  background: #F7F7F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #D8DBE2;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #B4B9C5;
 }
 
 /* Institutional Card System */
 .erp-card {
   background-color: #FFFFFF;
   border-radius: 0.75rem; /* 12px */
-  border: 1px solid #E5E7EB;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  border: 1px solid #EEF0F3;
+  box-shadow: 0 1px 3px 0 rgba(32, 36, 53, 0.04), 0 1px 2px -1px rgba(32, 36, 53, 0.02);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .erp-card-interactive {
   cursor: pointer;
 }
 .erp-card-interactive:hover {
-  border-color: #D1D5DB;
-  box-shadow: 0 4px 12px -2px rgba(23, 43, 77, 0.06), 0 2px 4px -2px rgba(23, 43, 77, 0.04);
+  border-color: #E5E7EB;
+  box-shadow: 0 4px 12px -2px rgba(32, 36, 53, 0.06), 0 2px 4px -2px rgba(32, 36, 53, 0.04);
   transform: translateY(-1px);
 }
 
@@ -103,7 +110,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #8B1E3F;
+  background-color: #861F41;
   color: #FFFFFF;
   font-size: 0.75rem;
   font-weight: 600;
@@ -113,7 +120,7 @@ body {
   cursor: pointer;
 }
 .btn-primary:hover {
-  background-color: #701831;
+  background-color: #64152F;
 }
 
 .btn-secondary {
@@ -122,7 +129,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   background-color: #FFFFFF;
-  color: #172B4D;
+  color: #861F41;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -132,8 +139,44 @@ body {
   cursor: pointer;
 }
 .btn-secondary:hover {
-  background-color: #F9FAFB;
-  border-color: #D1D5DB;
+  background-color: #F9EEF2;
+  border-color: #861F41;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #C23B4A;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-danger:hover {
+  background-color: #A82F3D;
+}
+
+.btn-success {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #16845B;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-success:hover {
+  background-color: #126A49;
 }
 
 /* Standardized Institutional Status Badges */
@@ -149,38 +192,33 @@ body {
   letter-spacing: 0.01em;
 }
 .status-badge-success {
-  background-color: #ECFDF3;
+  background-color: #EAF7F0;
   color: #16845B;
-  border: 1px solid #A7F3D0;
+  border: 1px solid #B7EAD0;
 }
 .status-badge-warning {
-  background-color: #FFFAEB;
+  background-color: #FFF7E6;
   color: #B7791F;
-  border: 1px solid #FDE68A;
+  border: 1px solid #FDE5A9;
 }
 .status-badge-danger {
-  background-color: #FEF2F2;
-  color: #C2414B;
-  border: 1px solid #FECDD3;
+  background-color: #FCEDEF;
+  color: #C23B4A;
+  border: 1px solid #F9CBD2;
 }
 .status-badge-info {
-  background-color: #EFF6FF;
-  color: #3574B9;
-  border: 1px solid #BFDBFE;
-}
-.status-badge-purple {
-  background-color: #FAF5FF;
-  color: #6B46C1;
-  border: 1px solid #E9D5FF;
+  background-color: #EDF3FA;
+  color: #3567A5;
+  border: 1px solid #BCD7F3;
 }
 .status-badge-burgundy {
-  background-color: #FDF2F4;
-  color: #8B1E3F;
-  border: 1px solid #FBE4E9;
+  background-color: #F9EEF2;
+  color: #861F41;
+  border: 1px solid #F4D3DE;
 }
 .status-badge-neutral {
-  background-color: #F9FAFB;
-  color: #475569;
+  background-color: #F1F2F5;
+  color: #697386;
   border: 1px solid #E5E7EB;
 }
 
@@ -193,26 +231,26 @@ body {
   text-align: left;
 }
 .erp-table th {
-  background-color: #F9FAFB;
-  border-bottom: 1px solid #E5E7EB;
+  background-color: #F8F8FA;
+  border-bottom: 1px solid #EEF0F3;
   padding: 0.625rem 0.875rem;
   font-weight: 600;
-  color: #475569;
+  color: #697386;
   text-transform: uppercase;
   font-size: 0.6875rem;
   letter-spacing: 0.04em;
 }
 .erp-table td {
   padding: 0.75rem 0.875rem;
-  border-bottom: 1px solid #F3F4F6;
-  color: #172B4D;
+  border-bottom: 1px solid #EEF0F3;
+  color: #202435;
   vertical-align: middle;
 }
 .erp-table tr:last-child td {
   border-bottom: none;
 }
 .erp-table tr:hover td {
-  background-color: #F9FAFB;
+  background-color: #F8F8FA;
 }
 
 /* Form Input Standardization */
@@ -222,13 +260,13 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
-  color: #172B4D;
+  color: #202435;
   transition: all 0.15s ease-in-out;
 }
 .erp-input:focus {
   outline: none;
-  border-color: #8B1E3F;
-  box-shadow: 0 0 0 2px rgba(139, 30, 63, 0.12);
+  border-color: #861F41;
+  box-shadow: 0 0 0 2px rgba(134, 31, 65, 0.12);
 }
 
 /* Sidebar Resizable Layout */

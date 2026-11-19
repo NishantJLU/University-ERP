@@ -135,14 +135,14 @@ export default async function StudentDashboardPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/student/timetable"
-              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#172B4D] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
             >
-              <CalendarDays className="w-3.5 h-3.5 text-[#8B1E3F]" />
+              <CalendarDays className="w-3.5 h-3.5 text-[#861F41]" />
               <span>Class Timetable</span>
             </Link>
             <Link
               href="/student/lms"
-              className="px-3.5 py-2 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>My Courses</span>

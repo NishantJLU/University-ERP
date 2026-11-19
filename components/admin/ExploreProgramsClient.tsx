@@ -56,15 +56,15 @@ export default function ExploreProgramsClient({
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="bg-white border border-[#E5E7EB] border-l-4 border-l-[#8B1E3F] text-[#172B4D] p-6 sm:p-7 rounded-xl shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="bg-white border border-[#E5E7EB] border-l-4 border-l-[#861F41] text-[#202435] p-6 sm:p-7 rounded-xl shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <span className="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#FDF2F4] text-[#8B1E3F] border border-[#8B1E3F]/20 mb-2">
+          <span className="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#F9EEF2] text-[#861F41] border border-[#861F41]/20 mb-2">
             Multidisciplinary Academic Curriculum • JLU Bhopal
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#172B4D]">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202435]">
             Explore Degree Programs & Faculties
           </h1>
-          <p className="text-xs sm:text-sm text-[#475569] mt-1">
+          <p className="text-xs sm:text-sm text-[#697386] mt-1">
             Browse undergraduate, postgraduate, and doctoral pathways offered across Jagran Lakecity University
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function ExploreProgramsClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/programs"
-            className="px-4 py-2 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold shadow-xs transition"
+            className="px-4 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition"
           >
             Manage Master Programs
           </Link>

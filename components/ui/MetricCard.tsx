@@ -28,60 +28,60 @@ const COLOR_VARIANTS: Record<
   }
 > = {
   burgundy: {
-    iconBg: "bg-[#FDF2F4]",
-    iconColor: "text-[#8B1E3F]",
-    border: "border-[#E5E7EB] hover:border-[#8B1E3F]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#FDF2F4] border-[#FBE4E9]",
-    badgeText: "text-[#8B1E3F]",
+    iconBg: "bg-[#F9EEF2]",
+    iconColor: "text-[#861F41]",
+    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
+    badgeText: "text-[#861F41]",
   },
   crimson: {
-    iconBg: "bg-[#FDF2F4]",
-    iconColor: "text-[#8B1E3F]",
-    border: "border-[#E5E7EB] hover:border-[#8B1E3F]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#FDF2F4] border-[#FBE4E9]",
-    badgeText: "text-[#8B1E3F]",
+    iconBg: "bg-[#F9EEF2]",
+    iconColor: "text-[#861F41]",
+    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
+    badgeText: "text-[#861F41]",
   },
   green: {
-    iconBg: "bg-[#ECFDF3]",
+    iconBg: "bg-[#EAF7F0]",
     iconColor: "text-[#16845B]",
-    border: "border-[#E5E7EB] hover:border-[#16845B]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#ECFDF3] border-[#A7F3D0]",
+    border: "border-[#EEF0F3] hover:border-[#16845B]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#EAF7F0] border-[#B7EAD0]",
     badgeText: "text-[#16845B]",
   },
   blue: {
-    iconBg: "bg-[#EFF6FF]",
-    iconColor: "text-[#3574B9]",
-    border: "border-[#E5E7EB] hover:border-[#3574B9]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#EFF6FF] border-[#BFDBFE]",
-    badgeText: "text-[#3574B9]",
+    iconBg: "bg-[#EDF3FA]",
+    iconColor: "text-[#3567A5]",
+    border: "border-[#EEF0F3] hover:border-[#3567A5]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#EDF3FA] border-[#BCD7F3]",
+    badgeText: "text-[#3567A5]",
   },
   amber: {
-    iconBg: "bg-[#FFFAEB]",
+    iconBg: "bg-[#FFF7E6]",
     iconColor: "text-[#B7791F]",
-    border: "border-[#E5E7EB] hover:border-[#B7791F]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#FFFAEB] border-[#FDE68A]",
+    border: "border-[#EEF0F3] hover:border-[#B7791F]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#FFF7E6] border-[#FDE5A9]",
     badgeText: "text-[#B7791F]",
   },
   purple: {
-    iconBg: "bg-[#FAF5FF]",
-    iconColor: "text-[#6B46C1]",
-    border: "border-[#E5E7EB] hover:border-[#6B46C1]/40",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#FAF5FF] border-[#E9D5FF]",
-    badgeText: "text-[#6B46C1]",
+    iconBg: "bg-[#F9EEF2]",
+    iconColor: "text-[#861F41]",
+    border: "border-[#EEF0F3] hover:border-[#861F41]/40",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#F9EEF2] border-[#F4D3DE]",
+    badgeText: "text-[#861F41]",
   },
   slate: {
-    iconBg: "bg-[#F9FAFB]",
-    iconColor: "text-[#475569]",
-    border: "border-[#E5E7EB] hover:border-[#CBD5E1]",
-    valueColor: "text-[#172B4D]",
-    badgeBg: "bg-[#F9FAFB] border-[#E5E7EB]",
-    badgeText: "text-[#475569]",
+    iconBg: "bg-[#F1F2F5]",
+    iconColor: "text-[#697386]",
+    border: "border-[#EEF0F3] hover:border-[#E5E7EB]",
+    valueColor: "text-[#202435]",
+    badgeBg: "bg-[#F1F2F5] border-[#E5E7EB]",
+    badgeText: "text-[#697386]",
   },
 };
 
@@ -111,7 +111,7 @@ export default function MetricCard({
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#8490A0] truncate">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#9299A8] truncate">
             {title}
           </span>
           {icon && (
@@ -139,16 +139,16 @@ export default function MetricCard({
         </div>
 
         {subtitle && (
-          <div className="text-xs text-[#475569] mt-1.5 leading-relaxed">
+          <div className="text-xs text-[#697386] mt-1.5 leading-relaxed">
             {subtitle}
           </div>
         )}
       </div>
 
       {href && actionText && (
-        <div className="mt-3 pt-2.5 border-t border-[#E5E7EB] flex items-center justify-between text-xs font-semibold text-[#475569] group-hover:text-[#8B1E3F] transition">
+        <div className="mt-3 pt-2.5 border-t border-[#EEF0F3] flex items-center justify-between text-xs font-semibold text-[#697386] group-hover:text-[#861F41] transition">
           <span>{actionText}</span>
-          <ArrowRight className="w-3.5 h-3.5 text-[#8490A0] group-hover:text-[#8B1E3F] group-hover:translate-x-0.5 transition" />
+          <ArrowRight className="w-3.5 h-3.5 text-[#9299A8] group-hover:text-[#861F41] group-hover:translate-x-0.5 transition" />
         </div>
       )}
     </div>

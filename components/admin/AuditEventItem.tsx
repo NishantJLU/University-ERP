@@ -105,26 +105,26 @@ export function AuditEventItem({ log }: { log: AuditLogItem }) {
   const timestamp = formatDateTime(log.createdAt);
 
   return (
-    <div className="py-2.5 px-3 hover:bg-slate-50/80 transition rounded flex items-start gap-3 text-xs border-b border-slate-100 last:border-b-0">
-      <div className="mt-0.5 text-slate-400 shrink-0">
+    <div className="py-2.5 px-3 hover:bg-[#F8F8FA] transition rounded flex items-start gap-3 text-xs border-b border-[#EEF0F3] last:border-b-0">
+      <div className="mt-0.5 text-[#9299A8] shrink-0">
         <IconComponent className="w-3.5 h-3.5" />
       </div>
 
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="font-semibold text-slate-900 tracking-tight">
+          <span className="font-semibold text-[#202435] tracking-tight">
             {eventLabel}
           </span>
-          <span className="text-[11px] text-slate-500 font-mono shrink-0">
+          <span className="text-[11px] text-[#9299A8] font-mono shrink-0">
             {timestamp}
           </span>
         </div>
 
-        <p className="text-[11px] text-slate-600 mt-0.5">
-          <span className="font-medium text-slate-800">{log.actorName}</span>
-          <span className="text-slate-500"> • {roleLabel}</span>
+        <p className="text-[11px] text-[#697386] mt-0.5">
+          <span className="font-medium text-[#202435]">{log.actorName}</span>
+          <span className="text-[#9299A8]"> • {roleLabel}</span>
           {log.entity && log.entity !== "User" && (
-            <span className="text-slate-500">
+            <span className="text-[#697386]">
               {" "}
               — {log.entity}
               {detailSnippet ? ` (${detailSnippet})` : ""}

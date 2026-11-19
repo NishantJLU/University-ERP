@@ -30,36 +30,36 @@ export function AttentionCard({
       case "critical":
         return {
           wrapper: isDominant
-            ? "border border-[#FECDD3] border-l-4 border-l-[#C2414B] bg-[#FEF2F2] p-5 rounded-lg shadow-xs"
-            : "border border-[#FECDD3] border-l-4 border-l-[#C2414B] bg-[#FEF2F2]/60 p-4 rounded-lg shadow-xs",
-          icon: <ShieldAlert className="w-4 h-4 text-[#C2414B] shrink-0" />,
-          value: "text-[#172B4D]",
-          badge: "bg-[#FEF2F2] text-[#C2414B] border-[#FECDD3]",
+            ? "border border-[#F9CBD2] border-l-4 border-l-[#C23B4A] bg-[#FCEDEF] p-5 rounded-lg shadow-xs"
+            : "border border-[#F9CBD2] border-l-4 border-l-[#C23B4A] bg-[#FCEDEF]/60 p-4 rounded-lg shadow-xs",
+          icon: <ShieldAlert className="w-4 h-4 text-[#C23B4A] shrink-0" />,
+          value: "text-[#202435]",
+          badge: "bg-[#FCEDEF] text-[#C23B4A] border-[#F9CBD2]",
           defaultBadge: "CRITICAL",
-          subtext: "text-[#475569]",
-          actionClass: "text-[#C2414B] hover:text-[#9F1239] font-semibold",
+          subtext: "text-[#697386]",
+          actionClass: "text-[#C23B4A] hover:text-[#9F1239] font-semibold",
         };
       case "warning":
         return {
           wrapper:
-            "border border-[#E5E7EB] border-l-4 border-l-[#B7791F] bg-[#FFFFFF] hover:border-[#CBD5E1] p-4 rounded-lg shadow-xs",
+            "border border-[#EEF0F3] border-l-4 border-l-[#B7791F] bg-[#FFFFFF] hover:border-[#E5E7EB] p-4 rounded-lg shadow-xs",
           icon: <AlertTriangle className="w-4 h-4 text-[#B7791F] shrink-0" />,
-          value: "text-[#172B4D]",
-          badge: "bg-[#FFFAEB] text-[#B7791F] border-[#FDE68A]",
+          value: "text-[#202435]",
+          badge: "bg-[#FFF7E6] text-[#B7791F] border-[#FDE5A9]",
           defaultBadge: "REQUIRES REVIEW",
-          subtext: "text-[#475569]",
+          subtext: "text-[#697386]",
           actionClass: "text-[#B7791F] hover:text-[#8D5B0F] font-semibold",
         };
       case "healthy":
       default:
         return {
           wrapper:
-            "border border-[#E5E7EB] border-l-4 border-l-[#16845B] bg-[#FFFFFF] hover:border-[#CBD5E1] p-4 rounded-lg shadow-xs",
+            "border border-[#EEF0F3] border-l-4 border-l-[#16845B] bg-[#FFFFFF] hover:border-[#E5E7EB] p-4 rounded-lg shadow-xs",
           icon: <CheckCircle2 className="w-4 h-4 text-[#16845B] shrink-0" />,
-          value: "text-[#172B4D]",
-          badge: "bg-[#ECFDF3] text-[#16845B] border-[#A7F3D0]",
+          value: "text-[#202435]",
+          badge: "bg-[#EAF7F0] text-[#16845B] border-[#B7EAD0]",
           defaultBadge: "HEALTHY",
-          subtext: "text-[#475569]",
+          subtext: "text-[#697386]",
           actionClass: "text-[#16845B] hover:text-[#116645] font-semibold",
         };
     }
@@ -74,7 +74,7 @@ export function AttentionCard({
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-2">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#172B4D]">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#202435]">
             {config.icon}
             <span>{title}</span>
           </div>

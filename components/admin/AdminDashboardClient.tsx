@@ -81,23 +81,23 @@ export default function AdminDashboardClient({
   return (
     <div className="space-y-6">
       {/* 1. JLU Institutional Hero (Clean Institutional White Card with Burgundy Accent) */}
-      <div className="rounded-xl bg-white border border-[#E5E7EB] border-l-4 border-l-[#8B1E3F] p-6 sm:p-7 shadow-xs text-[#172B4D]">
+      <div className="rounded-xl bg-white border border-[#E5E7EB] border-l-4 border-l-[#861F41] p-6 sm:p-7 shadow-xs text-[#202435]">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#FDF2F4] text-[#8B1E3F] border border-[#8B1E3F]/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8B1E3F]" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#F9EEF2] text-[#861F41] border border-[#F4D3DE]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#861F41]" />
                 CENTRAL ADMINISTRATION CONSOLE
               </span>
-              <span className="text-xs text-[#475569] font-medium">AY 2026–2027</span>
-              <span className="text-[#8490A0]">•</span>
-              <span className="text-xs text-[#475569] font-medium">Administrator: {user.name}</span>
+              <span className="text-xs text-[#697386] font-medium">AY 2026–2027</span>
+              <span className="text-[#9299A8]">•</span>
+              <span className="text-xs text-[#697386] font-medium">Administrator: {user.name}</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#172B4D]">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#202435]">
               Academic Administration Console
             </h1>
-            <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#697386] mt-1 max-w-2xl leading-relaxed">
               Monitor university operations, academic configuration, student lifecycle, and institutional compliance.
             </p>
           </div>
@@ -107,7 +107,7 @@ export default function AdminDashboardClient({
             <button
               type="button"
               onClick={() => setIsEnrollStudentOpen(true)}
-              className="px-4 py-2 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
               id="btn-hero-enroll-student"
             >
               <UserPlus className="w-3.5 h-3.5" />
@@ -116,7 +116,7 @@ export default function AdminDashboardClient({
             <button
               type="button"
               onClick={() => setIsPublishNoticeOpen(true)}
-              className="px-4 py-2 bg-white hover:bg-[#F9FAFB] text-[#172B4D] rounded-lg text-xs font-semibold border border-[#E5E7EB] transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-4 py-2 bg-white hover:bg-[#F9EEF2] text-[#861F41] rounded-lg text-xs font-semibold border border-[#E5E7EB] hover:border-[#861F41] transition flex items-center gap-1.5 cursor-pointer shadow-xs"
               id="btn-hero-publish-notice"
             >
               <span>Publish Notice</span>
@@ -267,58 +267,58 @@ export default function AdminDashboardClient({
       {/* 4. Administrative Operations (Compact Neutral Utility Strip) */}
       <div className="bg-white border border-slate-200 rounded-lg p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="shrink-0">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#202435] block">
             Administrative Operations
           </span>
-          <span className="text-[11px] text-slate-500">Institutional navigation shortcuts</span>
+          <span className="text-[11px] text-[#697386]">Institutional navigation shortcuts</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5 text-xs">
           <Link
             href="/admin/departments"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Departments
           </Link>
           <Link
             href="/admin/programs"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Programs
           </Link>
           <Link
             href="/admin/subjects"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Subjects
           </Link>
           <Link
             href="/admin/faculty"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Faculty
           </Link>
           <Link
             href="/admin/sections"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Sections
           </Link>
           <Link
             href="/admin/rooms"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Rooms
           </Link>
           <Link
             href="/admin/timetable"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Timetable
           </Link>
           <Link
             href="/admin/audit-logs"
-            className="px-3 py-1.5 bg-[#F9FAFB] hover:bg-[#F5F6F8] text-[#172B4D] border border-[#E5E7EB] rounded-md font-medium transition"
+            className="px-3 py-1.5 bg-[#F1F2F5] hover:bg-[#F8F8FA] text-[#202435] border border-[#E5E7EB] rounded-md font-medium transition"
           >
             Audit Logs
           </Link>
@@ -328,19 +328,19 @@ export default function AdminDashboardClient({
       {/* 5. Master Data Modules & Activity Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Master Data Modules (Editorial, Asymmetric, No Tinted Squares) */}
-        <div className="lg:col-span-7 bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div className="lg:col-span-7 bg-white rounded-lg border border-[#EEF0F3] p-6 space-y-4 shadow-xs">
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEF0F3]">
             <div>
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight">
+              <h2 className="text-sm font-bold text-[#202435] tracking-tight">
                 Academic Infrastructure Modules
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#697386]">
                 Core structural entities supporting university curricula and venues
               </p>
             </div>
             <Link
               href="/admin/departments"
-              className="text-xs font-semibold text-[#8B1E3F] hover:underline"
+              className="text-xs font-semibold text-[#861F41] hover:underline"
             >
               All modules
             </Link>
@@ -349,96 +349,96 @@ export default function AdminDashboardClient({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <Link
               href="/admin/departments"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Academic Departments
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-mono text-[#697386]">
                   {metrics.deptCount} Active
                 </span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Department hierarchy, school grouping, and administrative chairs
               </p>
             </Link>
 
             <Link
               href="/admin/programs"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Degree Programs
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-mono text-[#697386]">
                   {metrics.progCount} Degrees
                 </span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Undergraduate, postgraduate, and doctoral program configurations
               </p>
             </Link>
 
             <Link
               href="/admin/subjects"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Course Subjects
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">Syllabus</span>
+                <span className="text-[11px] font-mono text-[#697386]">Syllabus</span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Course curriculum, academic credits, and semester mappings
               </p>
             </Link>
 
             <Link
               href="/admin/sections"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Student Cohort Sections
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">Batches</span>
+                <span className="text-[11px] font-mono text-[#697386]">Batches</span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Classroom batch allocation, capacities, and enrolled rosters
               </p>
             </Link>
 
             <Link
               href="/admin/rooms"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Rooms & Facilities
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-mono text-[#697386]">
                   {metrics.roomCount} Venues
                 </span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Campus lecture theatres, laboratory complexes, and seat quotas
               </p>
             </Link>
 
             <Link
               href="/admin/faculty-allocation"
-              className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 transition block group"
+              className="p-3.5 rounded-lg bg-[#F1F2F5] hover:bg-[#F8F8FA] border border-[#EEF0F3] transition block group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-[#8B1E3F]">
+                <span className="font-bold text-[#202435] group-hover:text-[#861F41]">
                   Faculty Workload Allocation
                 </span>
-                <span className="text-[11px] font-mono text-slate-500">Workload</span>
+                <span className="text-[11px] font-mono text-[#697386]">Workload</span>
               </div>
-              <p className="text-slate-500 mt-1 text-[11px] leading-normal">
+              <p className="text-[#697386] mt-1 text-[11px] leading-normal">
                 Teacher-subject assignments and semester teaching load validation
               </p>
             </Link>
@@ -446,28 +446,28 @@ export default function AdminDashboardClient({
         </div>
 
         {/* Right: Live University Audit Trail (Clean Activity Feed, Timestamps, No Tinted Squares) */}
-        <div className="lg:col-span-5 bg-white rounded-lg border border-slate-200 p-5 space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div className="lg:col-span-5 bg-white rounded-lg border border-[#EEF0F3] p-5 space-y-3 shadow-xs">
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEF0F3]">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#202435] flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#9299A8]" />
                 <span>Recent System Audit Trail</span>
               </h3>
-              <p className="text-[11px] text-slate-500">Immutable ledger of administrative events</p>
+              <p className="text-[11px] text-[#697386]">Immutable ledger of administrative events</p>
             </div>
             <Link
               href="/admin/audit-logs"
-              className="text-[11px] font-semibold text-[#8B1E3F] hover:underline"
+              className="text-[11px] font-semibold text-[#861F41] hover:underline"
             >
               View all audit logs
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-[#EEF0F3]">
             {recentAudits && recentAudits.length > 0 ? (
               recentAudits.map((log) => <AuditEventItem key={log.id} log={log} />)
             ) : (
-              <p className="text-xs text-slate-400 p-4 text-center">No recent audit activity recorded.</p>
+              <p className="text-xs text-[#9299A8] p-4 text-center">No recent audit activity recorded.</p>
             )}
           </div>
         </div>

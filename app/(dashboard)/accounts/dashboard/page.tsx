@@ -58,16 +58,16 @@ export default async function AccountsDashboardPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/accounts/reconciliation"
-              className="px-3.5 py-2 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg text-xs font-bold shadow-xs transition flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Bank Reconciliation</span>
             </Link>
             <Link
               href="/accounts/reports"
-              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#172B4D] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#202435] border border-[#E5E7EB] rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1.5"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-[#8B1E3F]" />
+              <FileSpreadsheet className="w-3.5 h-3.5 text-[#861F41]" />
               <span>Financial Reports</span>
             </Link>
           </div>
@@ -102,7 +102,7 @@ export default async function AccountsDashboardPage() {
             </div>
             <Link
               href="/accounts/dues"
-              className="self-start px-3 py-1.5 bg-[#8B1E3F] hover:bg-[#701831] text-white rounded-lg font-bold text-xs transition shadow-xs flex items-center gap-1"
+              className="self-start px-3 py-1.5 bg-[#861F41] hover:bg-[#64152F] text-white rounded-lg font-bold text-xs transition shadow-xs flex items-center gap-1"
             >
               <span>Manage Student Dues</span>
               <ArrowRight className="w-3.5 h-3.5" />
