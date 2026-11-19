@@ -30,6 +30,7 @@ export const JLU_THEME = {
     subtle: "#FAFBFC",        // Hover table row & alternate cards
   },
   typography: {
+    fontFamily: '"Aptos", "Aptos Display", system-ui, -apple-system, sans-serif',
     primary: "#21313C",       // Official JLU deep slate primary text
     secondary: "#546574",     // Slate secondary labels, descriptions, subheadings
     muted: "#8D9BA8",         // Muted timestamps, breadcrumb dividers, placeholders
