@@ -337,7 +337,7 @@ export default function Sidebar({
         }`}
       >
         {/* Brand Lockup */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-[#E2E8F0] bg-[#FFFFFF] shrink-0 overflow-hidden">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#D4E4EE] bg-gradient-to-r from-[#EBF3F8] to-[#EEF5FA] shrink-0 overflow-hidden">
           <Link
             href={`/${role.toLowerCase()}/dashboard`}
             className="flex items-center gap-2.5 min-w-0 group"
@@ -346,7 +346,7 @@ export default function Sidebar({
           </Link>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-[#F1F3F5] lg:hidden shrink-0 transition"
+            className="p-1.5 rounded-lg text-[#486577] hover:text-[#1C3342] hover:bg-white/80 lg:hidden shrink-0 transition"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -354,12 +354,12 @@ export default function Sidebar({
         </div>
 
         {/* Institutional Positioning Ribbon */}
-        <div className="px-4 py-1.5 bg-[#F1F3F5] border-b border-[#EAEDF0] flex items-center justify-between text-[10px] text-[#546574] font-medium shrink-0">
+        <div className="px-4 py-1.5 bg-[#E1EDF4] border-b border-[#D4E4EE] flex items-center justify-between text-[10px] text-[#015D77] font-semibold shrink-0">
           <span className="flex items-center gap-1.5 truncate">
             <span className="w-1.5 h-1.5 rounded-full bg-[#027EA1] shrink-0" />
             <span className="text-[#027EA1] font-semibold truncate">Central India&apos;s Diamond University</span>
           </span>
-          <span className="text-[#8D9BA8] font-mono shrink-0 pl-2">232 Acres</span>
+          <span className="text-[#486577] font-mono shrink-0 pl-2">232 Acres</span>
         </div>
 
         {/* Nav Links */}

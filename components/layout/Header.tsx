@@ -136,26 +136,26 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
   const pathParts = pathname.split("/").filter(Boolean);
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-[#FFFFFF] text-[#21313C] border-b border-[#EAEDF0] px-4 sm:px-6 flex items-center justify-between select-none shadow-2xs">
+    <header className="sticky top-0 z-30 h-16 bg-gradient-to-r from-[#EBF3F8] via-[#F0F6FA] to-[#EAF4F9] text-[#21313C] border-b border-[#D4E4EE] px-4 sm:px-6 flex items-center justify-between select-none shadow-2xs">
       {/* Left: Mobile Toggle + Breadcrumbs */}
       <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={onOpenSidebar}
-          className="p-1.5 -ml-1.5 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-[#F1F3F5] lg:hidden focus:outline-none transition shrink-0"
+          className="p-1.5 -ml-1.5 rounded-lg text-[#486577] hover:text-[#1C3342] hover:bg-white/70 lg:hidden focus:outline-none transition shrink-0 border border-transparent hover:border-[#CCE0ED]"
           aria-label="Open sidebar"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         {/* Functional Breadcrumb Navigation Context */}
-        <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#546574] font-medium min-w-0 overflow-hidden">
+        <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#486577] font-medium min-w-0 overflow-hidden">
           <Link
             href="/"
-            className="font-bold text-[#21313C] tracking-wide shrink-0 hover:text-[#027EA1] transition"
+            className="font-bold text-[#1C3342] tracking-wide shrink-0 hover:text-[#027EA1] transition"
           >
             JLU Digital Campus
           </Link>
-          <span className="text-[#CBD5E1] shrink-0">/</span>
+          <span className="text-[#9BB4C4] shrink-0">/</span>
           {pathParts.map((part, index) => {
             const isLast = index === pathParts.length - 1;
             const labelMap: Record<string, string> = {
@@ -206,18 +206,18 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
             return (
               <span key={`${part}-${index}`} className="flex items-center gap-1.5 min-w-0">
                 {isLast ? (
-                  <span className="text-[#21313C] font-bold capitalize truncate max-w-[200px] md:max-w-none">
+                  <span className="text-[#1C3342] font-bold capitalize truncate max-w-[200px] md:max-w-none">
                     {displayLabel}
                   </span>
                 ) : (
                   <Link
                     href={href}
-                    className="text-[#546574] capitalize hover:text-[#027EA1] hover:underline transition truncate max-w-[120px] md:max-w-none"
+                    className="text-[#486577] capitalize hover:text-[#027EA1] hover:underline transition truncate max-w-[120px] md:max-w-none font-medium"
                   >
                     {displayLabel}
                   </Link>
                 )}
-                {!isLast && <span className="text-[#CBD5E1] shrink-0">/</span>}
+                {!isLast && <span className="text-[#9BB4C4] shrink-0">/</span>}
               </span>
             );
           })}
@@ -227,7 +227,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
       {/* Right: Academic Year, Search, Role Switcher & Profile */}
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Academic Session Indicator */}
-        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#EAF5F8] border border-[#BEE1EC] text-[#027EA1] text-[11px] font-semibold">
+        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/95 border border-[#CCE0ED] text-[#027EA1] text-[11px] font-semibold shadow-xs">
           <Calendar className="w-3.5 h-3.5 text-[#027EA1]" />
           <span>AY {JLU_PROFILE.currentAcademicYear} (ODD SEM)</span>
         </div>
@@ -236,12 +236,12 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         <button
           type="button"
           onClick={handleOpenSearch}
-          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F1F3F5] hover:bg-[#FFFFFF] text-[#546574] hover:text-[#21313C] text-xs border border-[#E2E8F0] transition cursor-pointer shadow-2xs"
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/95 hover:bg-white text-[#486577] hover:text-[#1C3342] text-xs border border-[#CCE0ED] transition cursor-pointer shadow-xs"
           title="Search System (Cmd+K)"
         >
           <Search className="w-3.5 h-3.5 text-[#8D9BA8]" />
           <span>Search records...</span>
-          <kbd className="ml-1 px-1.5 py-0.5 rounded-md bg-[#FFFFFF] text-[10px] font-mono border border-[#E2E8F0] text-[#546574]">
+          <kbd className="ml-1 px-1.5 py-0.5 rounded-md bg-[#F1F3F5] text-[10px] font-mono border border-[#CCE0ED] text-[#546574]">
             ⌘K
           </kbd>
         </button>
@@ -249,7 +249,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
         <button
           type="button"
           onClick={handleOpenSearch}
-          className="p-1.5 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-[#F1F3F5] sm:hidden"
+          className="p-1.5 rounded-lg text-[#486577] hover:text-[#1C3342] hover:bg-white/70 sm:hidden border border-transparent hover:border-[#CCE0ED]"
           title="Search"
         >
           <Search className="w-4 h-4" />
@@ -265,7 +265,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
               setNotifOpen(false);
             }}
             disabled={switching}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#F1F3F5] hover:bg-[#FFFFFF] text-[#21313C] border border-[#E2E8F0] transition shadow-2xs"
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white/95 hover:bg-white text-[#1C3342] border border-[#CCE0ED] transition shadow-xs cursor-pointer"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#027EA1]" />
             <span className="hidden md:inline text-[#8D9BA8] font-normal">Role:</span>
@@ -274,7 +274,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
           </button>
 
           {roleMenuOpen && (
-            <div className="absolute right-0 mt-2 w-60 rounded-xl bg-white shadow-lg border border-[#E2E8F0] py-1.5 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute right-0 mt-2 w-60 rounded-xl bg-white shadow-lg border border-[#CCE0ED] py-1.5 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
               <div className="px-3.5 py-2 border-b border-[#EAEDF0] bg-[#F1F3F5]">
                 <p className="text-[10px] font-bold text-[#8D9BA8] uppercase tracking-wider">
                   Switch Portal Persona
@@ -315,19 +315,19 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
               setRoleMenuOpen(false);
               setUserMenuOpen(false);
             }}
-            className="p-2 rounded-lg text-[#8D9BA8] hover:text-[#21313C] hover:bg-[#F1F3F5] relative transition"
+            className="p-2 rounded-lg text-[#486577] hover:text-[#1C3342] hover:bg-white/70 relative transition border border-transparent hover:border-[#CCE0ED]"
             title="System Notices"
           >
             <Bell className="w-4 h-4" />
             {unreadNotifs > 0 && (
-              <span className="absolute top-1.5 right-1.5 min-w-[14px] h-3.5 px-1 rounded-full bg-[#027EA1] text-white text-[8px] font-bold flex items-center justify-center">
+              <span className="absolute top-1.5 right-1.5 min-w-[14px] h-3.5 px-1 rounded-full bg-[#027EA1] text-white text-[8px] font-bold flex items-center justify-center shadow-xs">
                 {unreadNotifs}
               </span>
             )}
           </button>
 
           {notifOpen && (
-            <div className="absolute right-0 mt-2 w-80 rounded-xl bg-white shadow-lg border border-[#E2E8F0] p-4 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute right-0 mt-2 w-80 rounded-xl bg-white shadow-lg border border-[#CCE0ED] p-4 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
               <div className="flex items-center justify-between pb-2.5 border-b border-[#EAEDF0]">
                 <span className="text-xs font-bold text-[#21313C]">Campus Circulars</span>
                 {unreadNotifs > 0 ? (
@@ -343,14 +343,14 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
                 )}
               </div>
               <div className="mt-2.5 space-y-2 text-xs">
-                <div className="p-2.5 rounded-lg bg-[#F1F3F5] border border-[#EAEDF0]">
+                <div className="p-2.5 rounded-lg bg-[#F8F9FA] border border-[#EAEDF0]">
                   <p className="font-semibold text-[#21313C]">Annual Academic Convocation</p>
                   <p className="text-[11px] text-[#546574] mt-0.5">
                     Registration opened for eligible graduating cohorts.
                   </p>
                   <span className="text-[9px] text-[#8D9BA8] mt-1 block font-mono">2 hours ago</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-[#F1F3F5] border border-[#EAEDF0]">
+                <div className="p-2.5 rounded-lg bg-[#F8F9FA] border border-[#EAEDF0]">
                   <p className="font-semibold text-[#21313C]">End-Term Examination Schedule</p>
                   <p className="text-[11px] text-[#546574] mt-0.5">
                     Practical assessments commence Oct 18, 2026.
@@ -371,13 +371,13 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
               setRoleMenuOpen(false);
               setNotifOpen(false);
             }}
-            className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-[#F1F3F5] hover:bg-[#FFFFFF] border border-[#E2E8F0] text-left transition shadow-2xs"
+            className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-white/95 hover:bg-white border border-[#CCE0ED] text-left transition shadow-xs cursor-pointer"
           >
-            <div className="w-6 h-6 rounded-md bg-[#027EA1] text-white font-bold text-[11px] flex items-center justify-center shadow-2xs">
+            <div className="w-6 h-6 rounded-md bg-[#027EA1] text-white font-bold text-[11px] flex items-center justify-center shadow-xs">
               {user.name.charAt(0)}
             </div>
             <div className="hidden xl:block text-left" title={user.name}>
-              <p className="text-xs font-semibold text-[#21313C] leading-tight truncate max-w-[150px]">
+              <p className="text-xs font-semibold text-[#1C3342] leading-tight truncate max-w-[150px]">
                 {user.name.replace(/\s*\([^)]*\)$/, "").trim() || user.name}
               </p>
               <p className="text-[10px] text-[#8D9BA8] font-medium truncate max-w-[150px]">
@@ -388,7 +388,7 @@ export default function Header({ user, onOpenSidebar, onOpenSearch }: HeaderProp
           </button>
 
           {userMenuOpen && (
-            <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white shadow-lg border border-[#E2E8F0] py-1.5 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white shadow-lg border border-[#CCE0ED] py-1.5 z-50 text-[#21313C] animate-in fade-in zoom-in-95 duration-100">
               <div className="px-3.5 py-2.5 border-b border-[#EAEDF0] bg-[#F1F3F5]">
                 <p className="text-xs font-bold text-[#21313C] leading-snug">{user.name}</p>
                 <p className="text-[11px] text-[#8D9BA8] font-mono mt-0.5">{user.email}</p>

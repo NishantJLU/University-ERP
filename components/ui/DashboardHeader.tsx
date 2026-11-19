@@ -32,7 +32,7 @@ export default function DashboardHeader({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-xl bg-white border border-[#E2E8F0] ${borderAccentColor} border-l-4 p-5 sm:p-7 shadow-xs text-[#21313C] ${className}`}
+      className={`relative overflow-hidden rounded-xl bg-gradient-to-r from-[#FFFFFF] via-[#F5FAFC] to-[#EEF7FA] border border-[#DCEBF3] ${borderAccentColor} border-l-4 p-5 sm:p-7 shadow-xs text-[#21313C] ${className}`}
     >
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="space-y-1.5 max-w-3xl">
